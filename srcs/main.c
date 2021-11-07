@@ -6,13 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/06 23:52:40 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/07 17:53:23 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int		parsing_line(char *line)
+int	parsing_line(char *line)
 {
 	t_lexer	a;
 
@@ -40,4 +40,3 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-// "ls" -la | grep -o | echo "sal |ut" >file1

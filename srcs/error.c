@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 15:08:21 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/07 00:02:11 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/07 18:00:45 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 int	malloc_error(void)
 {
-	perror("minishell");
+	//perror("minishell");
+	ft_putstr_fd("minishell: Cannot allocate memory\n", STDERR_FILENO);
 	return (-1);
 }
 
 void	*malloc_error2(void)
 {
-	perror("minishell");
+	//perror("minishell");
+	ft_putstr_fd("minishell: Cannot allocate memory\n", STDERR_FILENO);
 	return (NULL);
 }
 
@@ -37,7 +39,7 @@ int	print_redirections_error(char c)
 	return (-1);
 }
 
-int		redirections_error(t_list *lst)
+int	redirections_error(t_list *lst)
 {
 	int		i;
 

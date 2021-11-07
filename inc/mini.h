@@ -10,7 +10,7 @@
 
 typedef struct	s_list
 {
-	int				v;
+	int				type;
 	void			*data;
 	struct s_list	*prev;
 	struct s_list	*next;
@@ -52,13 +52,14 @@ void 		*malloc_error2(void);
 int			is_quote_closed(t_lexer *a);
 int			quote_maj(t_lexer *a, char c);
 void		init_lexer(t_lexer *a);
+int			init_parser(t_mini *m, t_list *lst);
+t_list		**split_pipes(t_list *lst, int n_pipes);
 int			parser(t_list **lst);
 void		free_s(char ***s);
 int			count_pipes(t_list *lst);
 int			remove_quotes(t_mini *m);
-int			count_cmd_strs(t_list *lst);
-t_list		*fill_s(t_list **s, t_list *lst);
 int			redirections_error(t_list *lst);
+int			get_redirections(t_mini *m);
 void		free_mini_struct(t_mini *m);
 
 

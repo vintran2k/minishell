@@ -6,11 +6,29 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:33:41 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/07 01:39:22 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/07 17:14:49 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+int	init_parser(t_mini *m, t_list *lst)
+{
+	m->s = NULL;
+	m->in = NULL;
+	m->out = NULL;
+	m->n_pipes = count_pipes(lst);
+	m->s = split_pipes(lst, m->n_pipes);
+	if (!m->s)
+		return (-1);
+	m->in = malloc(sizeof(t_list *) * (m->n_pipes + 1));
+	if (!m->in)
+		return (malloc_error());
+	m->out = malloc(sizeof(t_list *) * (m->n_pipes + 1));
+	if (!m->out)
+		return (malloc_error());
+	return (0);
+}
 
 int	count_pipes(t_list *lst)
 {
@@ -24,80 +42,4 @@ int	count_pipes(t_list *lst)
 		lst = lst->next;
 	}
 	return (ret);
-}
-
-char	*create_new_str(char *s)
-{
-	int		i;
-	int		j;
-	char	*new;
-
-	new = malloc(ft_strlen(s) + 1);
-	if (!new)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (!(s[i] == '\'' || s[i] == '\"'))
-			new[j++] = s[i];
-		i++;
-	}
-	new[j] = '\0';
-	return (new);
-}
-
-int	remove_quotes(t_mini *m)
-{
-	char	*new;
-	int		i;
-	t_list	*tmp;
-
-	i = 0;
-	while (i < m->n_pipes)
-	{
-		tmp = m->s[i];
-		while (tmp)
-		{
-			new = create_new_str((char *)tmp->data);
-			if (!new)
-				return (malloc_error());
-			free(tmp->data);
-			tmp->data = new;
-			tmp = tmp->next;
-		}
-		i++;
-	}
-	return (0);
-}
-
-/*int	count_cmd_strs(t_list *lst)
-{
-	int	ret;
-
-	ret = 0;
-	while (lst)
-	{
-		if (!ft_strcmp((char *)lst->data, "|"))
-			return (ret);
-		lst = lst->next;
-		ret++;
-	}
-	return (ret);
-}*/
-
-t_list	*fill_s(t_list **s, t_list *lst)
-{
-	*s = create_elem(ft_strndup((char *)lst->data, ft_strlen((char *)lst->data)));
-	if (*s == NULL)
-		return (malloc_error2());
-	lst = lst->next;
-	while (lst && ft_strcmp((char *)lst->data, "|"))
-	{
-		push_back(s, ft_strndup((char *)lst->data, ft_strlen((char *)lst->data)));
-		lst = lst->next;
-	}
-	if (lst)
-		lst = lst->next;
-	return (lst);
 }

@@ -6,21 +6,24 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/11/06 23:14:11 by vintran          ###   ########.fr        #
+#    Updated: 2021/11/07 17:15:45 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	minishell
 SRCS_DIR			=	./srcs/
 HEADER				=	./inc/mini.h
-SRCS				=	main.c			\
-						list.c			\
-						utils.c			\
-						error.c			\
-						lexer.c			\
-						lexer_utils.c	\
-						parser.c		\
-						parser_utils.c	\
+SRCS				=	main.c					\
+						list.c					\
+						utils.c					\
+						error.c					\
+						lexer.c					\
+						lexer_utils.c			\
+						parser.c				\
+						parser_split_pipes.c	\
+						parser_remove_quotes.c	\
+						parser_redir.c			\
+						parser_utils.c			\
 						free.c			
 SRCS_BASENAME		=	$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS				=	$(SRCS_BASENAME:.c=.o)
