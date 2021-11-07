@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:33:41 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/06 17:58:14 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/07 01:39:22 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ char	*create_new_str(char *s)
 	return (new);
 }
 
-int	remove_quotes(t_list **s)
+int	remove_quotes(t_mini *m)
 {
 	char	*new;
 	int		i;
 	t_list	*tmp;
 
 	i = 0;
-	while (s[i])
+	while (i < m->n_pipes)
 	{
-		tmp = s[i];
+		tmp = m->s[i];
 		while (tmp)
 		{
 			new = create_new_str((char *)tmp->data);
@@ -71,7 +71,7 @@ int	remove_quotes(t_list **s)
 	return (0);
 }
 
-int	count_cmd_strs(t_list *lst)
+/*int	count_cmd_strs(t_list *lst)
 {
 	int	ret;
 
@@ -84,7 +84,7 @@ int	count_cmd_strs(t_list *lst)
 		ret++;
 	}
 	return (ret);
-}
+}*/
 
 t_list	*fill_s(t_list **s, t_list *lst)
 {

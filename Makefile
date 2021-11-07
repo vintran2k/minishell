@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/11/06 17:52:01 by vintran          ###   ########.fr        #
+#    Updated: 2021/11/06 23:14:11 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS				=	main.c			\
 						lexer_utils.c	\
 						parser.c		\
 						parser_utils.c	\
-						free.c
+						free.c			
 SRCS_BASENAME		=	$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS				=	$(SRCS_BASENAME:.c=.o)
 CC					=	clang

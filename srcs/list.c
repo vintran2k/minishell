@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 20:59:24 by vintran           #+#    #+#             */
-/*   Updated: 2021/10/15 23:02:55 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/07 01:47:58 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	push_front(t_list **lst, void *data)
 	*lst = new;
 }
 
-int	list_len(t_list **lst)
+int	lst_len(t_list **lst)
 {
 	int		i;
 	t_list	*tmp;
@@ -73,6 +73,35 @@ int	list_len(t_list **lst)
 		tmp = tmp->next;
 	}
 	return (i);
+}
+
+int	lst_delone(t_list *lst)
+{
+	int	ret;
+
+	ret = 0;
+	if (!lst)
+		return (0);
+	if (lst->prev)
+	{
+		if (lst->next)
+			lst->prev->next = lst->next;
+		else
+			lst->prev->next = NULL;
+	}
+	if (lst->next)
+	{
+		if (lst->prev)
+			lst->next->prev = lst->prev;
+		else
+			lst->next->prev = NULL;
+	}
+	if (!lst->next && !lst->prev)
+		ret = -1;
+	if (lst->data)
+		free(lst->data);
+	free(lst);
+	return (ret);
 }
 
 void	lst_clear(t_list **lst, void (*del)(void *))

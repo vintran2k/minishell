@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 15:08:21 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/04 17:49:46 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/07 00:02:11 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,22 @@ int	print_redirections_error(char c)
 	return (-1);
 }
 
-int		redirections_error(char *s)
+int		redirections_error(t_list *lst)
 {
 	int		i;
 
-	i = 1;
-	while (s[i])
+	if (!lst->next)
 	{
-		if (s[i] != s[0])
-			return (print_redirections_error(s[i]));
+		ft_putstr_fd("minishell: syntax error near '\\n'\n", STDERR_FILENO);
+		return (-1);
+	}
+	i = 1;
+	while (((char *)lst->data)[i])
+	{
+		if (((char *)lst->data)[i] != ((char *)lst->data)[0])
+			return (print_redirections_error(((char *)lst->data)[i]));
 		if (i == 2)
-			return (print_redirections_error(s[i]));
+			return (print_redirections_error(((char *)lst->data)[i]));
 		i++;
 	}
 	return (0);
