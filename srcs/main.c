@@ -6,26 +6,28 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/07 17:53:23 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/08 16:39:34 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	parsing_line(char *line)
+int	parsing_line(char *line, char **env)
 {
 	t_lexer	a;
+	t_mini	m;
 
 	init_lexer(&a);
 	if (!lexer(line, &a))
 		return (-1);
-	if (parser(&(a.lst)) == -1)
+	if (parser(&(a.lst), &m) == -1)
 	{
 		lst_clear(&(a.lst), &free);
 		return (-1);
 	}
 	lst_clear(&(a.lst), &free);
-	//	executor()
+	//if (executor(&m, env) == -1)
+	//	return (-1);
 	return (0);
 }
 
@@ -35,8 +37,9 @@ int	main(int ac, char **av, char **env)
 
 	while ((line = readline("$ ")))
 	{
-		parsing_line(line);
+		parsing_line(line, env);
 		free(line);
+		rl_clear_history();
 	}
 	return (0);
 }

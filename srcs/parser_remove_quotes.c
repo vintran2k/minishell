@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 17:14:06 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/07 17:51:45 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/08 16:09:22 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	remove_quotes(t_mini *m)
 	int		i;
 
 	i = 0;
-	while (i < m->n_pipes + 1)
+	while (i <= m->n_pipes)
 	{
 		if (remove_lst_quotes(m->s[i]) == -1)
 			return (-1);

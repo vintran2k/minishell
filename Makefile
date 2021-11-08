@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/11/07 17:15:45 by vintran          ###   ########.fr        #
+#    Updated: 2021/11/08 16:59:47 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ SRCS				=	main.c					\
 						parser_remove_quotes.c	\
 						parser_redir.c			\
 						parser_utils.c			\
-						free.c			
+						ft_split.c				\
+						free.c					\
+						executor.c
 SRCS_BASENAME		=	$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS				=	$(SRCS_BASENAME:.c=.o)
 CC					=	clang

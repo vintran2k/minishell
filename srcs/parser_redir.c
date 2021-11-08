@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:46:26 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/07 17:57:11 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/08 16:09:55 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	get_redirections(t_mini *m)
 	t_list	*tmp;
 
 	i = 0;
-	while (i < m->n_pipes + 1)
+	while (i <= m->n_pipes)
 	{
 		m->in[i] = NULL;
 		m->out[i] = NULL;
