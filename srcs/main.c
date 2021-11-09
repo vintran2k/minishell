@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/08 16:39:34 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/09 16:43:16 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	parsing_line(char *line, char **env)
 		return (-1);
 	}
 	lst_clear(&(a.lst), &free);
-	//if (executor(&m, env) == -1)
-	//	return (-1);
+	if (executor(&m, env) == -1)
+		return (-1);
+	free_mini_struct(&m);
 	return (0);
 }
 

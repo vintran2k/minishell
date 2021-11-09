@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:27:03 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/08 16:09:10 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/09 16:43:07 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	parser(t_list **lst, t_mini *m)		// in progress
 		printf("________________________________________________________________\n\n");
 		i++;
 	}
-	free_mini_struct(m);
 	return (0);		//
 }
 // > ok ok > ok ok | < ok > oue | sjkjd -dklcs > asdk < sijd <ijads aslkj | isjd >siod asdh<adh

@@ -40,6 +40,7 @@ typedef struct	s_mini
 
 typedef struct	s_exec
 {
+	int		i;
 	int		ret;
 	int		pipes;
 	int		status;
@@ -48,7 +49,9 @@ typedef struct	s_exec
 	int		**fd;
 	char	*cmd;
 	char	*cmdpath;
-	char	**str;
+	int		infile;
+	int		outfile;
+	char	**strs;
 	pid_t	*pid;
 	int		*fork;
 }				t_exec;
