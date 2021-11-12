@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/12 16:35:45 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/12 16:52:50 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ int	init_forking(t_mini *m, t_exec *e)
 	e->cmdpath = get_cmdpath((char *)m->s[e->i]->data, e->path);
 	e->strs = malloc(sizeof(char *) * (lstlen + 1));
 	e->strs[lstlen] = NULL;
-	i = 1;
-	tmp = m->s[e->i]->next;
+	i = 0;
+	tmp = m->s[e->i];
 	e->strs[0] = e->cmdpath;
-	if (!e->strs[0])
+	if (e->strs[0])
 	{
-		i = 0;
-		tmp = tmp->prev;
+		i = 1;
+		tmp = tmp->next;	// segfault
 	}
 	while (tmp)
 	{
