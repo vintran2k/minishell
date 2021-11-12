@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 17:50:56 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/07 17:58:40 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/12 15:09:21 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,28 @@ void	free_mini_struct(t_mini *m)
 		free(m->in);
 	if (m->out)
 		free(m->out);
+}
+
+void	free_exec_struct(t_exec *e, int finish)
+{
+	int	i;
+
+	if (e->cmdpath)
+		free(e->cmdpath);
+	if (e->strs)
+		free(e->strs);
+	e->cmdpath = NULL;
+	e->strs = NULL;
+	if (finish)
+	{
+		free_split(e->path);
+		if (e->fork)
+			free(e->fork);
+		if (e->pid)
+			free(e->pid);
+		i = 0;
+		while (i < e->pipes && e->fd && e->fd[i])
+			free(e->fd[i++]);
+		free(e->fd);
+	}
 }

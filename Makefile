@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/11/08 16:59:47 by vintran          ###   ########.fr        #
+#    Updated: 2021/11/12 16:35:58 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ HEADER				=	./inc/mini.h
 SRCS				=	main.c					\
 						list.c					\
 						utils.c					\
+						utils2.c				\
 						error.c					\
 						lexer.c					\
 						lexer_utils.c			\
@@ -26,7 +27,9 @@ SRCS				=	main.c					\
 						parser_utils.c			\
 						ft_split.c				\
 						free.c					\
-						executor.c
+						executor_init.c			\
+						executor.c				\
+						close.c					
 SRCS_BASENAME		=	$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS				=	$(SRCS_BASENAME:.c=.o)
 CC					=	clang

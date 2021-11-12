@@ -6,22 +6,36 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/09 17:45:56 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/12 16:29:18 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+char	*get_cmdpath(char *cmd, char **path)
 {
-	size_t	i;
+	char	*cmdpath;
+	int		i;
+	int		cmdlen;
+	int		pathlen;
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	cmdlen = ft_strlen(cmd);
+	i = -1;
+	while (path[++i])
+	{
+		pathlen = ft_strlen(path[i]);
+		cmdpath = malloc(pathlen + cmdlen + 2);
+		if (!cmdpath)
+			return (NULL);
+		ft_strcpy(cmdpath, path[i]);
+		cmdpath[pathlen] = '/';
+		cmdpath[pathlen + 1] = '\0';
+		ft_strcat(cmdpath, cmd);
+		if (!access(cmdpath, F_OK))
+			return (cmdpath);
+		free(cmdpath);
+	}
+	return (NULL);
 }
 
 char	**get_env_path(char **env)
@@ -43,67 +57,106 @@ char	**get_env_path(char **env)
 	return (res);
 }
 
-int		init_exec(t_exec *e, t_mini *m, char **env)
+int	open_files(t_mini *m, t_exec *e)
 {
-	int	i;
+	t_list	*tmp;
 
-	
-	e->pipes = m->n_pipes;
-	e->path = get_env_path(env);
-	if (!e->path)
-		return (-1);
-	e->fork = malloc(sizeof(int) * (e->pipes + 1));
-	if (!e->fork)
-		return (malloc_error());
-	e->pid = malloc(sizeof(pid_t) * (e->pipes + 1));
-	if (!e->pid)
-		return (malloc_error());
-	e->fd = malloc(sizeof(int *) * e->pipes);
-	if (!e->fd)
-		return (malloc_error());
-	i = 0;
-	while (i < e->pipes)
+	tmp = m->in[e->i];
+	while (tmp)
 	{
-		e->fd[i] = malloc(sizeof(int) * 2);
-		if (!e->fd[i])
-			return (malloc_error());
-		if (pipe(e->fd[i]) == -1)
-			return (-1);
-		i++;
-	}
-	return (0);
-}
-
-int	init_forking(t_mini *m, t_exec *e)
-{
-	int	lstlen;
-	int	i;
-	
-	i = 0;
-	while (m->in && m->in[i])
-	{
-		e->infile = open((char *)m->in[i]->data, O_RDONLY);		//	<< a gerer
+		e->infile = open((char *)tmp->data, O_RDONLY);		//	<< a gerer
 		if (e->infile == -1)
 			return (-1);
-		i++;
+		tmp = tmp->next;
 	}
-	i = 0;
-	while (m->out && m->out[i])
+	tmp = m->out[e->i];
+	while (tmp)
 	{
-		e->outfile = open((char *)m->out[i]->data, O_WRONLY | O_CREAT | O_TRUNC, 0664); 	//	>> a gerer
+		if (tmp->type == 1)
+			e->outfile = open((char *)tmp->data, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+		else if (tmp->type == 2)
+			e->outfile = open((char *)tmp->data, O_WRONLY | O_CREAT | O_APPEND, 0664);
 		if (e->outfile == -1)
 			return (-1);
-		i++;
+		tmp = tmp->next;
 	}
-	lstlen = lst_len(&m->s[e->i]);
-	if (lstlen == 0)
-		return (-1);
 	return (0);
 }
 
-int	forking(t_mini *m, t_exec *e)
+void	execve_error(t_exec *e)
 {
+	ft_putstr_fd("execve error a gerer\n", STDERR_FILENO);
+	exit (1);
+}
+
+int	first_fork(char **env, t_exec *e)
+{
+	if (e->infile)
+		dup2(e->infile, STDIN_FILENO);
+	if (e->outfile)
+		dup2(e->outfile, STDOUT_FILENO);
+	else if (e->pipes)
+		dup2(e->fd[0][1], STDOUT_FILENO);
+	close_first(e);
+	if (execve(e->strs[0], e->strs, env) == -1)
+		execve_error(e);
 	return (0);
+}
+
+int	mid_fork(char **env, t_exec *e, int i)
+{
+	if (e->infile)
+		dup2(e->infile, STDIN_FILENO);
+	else
+		dup2(e->fd[i - 1][0], STDIN_FILENO);
+	if (e->outfile)
+		dup2(e->outfile, STDOUT_FILENO);
+	else
+		dup2(e->fd[i][1], STDOUT_FILENO);
+	close_mid(e, i);
+	if (execve(e->strs[0], e->strs, env) == -1)
+		execve_error(e);
+	return (0);
+}
+
+int	last_fork(char **env, t_exec *e)
+{
+	if (e->infile)
+		dup2(e->infile, STDIN_FILENO);
+	else
+		dup2(e->fd[e->pipes - 1][0], STDIN_FILENO);
+	if (e->outfile)
+		dup2(e->outfile, STDOUT_FILENO);
+	close_last(e);
+	if (execve(e->strs[0], e->strs, env) == -1)
+		execve_error(e);
+	return (0);
+}
+
+int	forking(char **env, t_mini *m, t_exec *e)
+{
+	e->ret = init_forking(m, e);
+	if (e->ret < 0)
+	{
+		if (e->ret == -1)
+			perror("minishell");
+	}
+	if (e->ret == 0)
+	{
+		e->pid[e->i] = fork();
+		if (e->pid[e->i] == 0)
+		{
+			if (e->i == 0)
+				e->ret = first_fork(env, e);
+			else if (e->i == e->pipes)
+				e->ret = last_fork(env, e);
+			else
+				e->ret = mid_fork(env, e, e->i);
+		}
+	}
+	close_fd(e, e->i);
+	free_exec_struct(e, 0);
+	return (e->ret);
 }
 
 int	executor(t_mini *m, char **env)
@@ -112,21 +165,21 @@ int	executor(t_mini *m, char **env)
 
 	if (init_exec(&e, m, env) == -1)
 	{
-		//free_exec_struct(&e);
+		free_exec_struct(&e, 1);
 		return (-1);
 	}
 	e.i = 0;
 	while (e.i <= m->n_pipes)
 	{
-		forking(m, &e);
-		/*if (e.ret == 0)
-			e.fork[i] = 1;
+		forking(env, m, &e);
+		if (e.ret == 0)
+			e.fork[e.i] = 1;
 		else
-			e.fork[i] = 0;*/
+			e.fork[e.i] = 0;
 		e.i++;
 	}
 	e.i = 0;
-	/*while (e.i <= e.pipes)
+	while (e.i <= e.pipes)
 	{
 		if (e.fork[e.i])
 		{
@@ -135,7 +188,7 @@ int	executor(t_mini *m, char **env)
 				e.exit = WEXITSTATUS(e.status);
 		}
 		e.i++;
-	}*/
-	//free
+	}
+	free_exec_struct(&e, 1);
 	return (0);
 }

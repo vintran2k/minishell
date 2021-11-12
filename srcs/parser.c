@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:27:03 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/09 16:43:07 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/12 16:30:10 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	parser(t_list **lst, t_mini *m)		// in progress
 		free_mini_struct(m);
 		return (-1);
 	}
-	int i = 0;
+	/*int i = 0;
 	int j;
 	printf("\n");
 	while (i <= m->n_pipes)
@@ -59,7 +59,7 @@ int	parser(t_list **lst, t_mini *m)		// in progress
 		}
 		printf("________________________________________________________________\n\n");
 		i++;
-	}
+	}*/
 	return (0);		//
 }
 // > ok ok > ok ok | < ok > oue | sjkjd -dklcs > asdk < sijd <ijads aslkj | isjd >siod asdh<adh
