@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/12 16:52:50 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/14 18:46:20 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	init_forking(t_mini *m, t_exec *e)
 	if (e->strs[0])
 	{
 		i = 1;
-		tmp = tmp->next;	// segfault
+		tmp = tmp->next;
 	}
 	while (tmp)
 	{

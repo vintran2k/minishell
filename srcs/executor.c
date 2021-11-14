@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/12 16:53:00 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/14 18:48:44 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,21 @@ char	**get_env_path(char **env)
 	return (res);
 }
 
+void	read_input(char *delimiter)
+{
+	char	*line;
+
+	while ((line = readline("< ")))
+	{
+		if (!ft_strcmp(line, delimiter))
+		{
+			free(line);
+			return ;
+		}
+		free(line);
+	}
+}
+
 int	open_files(t_mini *m, t_exec *e)
 {
 	t_list	*tmp;
@@ -64,9 +79,12 @@ int	open_files(t_mini *m, t_exec *e)
 	tmp = m->in[e->i];
 	while (tmp)
 	{
-		e->infile = open((char *)tmp->data, O_RDONLY);		//	<< a gerer
+		if (tmp->type == 1)
+			e->infile = open((char *)tmp->data, O_RDONLY);
 		if (e->infile == -1)
 			return (-1);
+		if (tmp->type == 2)
+			read_input((char *)tmp->data);
 		tmp = tmp->next;
 	}
 	tmp = m->out[e->i];
@@ -136,11 +154,8 @@ int	last_fork(char **env, t_exec *e)
 int	forking(char **env, t_mini *m, t_exec *e)
 {
 	e->ret = init_forking(m, e);
-	if (e->ret < 0)
-	{
-		if (e->ret == -1)
+	if (e->ret == -1)
 			perror("minishell");
-	}
 	if (e->ret == 0)
 	{
 		e->pid[e->i] = fork();
@@ -156,6 +171,16 @@ int	forking(char **env, t_mini *m, t_exec *e)
 	}
 	close_fd(e, e->i);
 	free_exec_struct(e, 0);
+	if (e->infile)
+	{
+		close(e->infile);
+		e->infile = 0;
+	}
+	if (e->outfile)
+	{
+		close(e->outfile);
+		e->outfile = 0;
+	}
 	return (e->ret);
 }
 
