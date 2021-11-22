@@ -9,6 +9,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -55,6 +56,13 @@ typedef struct	s_exec
 	int		*fork;
 }				t_exec;
 
+typedef struct	s_g
+{
+	int		exit;
+}				t_g;
+
+extern	t_g	error;
+
 t_list		*create_elem(void *data);
 void		push_back(t_list **lst, void *data);
 void		push_front(t_list **lst, void *data);
@@ -98,7 +106,5 @@ void		close_first(t_exec *e);
 void		close_mid(t_exec *e, int i);
 void		close_last(t_exec *e);
 void		close_fd(t_exec *e, int i);
-
-
 
 #endif

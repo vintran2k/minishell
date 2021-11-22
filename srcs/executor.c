@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/14 18:48:44 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/22 12:53:49 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,82 @@ char	**get_env_path(char **env)
 	return (res);
 }
 
-void	read_input(char *delimiter)
+#define TMP_FILE	"/tmp/minishell_tmp"
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (s)
+	{
+		ft_putstr_fd(s, fd);
+		ft_putstr_fd("\n", fd);
+	}
+}
+
+int	create_tmp_file(void)
+{
+	int	fd;
+
+	fd = open(TMP_FILE, O_WRONLY |O_CREAT | O_TRUNC, 0600);
+	if (fd == -1)
+		ft_putstr_fd("minishell: open error in redirect\n", STDERR_FILENO);
+	return (fd);
+}
+
+void	exit_here_doc(int signal)
+{
+	(void)signal;
+	error.exit = 130;
+	exit(130);
+}
+
+int	here_doc(char *eof, t_exec *e)
 {
 	char	*line;
+	int		fd;
+	pid_t	pid;
+	int		status;
 
-	while ((line = readline("< ")))
+	fd = create_tmp_file();
+	if (fd == -1)
+		return (-1);
+	pid = fork();
+	if (pid == 0)
 	{
-		if (!ft_strcmp(line, delimiter))
+		signal(SIGINT, exit_here_doc);
+		while (1)
 		{
+			line = readline("> ");
+			if (!line)
+			{
+				ft_putstr_fd("minishell: here document error\n", 2);
+				close(fd);
+				exit(0);
+			}
+			if (ft_strcmp(line, eof))
+			{
+				ft_putendl_fd(line, fd);
+			}
+			else
+			{
+				free(line);
+				close(fd);
+				break ;
+			}
 			free(line);
-			return ;
 		}
-		free(line);
+		exit(0);
 	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+	{
+		fd = open(TMP_FILE, O_WRONLY | O_TRUNC, 0600);
+		close(fd);
+		e->exit = 130;
+	}
+	printf("passage e->infile\n");
+	fd = open(TMP_FILE, O_RDONLY);
+	unlink(TMP_FILE);
+	return (fd);
 }
 
 int	open_files(t_mini *m, t_exec *e)
@@ -84,7 +147,9 @@ int	open_files(t_mini *m, t_exec *e)
 		if (e->infile == -1)
 			return (-1);
 		if (tmp->type == 2)
-			read_input((char *)tmp->data);
+			e->infile = here_doc((char *)tmp->data, e);
+		if (e->infile == -1)
+			return (-1);
 		tmp = tmp->next;
 	}
 	tmp = m->out[e->i];
