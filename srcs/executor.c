@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/22 12:53:49 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/23 17:15:46 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,11 @@ int	create_tmp_file(void)
 
 void	exit_here_doc(int signal)
 {
+	//fprintf(stderr, "passage\n");
 	(void)signal;
-	error.exit = 130;
+	//fprintf(stderr, "passage avant error.exit\n");
+	//error.exit = 130;
+	//fprintf(stderr, "passage avant exit(130)\n");
 	exit(130);
 }
 
@@ -95,6 +98,7 @@ int	here_doc(char *eof, t_exec *e)
 	fd = create_tmp_file();
 	if (fd == -1)
 		return (-1);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -104,14 +108,12 @@ int	here_doc(char *eof, t_exec *e)
 			line = readline("> ");
 			if (!line)
 			{
-				ft_putstr_fd("minishell: here document error\n", 2);
+				ft_putstr_fd("minishell: warning: here-document delimited by end-of-file\n", 2);
 				close(fd);
 				exit(0);
 			}
 			if (ft_strcmp(line, eof))
-			{
 				ft_putendl_fd(line, fd);
-			}
 			else
 			{
 				free(line);
@@ -129,7 +131,6 @@ int	here_doc(char *eof, t_exec *e)
 		close(fd);
 		e->exit = 130;
 	}
-	printf("passage e->infile\n");
 	fd = open(TMP_FILE, O_RDONLY);
 	unlink(TMP_FILE);
 	return (fd);
@@ -150,6 +151,8 @@ int	open_files(t_mini *m, t_exec *e)
 			e->infile = here_doc((char *)tmp->data, e);
 		if (e->infile == -1)
 			return (-1);
+		if (e->exit == 130)
+			return (-130);
 		tmp = tmp->next;
 	}
 	tmp = m->out[e->i];
@@ -264,8 +267,11 @@ int	executor(t_mini *m, char **env)
 		forking(env, m, &e);
 		if (e.ret == 0)
 			e.fork[e.i] = 1;
-		else
-			e.fork[e.i] = 0;
+		if (e.ret == -130)
+		{
+			write(1, "\n", 1);
+			break ;
+		}
 		e.i++;
 	}
 	e.i = 0;

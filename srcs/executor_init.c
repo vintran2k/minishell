@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/14 18:46:20 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/23 17:13:12 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		init_exec(t_exec *e, t_mini *m, char **env)
 	e->fork = malloc(sizeof(int) * (e->pipes + 1));
 	if (!e->fork)
 		return (malloc_error());
+	ft_bzero(e->fork, sizeof(int));
 	e->pid = malloc(sizeof(pid_t) * (e->pipes + 1));
 	if (!e->pid)
 		return (malloc_error());
@@ -52,8 +53,9 @@ int	init_forking(t_mini *m, t_exec *e)
 	t_list	*tmp;
 	int		i;
 
-	if (open_files(m, e) == -1)
-		return (-1);
+	i = open_files(m, e);
+	if (i < 0)
+		return (i);
 	lstlen = lst_len(&m->s[e->i]);
 	if (lstlen == 0)
 		return (-2);	//pas de cmds
