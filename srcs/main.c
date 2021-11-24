@@ -6,11 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/22 11:59:29 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/24 20:41:01 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+int	signal_err;
 
 int	parsing_line(char *line, char **env)
 {
@@ -32,12 +34,27 @@ int	parsing_line(char *line, char **env)
 	return (0);
 }
 
+void	signal_error(void)
+{
+	write(1, "\n$ ", 3);
+	signal_err = 1;
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
 
-	while ((line = readline("$ ")))
+	signal_err = 0;
+	signal(SIGINT, signal_error);
+	while (1)
 	{
+		signal(SIGINT, signal_error);
+		line = readline("$ ");
+		if (!line)
+		{
+			write(1, "exit\n", 5);
+			break ;
+		}
 		parsing_line(line, env);
 		free(line);
 		rl_clear_history();
