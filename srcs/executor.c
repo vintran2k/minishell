@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/23 17:15:46 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/26 14:08:46 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	create_tmp_file(void)
 
 void	exit_here_doc(int signal)
 {
-	//fprintf(stderr, "passage\n");
 	(void)signal;
+	//fprintf(stderr, "passage\n");
 	//fprintf(stderr, "passage avant error.exit\n");
 	//error.exit = 130;
 	//fprintf(stderr, "passage avant exit(130)\n");
@@ -108,7 +108,9 @@ int	here_doc(char *eof, t_exec *e)
 			line = readline("> ");
 			if (!line)
 			{
-				ft_putstr_fd("minishell: warning: here-document delimited by end-of-file\n", 2);
+				ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted '", STDERR_FILENO);
+				ft_putstr_fd(eof, 2);
+				ft_putstr_fd("')\n", 2);
 				close(fd);
 				exit(0);
 			}

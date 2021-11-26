@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/11/12 16:35:58 by vintran          ###   ########.fr        #
+#    Updated: 2021/11/26 14:09:24 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS				=	main.c					\
 						close.c					
 SRCS_BASENAME		=	$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS				=	$(SRCS_BASENAME:.c=.o)
-CC					=	clang
+CC					=	@clang
 FLAGS				=	-Wall -Wextra -I ./inc/ #-fsanitize=address#-Werror
 
 .c.o			:
@@ -45,11 +45,11 @@ $(NAME)			:	$(OBJS) $(HEADER)
 				@echo [$(NAME)] : Created !
 
 clean			:
-				rm -f $(OBJS)
+				@rm -f $(OBJS)
 				@echo [.o] : Deleted !
 
 fclean			:	clean
-				rm -f $(NAME)
+				@rm -f $(NAME)
 				@echo [$(NAME)] : Deleted !
 
 re				:	fclean all

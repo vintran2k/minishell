@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/24 20:41:01 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/26 14:09:02 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int	parsing_line(char *line, char **env)
 	return (0);
 }
 
-void	signal_error(void)
+void	signal_error(int signal)
 {
+	(void)signal;
 	write(1, "\n$ ", 3);
 	signal_err = 1;
 }
@@ -45,9 +46,9 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 
 	signal_err = 0;
-	signal(SIGINT, signal_error);
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, signal_error);
 		line = readline("$ ");
 		if (!line)
