@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/26 14:08:46 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/26 18:12:17 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	exit_here_doc(int signal)
 	//fprintf(stderr, "passage avant error.exit\n");
 	//error.exit = 130;
 	//fprintf(stderr, "passage avant exit(130)\n");
+	rl_clear_history();
 	exit(130);
 }
 
@@ -112,6 +113,7 @@ int	here_doc(char *eof, t_exec *e)
 				ft_putstr_fd(eof, 2);
 				ft_putstr_fd("')\n", 2);
 				close(fd);
+				rl_clear_history();
 				exit(0);
 			}
 			if (ft_strcmp(line, eof))
@@ -124,6 +126,7 @@ int	here_doc(char *eof, t_exec *e)
 			}
 			free(line);
 		}
+		rl_clear_history();
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
@@ -174,6 +177,7 @@ int	open_files(t_mini *m, t_exec *e)
 void	execve_error(t_exec *e)
 {
 	ft_putstr_fd("execve error a gerer\n", STDERR_FILENO);
+	
 	exit (1);
 }
 
@@ -231,12 +235,14 @@ int	forking(char **env, t_mini *m, t_exec *e)
 		e->pid[e->i] = fork();
 		if (e->pid[e->i] == 0)
 		{
+			rl_clear_history();
 			if (e->i == 0)
 				e->ret = first_fork(env, e);
 			else if (e->i == e->pipes)
 				e->ret = last_fork(env, e);
 			else
 				e->ret = mid_fork(env, e, e->i);
+			
 		}
 	}
 	close_fd(e, e->i);

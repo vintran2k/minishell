@@ -56,12 +56,7 @@ typedef struct	s_exec
 	int		*fork;
 }				t_exec;
 
-typedef struct	s_g
-{
-	int		exit;
-}				t_g;
-
-extern	t_g	error;
+//int	error;
 
 t_list		*create_elem(void *data);
 void		push_back(t_list **lst, void *data);
