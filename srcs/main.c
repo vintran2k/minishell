@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/26 14:09:02 by vintran          ###   ########.fr       */
+/*   Updated: 2021/11/26 17:02:26 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	main(int ac, char **av, char **env)
 			write(1, "exit\n", 5);
 			break ;
 		}
+		add_history(line);	// a gerer
 		parsing_line(line, env);
 		free(line);
-		rl_clear_history();
 	}
 	return (0);
 }
