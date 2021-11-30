@@ -12,7 +12,7 @@
 
 #include "mini.h"
 
-int	signal_err;
+t_global	g_vars;
 
 int	parsing_line(char *line, char **env)
 {
@@ -38,14 +38,13 @@ void	signal_error(int signal)
 {
 	(void)signal;
 	write(1, "\n$ ", 3);
-	signal_err = 1;
+	g_vars.g_error = 1;
 }
 
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
 
-	signal_err = 0;
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN);

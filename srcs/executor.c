@@ -12,6 +12,8 @@
 
 #include "mini.h"
 
+extern t_global	g_vars;
+
 char	*get_cmdpath(char *cmd, char **path)
 {
 	char	*cmdpath;
@@ -86,16 +88,19 @@ void	exit_here_doc(int signal)
 	//error.exit = 130;
 	//fprintf(stderr, "passage avant exit(130)\n");
 	rl_clear_history();
+	g_vars.g_error = 130;
+	free(g_vars.g_eof);
 	exit(130);
 }
 
-int	here_doc(char *eof, t_exec *e)
+int	here_doc(t_exec *e, t_mini *m)
 {
 	char	*line;
 	int		fd;
 	pid_t	pid;
 	int		status;
 
+	fprintf(stderr, "eof = %s\n", g_vars.g_eof);
 	fd = create_tmp_file();
 	if (fd == -1)
 		return (-1);
@@ -103,6 +108,8 @@ int	here_doc(char *eof, t_exec *e)
 	pid = fork();
 	if (pid == 0)
 	{
+		free_mini_struct(m);
+		free_exec_struct(e, 1);
 		signal(SIGINT, exit_here_doc);
 		while (1)
 		{
@@ -110,13 +117,14 @@ int	here_doc(char *eof, t_exec *e)
 			if (!line)
 			{
 				ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted '", STDERR_FILENO);
-				ft_putstr_fd(eof, 2);
+				ft_putstr_fd(g_vars.g_eof, 2);
 				ft_putstr_fd("')\n", 2);
 				close(fd);
 				rl_clear_history();
+				free(g_vars.g_eof);
 				exit(0);
 			}
-			if (ft_strcmp(line, eof))
+			if (ft_strcmp(line, g_vars.g_eof))
 				ft_putendl_fd(line, fd);
 			else
 			{
@@ -127,6 +135,7 @@ int	here_doc(char *eof, t_exec *e)
 			free(line);
 		}
 		rl_clear_history();
+		free(g_vars.g_eof);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
@@ -141,6 +150,25 @@ int	here_doc(char *eof, t_exec *e)
 	return (fd);
 }
 
+char	*ft_strdup(const char *s)
+{
+	char	*dst;
+	size_t	slen;
+	size_t	i;
+
+	slen = ft_strlen((char *)s);
+	if (!(dst = malloc(sizeof(char) * (slen + 1))))
+		return (NULL);
+	i = 0;
+	while (i < slen)
+	{
+		dst[i] = s[i];
+		i++;
+	}
+	dst[slen] = '\0';
+	return (dst);
+}
+
 int	open_files(t_mini *m, t_exec *e)
 {
 	t_list	*tmp;
@@ -153,7 +181,11 @@ int	open_files(t_mini *m, t_exec *e)
 		if (e->infile == -1)
 			return (-1);
 		if (tmp->type == 2)
-			e->infile = here_doc((char *)tmp->data, e);
+		{
+			g_vars.g_eof = ft_strdup((char *)tmp->data);
+			e->infile = here_doc(e, m);
+			free(g_vars.g_eof);
+		}
 		if (e->infile == -1)
 			return (-1);
 		if (e->exit == 130)

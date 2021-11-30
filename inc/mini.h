@@ -56,6 +56,12 @@ typedef struct	s_exec
 	int		*fork;
 }				t_exec;
 
+typedef	struct	s_global
+{
+	int		g_error;
+	char	*g_eof;
+}				t_global;
+
 //int	error;
 
 t_list		*create_elem(void *data);
