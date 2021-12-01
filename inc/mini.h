@@ -62,7 +62,7 @@ typedef	struct	s_global
 	char	*g_eof;
 }				t_global;
 
-//int	error;
+t_global	g_vars;
 
 t_list		*create_elem(void *data);
 void		push_back(t_list **lst, void *data);

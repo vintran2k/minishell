@@ -12,8 +12,6 @@
 
 #include "mini.h"
 
-extern t_global	g_vars;
-
 char	*get_cmdpath(char *cmd, char **path)
 {
 	char	*cmdpath;
@@ -100,7 +98,6 @@ int	here_doc(t_exec *e, t_mini *m)
 	pid_t	pid;
 	int		status;
 
-	fprintf(stderr, "eof = %s\n", g_vars.g_eof);
 	fd = create_tmp_file();
 	if (fd == -1)
 		return (-1);
@@ -143,7 +140,7 @@ int	here_doc(t_exec *e, t_mini *m)
 	{
 		fd = open(TMP_FILE, O_WRONLY | O_TRUNC, 0600);
 		close(fd);
-		e->exit = 130;
+		g_vars.g_error = 130;
 	}
 	fd = open(TMP_FILE, O_RDONLY);
 	unlink(TMP_FILE);
@@ -188,7 +185,7 @@ int	open_files(t_mini *m, t_exec *e)
 		}
 		if (e->infile == -1)
 			return (-1);
-		if (e->exit == 130)
+		if (g_vars.g_error == 130)
 			return (-130);
 		tmp = tmp->next;
 	}

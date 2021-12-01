@@ -12,8 +12,6 @@
 
 #include "mini.h"
 
-t_global	g_vars;
-
 int	parsing_line(char *line, char **env)
 {
 	t_lexer	a;

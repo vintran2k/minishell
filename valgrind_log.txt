@@ -1,68 +1,44 @@
-==21024== Memcheck, a memory error detector
-==21024== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==21024== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==21024== Command: ./minishell
-==21024== Parent PID: 8220
-==21024== 
-==21102== 
-==21102== HEAP SUMMARY:
-==21102==     in use at exit: 139,141 bytes in 206 blocks
-==21102==   total heap usage: 353 allocs, 147 frees, 165,394 bytes allocated
-==21102== 
-==21102== 4 bytes in 1 blocks are still reachable in loss record 3 of 51
-==21102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==21102==    by 0x4033BB: init_exec (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x404213: executor (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x4012F5: parsing_line (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x40140E: main (in /home/admin/boss/minishell/minishell)
-==21102== 
-==21102== 4 bytes in 1 blocks are still reachable in loss record 4 of 51
-==21102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==21102==    by 0x40340F: init_exec (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x404213: executor (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x4012F5: parsing_line (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x40140E: main (in /home/admin/boss/minishell/minishell)
-==21102== 
-==21102== 56 bytes in 1 blocks are still reachable in loss record 17 of 51
-==21102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==21102==    by 0x40301E: ft_split (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x403825: get_env_path (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x40337F: init_exec (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x404213: executor (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x4012F5: parsing_line (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x40140E: main (in /home/admin/boss/minishell/minishell)
-==21102== 
-==21102== 192 bytes in 6 blocks are still reachable in loss record 22 of 51
-==21102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==21102==    by 0x401DF0: ft_strndup (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x402F71: ft_fill_tab (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x403051: ft_split (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x403825: get_env_path (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x40337F: init_exec (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x404213: executor (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x4012F5: parsing_line (in /home/admin/boss/minishell/minishell)
-==21102==    by 0x40140E: main (in /home/admin/boss/minishell/minishell)
-==21102== 
-==21102== LEAK SUMMARY:
-==21102==    definitely lost: 0 bytes in 0 blocks
-==21102==    indirectly lost: 0 bytes in 0 blocks
-==21102==      possibly lost: 0 bytes in 0 blocks
-==21102==    still reachable: 256 bytes in 9 blocks
-==21102==         suppressed: 138,885 bytes in 197 blocks
-==21102== 
-==21102== For counts of detected and suppressed errors, rerun with: -v
-==21102== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==21024== 
-==21024== HEAP SUMMARY:
-==21024==     in use at exit: 138,880 bytes in 196 blocks
-==21024==   total heap usage: 344 allocs, 148 frees, 165,276 bytes allocated
-==21024== 
-==21024== LEAK SUMMARY:
-==21024==    definitely lost: 0 bytes in 0 blocks
-==21024==    indirectly lost: 0 bytes in 0 blocks
-==21024==      possibly lost: 0 bytes in 0 blocks
-==21024==    still reachable: 0 bytes in 0 blocks
-==21024==         suppressed: 138,880 bytes in 196 blocks
-==21024== 
-==21024== For counts of detected and suppressed errors, rerun with: -v
-==21024== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==6592== Memcheck, a memory error detector
+==6592== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==6592== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==6592== Command: ./minishell
+==6592== Parent PID: 8220
+==6592== 
+==6635== 
+==6635== HEAP SUMMARY:
+==6635==     in use at exit: 138,888 bytes in 197 blocks
+==6635==   total heap usage: 361 allocs, 164 frees, 165,483 bytes allocated
+==6635== 
+==6635== LEAK SUMMARY:
+==6635==    definitely lost: 0 bytes in 0 blocks
+==6635==    indirectly lost: 0 bytes in 0 blocks
+==6635==      possibly lost: 0 bytes in 0 blocks
+==6635==    still reachable: 0 bytes in 0 blocks
+==6635==         suppressed: 138,888 bytes in 197 blocks
+==6635== 
+==6635== For counts of detected and suppressed errors, rerun with: -v
+==6635== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==6592== 
+==6592== Process terminating with default action of signal 1 (SIGHUP)
+==6592==    at 0x4AD0A97: kill (syscall-template.S:78)
+==6592==    by 0x4878AEA: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.7.0)
+==6592==    by 0x4878739: rl_cleanup_after_signal (in /usr/lib/x86_64-linux-gnu/libreadline.so.7.0)
+==6592==    by 0x4878AB6: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.7.0)
+==6592==    by 0x487B633: rl_read_key (in /usr/lib/x86_64-linux-gnu/libreadline.so.7.0)
+==6592==    by 0x48634F4: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.7.0)
+==6592==    by 0x4863CD4: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.7.0)
+==6592==    by 0x4013B5: main (in /home/admin/boss/minishell/minishell)
+==6592== 
+==6592== HEAP SUMMARY:
+==6592==     in use at exit: 138,924 bytes in 199 blocks
+==6592==   total heap usage: 349 allocs, 150 frees, 165,355 bytes allocated
+==6592== 
+==6592== LEAK SUMMARY:
+==6592==    definitely lost: 0 bytes in 0 blocks
+==6592==    indirectly lost: 0 bytes in 0 blocks
+==6592==      possibly lost: 0 bytes in 0 blocks
+==6592==    still reachable: 0 bytes in 0 blocks
+==6592==         suppressed: 138,924 bytes in 199 blocks
+==6592== 
+==6592== For counts of detected and suppressed errors, rerun with: -v
+==6592== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
