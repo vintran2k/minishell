@@ -212,9 +212,9 @@ void	execve_error(t_exec *e)
 
 int	first_fork(char **env, t_exec *e)
 {
-	if (e->infile)
+	if (e->infile && e->infile != -1)
 		dup2(e->infile, STDIN_FILENO);
-	if (e->outfile)
+	if (e->outfile && e->outfile != -1)
 		dup2(e->outfile, STDOUT_FILENO);
 	else if (e->pipes)
 		dup2(e->fd[0][1], STDOUT_FILENO);
@@ -226,11 +226,11 @@ int	first_fork(char **env, t_exec *e)
 
 int	mid_fork(char **env, t_exec *e, int i)
 {
-	if (e->infile)
+	if (e->infile && e->infile != -1)
 		dup2(e->infile, STDIN_FILENO);
 	else
 		dup2(e->fd[i - 1][0], STDIN_FILENO);
-	if (e->outfile)
+	if (e->outfile && e->outfile != -1)
 		dup2(e->outfile, STDOUT_FILENO);
 	else
 		dup2(e->fd[i][1], STDOUT_FILENO);
@@ -242,11 +242,11 @@ int	mid_fork(char **env, t_exec *e, int i)
 
 int	last_fork(char **env, t_exec *e)
 {
-	if (e->infile)
+	if (e->infile && e->infile != -1)
 		dup2(e->infile, STDIN_FILENO);
 	else
 		dup2(e->fd[e->pipes - 1][0], STDIN_FILENO);
-	if (e->outfile)
+	if (e->outfile && e->outfile != -1)
 		dup2(e->outfile, STDOUT_FILENO);
 	close_last(e);
 	if (execve(e->strs[0], e->strs, env) == -1)
@@ -276,12 +276,12 @@ int	forking(char **env, t_mini *m, t_exec *e)
 	}
 	close_fd(e, e->i);
 	free_exec_struct(e, 0);
-	if (e->infile)
+	if (e->infile && e->infile != -1)
 	{
 		close(e->infile);
 		e->infile = 0;
 	}
-	if (e->outfile)
+	if (e->outfile && e->outfile != -1)
 	{
 		close(e->outfile);
 		e->outfile = 0;
