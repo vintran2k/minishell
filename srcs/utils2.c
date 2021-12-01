@@ -55,3 +55,22 @@ char	*ft_strcat(char *dest, char *src)
 	dest[i + j] = '\0';
 	return (dest);
 }
+
+char	*ft_strdup(const char *s)
+{
+	char	*dst;
+	size_t	slen;
+	size_t	i;
+
+	slen = ft_strlen((char *)s);
+	if (!(dst = malloc(sizeof(char) * (slen + 1))))
+		return (NULL);
+	i = 0;
+	while (i < slen)
+	{
+		dst[i] = s[i];
+		i++;
+	}
+	dst[slen] = '\0';
+	return (dst);
+}

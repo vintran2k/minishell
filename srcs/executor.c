@@ -81,10 +81,6 @@ int	create_tmp_file(void)
 void	exit_here_doc(int signal)
 {
 	(void)signal;
-	//fprintf(stderr, "passage\n");
-	//fprintf(stderr, "passage avant error.exit\n");
-	//error.exit = 130;
-	//fprintf(stderr, "passage avant exit(130)\n");
 	rl_clear_history();
 	g_vars.g_error = 130;
 	free(g_vars.g_eof);
@@ -147,25 +143,6 @@ int	here_doc(t_exec *e, t_mini *m)
 	return (fd);
 }
 
-char	*ft_strdup(const char *s)
-{
-	char	*dst;
-	size_t	slen;
-	size_t	i;
-
-	slen = ft_strlen((char *)s);
-	if (!(dst = malloc(sizeof(char) * (slen + 1))))
-		return (NULL);
-	i = 0;
-	while (i < slen)
-	{
-		dst[i] = s[i];
-		i++;
-	}
-	dst[slen] = '\0';
-	return (dst);
-}
-
 int	open_files(t_mini *m, t_exec *e)
 {
 	t_list	*tmp;
@@ -206,7 +183,6 @@ int	open_files(t_mini *m, t_exec *e)
 void	execve_error(t_exec *e)
 {
 	ft_putstr_fd("execve error a gerer\n", STDERR_FILENO);
-	
 	exit (1);
 }
 
@@ -254,6 +230,15 @@ int	last_fork(char **env, t_exec *e)
 	return (0);
 }
 
+void	sigint_fork(int signal)
+{
+	(void)signal;
+	fprintf(stderr, "passage sigint fork\n");
+	write(1, "\n", 1);
+	g_vars.g_error = 130;
+	exit(130);
+}
+
 int	forking(char **env, t_mini *m, t_exec *e)
 {
 	e->ret = init_forking(m, e);
@@ -261,9 +246,11 @@ int	forking(char **env, t_mini *m, t_exec *e)
 			perror("minishell");
 	if (e->ret == 0)
 	{
+		signal(SIGINT, SIG_IGN);
 		e->pid[e->i] = fork();
 		if (e->pid[e->i] == 0)
 		{
+			signal(SIGINT, sigint_fork);
 			rl_clear_history();
 			if (e->i == 0)
 				e->ret = first_fork(env, e);
@@ -271,7 +258,6 @@ int	forking(char **env, t_mini *m, t_exec *e)
 				e->ret = last_fork(env, e);
 			else
 				e->ret = mid_fork(env, e, e->i);
-			
 		}
 	}
 	close_fd(e, e->i);
@@ -318,7 +304,10 @@ int	executor(t_mini *m, char **env)
 		{
 			waitpid(e.pid[e.i], &e.status, 0);
 			if (WIFEXITED(e.status))
+			{
 				e.exit = WEXITSTATUS(e.status);
+				fprintf(stderr, "e.exit = %d\n", e.exit);
+			}
 		}
 		e.i++;
 	}

@@ -56,6 +56,7 @@ int	main(int ac, char **av, char **env)
 		add_history(line);
 		parsing_line(line, env);
 		free(line);
+		//fprintf(stderr, "g_error = %d\n", g_vars.g_error);
 	}
 	rl_clear_history();
 	return (0);

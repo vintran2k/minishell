@@ -78,6 +78,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strcpy(char *dest, char *src);
 char		*ft_strcat(char *dest, char *src);
+char		*ft_strdup(const char *s);
 void		ft_putstr_fd(char *s, int fd);
 char		*ft_strndup(char *src, int n);
 char		**ft_split(const char *s, char c);
