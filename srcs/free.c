@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 17:50:56 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/12 15:09:21 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/02 15:44:06 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_mini_struct(t_mini *m)
 	int		i;
 
 	i = 0;
-	while (i < m->n_pipes + 1)
+	while (i <= m->n_pipes)
 	{
 		if (m->s && m->s[i])
 			lst_clear(&m->s[i], &free);

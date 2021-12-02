@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 15:08:21 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/12 14:52:54 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/02 15:48:46 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	redirections_error(t_list *lst)
 
 	if (!lst->next)
 	{
-		ft_putstr_fd("minishell: syntax error near '\\n'\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: syntax error\n", STDERR_FILENO);
 		return (-1);
 	}
 	i = 1;

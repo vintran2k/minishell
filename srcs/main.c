@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/26 18:11:52 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/02 15:16:13 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ int	main(int ac, char **av, char **env)
 	rl_clear_history();
 	return (0);
 }
-// wc --> ^C a gerer

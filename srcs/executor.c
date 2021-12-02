@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/26 18:12:17 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/02 15:40:21 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,55 +186,18 @@ void	execve_error(t_exec *e)
 	exit (1);
 }
 
-int	first_fork(char **env, t_exec *e)
-{
-	if (e->infile && e->infile != -1)
-		dup2(e->infile, STDIN_FILENO);
-	if (e->outfile && e->outfile != -1)
-		dup2(e->outfile, STDOUT_FILENO);
-	else if (e->pipes)
-		dup2(e->fd[0][1], STDOUT_FILENO);
-	close_first(e);
-	if (execve(e->strs[0], e->strs, env) == -1)
-		execve_error(e);
-	return (0);
-}
-
-int	mid_fork(char **env, t_exec *e, int i)
-{
-	if (e->infile && e->infile != -1)
-		dup2(e->infile, STDIN_FILENO);
-	else
-		dup2(e->fd[i - 1][0], STDIN_FILENO);
-	if (e->outfile && e->outfile != -1)
-		dup2(e->outfile, STDOUT_FILENO);
-	else
-		dup2(e->fd[i][1], STDOUT_FILENO);
-	close_mid(e, i);
-	if (execve(e->strs[0], e->strs, env) == -1)
-		execve_error(e);
-	return (0);
-}
-
-int	last_fork(char **env, t_exec *e)
-{
-	if (e->infile && e->infile != -1)
-		dup2(e->infile, STDIN_FILENO);
-	else
-		dup2(e->fd[e->pipes - 1][0], STDIN_FILENO);
-	if (e->outfile && e->outfile != -1)
-		dup2(e->outfile, STDOUT_FILENO);
-	close_last(e);
-	if (execve(e->strs[0], e->strs, env) == -1)
-		execve_error(e);
-	return (0);
-}
-
 void	sigint_fork(int signal)
 {
 	(void)signal;
 	g_vars.g_error = 130;
 	write(1, "\n", 1);
+}
+
+void	sigquit_fork(int signal)
+{
+	(void)signal;
+	g_vars.g_error = 131;
+	write(1, "Quit\n", 5);
 }
 
 int	forking(char **env, t_mini *m, t_exec *e)
@@ -245,9 +208,11 @@ int	forking(char **env, t_mini *m, t_exec *e)
 	if (e->ret == 0)
 	{
 		signal(SIGINT, sigint_fork);
+		signal(SIGQUIT, sigquit_fork);
 		e->pid[e->i] = fork();
 		if (e->pid[e->i] == 0)
 		{
+			fprintf(stderr, "passage fork\n");
 			rl_clear_history();
 			if (e->i == 0)
 				e->ret = first_fork(env, e);
@@ -257,6 +222,7 @@ int	forking(char **env, t_mini *m, t_exec *e)
 				e->ret = mid_fork(env, e, e->i);
 		}
 	}
+	fprintf(stderr, "e->ret = %d & g_error = %d\n", e->ret, g_vars.g_error);
 	close_fd(e, e->i);
 	free_exec_struct(e, 0);
 	if (e->infile && e->infile != -1)
@@ -313,3 +279,9 @@ int	executor(t_mini *m, char **env)
 	free_exec_struct(&e, 1);
 	return (0);
 }
+//$ << k | wc > file^C
+//$ ^C -> ctrl D
+
+// << | wc
+
+//<< k | wc -> ^C pendant le heredoc --> conditionnal jump

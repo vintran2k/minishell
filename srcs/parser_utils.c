@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:33:41 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/07 17:14:49 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/02 15:46:06 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	init_parser(t_mini *m, t_list *lst)
 {
+	int	i;
 	m->s = NULL;
 	m->in = NULL;
 	m->out = NULL;
@@ -27,6 +28,12 @@ int	init_parser(t_mini *m, t_list *lst)
 	m->out = malloc(sizeof(t_list *) * (m->n_pipes + 1));
 	if (!m->out)
 		return (malloc_error());
+	i = 0;
+	while (i <= m->n_pipes)
+	{
+		m->in[i] = NULL;
+		m->out[i++] = NULL;
+	}
 	return (0);
 }
 
