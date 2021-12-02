@@ -233,10 +233,8 @@ int	last_fork(char **env, t_exec *e)
 void	sigint_fork(int signal)
 {
 	(void)signal;
-	fprintf(stderr, "passage sigint fork\n");
-	write(1, "\n", 1);
 	g_vars.g_error = 130;
-	exit(130);
+	write(1, "\n", 1);
 }
 
 int	forking(char **env, t_mini *m, t_exec *e)
@@ -246,11 +244,10 @@ int	forking(char **env, t_mini *m, t_exec *e)
 			perror("minishell");
 	if (e->ret == 0)
 	{
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, sigint_fork);
 		e->pid[e->i] = fork();
 		if (e->pid[e->i] == 0)
 		{
-			signal(SIGINT, sigint_fork);
 			rl_clear_history();
 			if (e->i == 0)
 				e->ret = first_fork(env, e);
@@ -287,7 +284,8 @@ int	executor(t_mini *m, char **env)
 	e.i = 0;
 	while (e.i <= m->n_pipes)
 	{
-		forking(env, m, &e);
+		if (forking(env, m, &e) == -1)
+			g_vars.g_error = 1;
 		if (e.ret == 0)
 			e.fork[e.i] = 1;
 		if (e.ret == -130)
@@ -305,9 +303,10 @@ int	executor(t_mini *m, char **env)
 			waitpid(e.pid[e.i], &e.status, 0);
 			if (WIFEXITED(e.status))
 			{
-				e.exit = WEXITSTATUS(e.status);
-				fprintf(stderr, "e.exit = %d\n", e.exit);
+				g_vars.g_error = WEXITSTATUS(e.status);
+				//fprintf(stderr, "g_error = %d\n", e.exit);
 			}
+			//printf("g_error = %d\n", g_vars.g_error);
 		}
 		e.i++;
 	}
