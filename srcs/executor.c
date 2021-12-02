@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/02 15:40:21 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/02 16:49:15 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,6 @@ int	forking(char **env, t_mini *m, t_exec *e)
 		e->pid[e->i] = fork();
 		if (e->pid[e->i] == 0)
 		{
-			fprintf(stderr, "passage fork\n");
 			rl_clear_history();
 			if (e->i == 0)
 				e->ret = first_fork(env, e);
@@ -222,7 +221,7 @@ int	forking(char **env, t_mini *m, t_exec *e)
 				e->ret = mid_fork(env, e, e->i);
 		}
 	}
-	fprintf(stderr, "e->ret = %d & g_error = %d\n", e->ret, g_vars.g_error);
+	//fprintf(stderr, "e->ret = %d & g_error = %d\n", e->ret, g_vars.g_error);
 	close_fd(e, e->i);
 	free_exec_struct(e, 0);
 	if (e->infile && e->infile != -1)
@@ -282,6 +281,6 @@ int	executor(t_mini *m, char **env)
 //$ << k | wc > file^C
 //$ ^C -> ctrl D
 
-// << | wc
+// << | wc		ok
 
 //<< k | wc -> ^C pendant le heredoc --> conditionnal jump
