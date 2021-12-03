@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/03 17:19:44 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/03 20:19:07 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int		init_exec(t_exec *e, t_mini *m, char **env)
 	return (0);
 }
 
-int	open_files(t_mini *m, t_exec *e)
+int	open_infiles(t_mini *m, t_exec *e)
 {
-	t_list	*tmp;
-
+	t_list *tmp;
+	
 	tmp = m->in[e->i];
 	while (tmp)
 	{
@@ -71,6 +71,17 @@ int	open_files(t_mini *m, t_exec *e)
 			return (-130);
 		tmp = tmp->next;
 	}
+	return (0);
+}
+
+int	open_files(t_mini *m, t_exec *e)
+{
+	t_list	*tmp;
+	int		ret;
+
+	ret = open_infiles(m, e);
+	if (ret < 0)
+		return (ret);
 	tmp = m->out[e->i];
 	while (tmp)
 	{

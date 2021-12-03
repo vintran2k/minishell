@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/03 20:01:40 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/03 20:15:48 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	forking(char **env, t_mini *m, t_exec *e)
 
 void	forking_loops(t_mini *m, t_exec *e, char **env)
 {
-	printf("i = %d\n", e->i);
 	while (e->i <= m->n_pipes)
 	{
 		if (forking(env, m, e) == -1)
