@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/02 15:16:13 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/03 15:13:37 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ int	main(int ac, char **av, char **env)
 			write(1, "exit\n", 5);
 			break ;
 		}
+		//fprintf(stderr, "line = %s\n", line);
 		add_history(line);
 		parsing_line(line, env);
 		free(line);
-		fprintf(stderr, "g_error = %d\n", g_vars.g_error);
+		//fprintf(stderr, "g_error = %d\n", g_vars.g_error);
 	}
 	rl_clear_history();
 	return (0);

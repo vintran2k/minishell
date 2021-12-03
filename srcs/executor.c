@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/02 16:49:15 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/03 15:14:09 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,8 +261,11 @@ int	executor(t_mini *m, char **env)
 		e.i++;
 	}
 	e.i = 0;
+	//fprintf(stderr, "e->ret = %d\n", e.ret);
+	//printf("nb pipes = %d\n", e.pipes);
 	while (e.i <= e.pipes)
 	{
+		//printf("fork[%d] = %d\n", e.i, e.fork[e.i]);
 		if (e.fork[e.i])
 		{
 			waitpid(e.pid[e.i], &e.status, 0);
@@ -278,9 +281,5 @@ int	executor(t_mini *m, char **env)
 	free_exec_struct(&e, 1);
 	return (0);
 }
-//$ << k | wc > file^C
+//$ ls^C
 //$ ^C -> ctrl D
-
-// << | wc		ok
-
-//<< k | wc -> ^C pendant le heredoc --> conditionnal jump
