@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 14:08:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/12 14:08:52 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/03 17:15:13 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,13 @@ char	*ft_strdup(const char *s)
 	}
 	dst[slen] = '\0';
 	return (dst);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (s)
+	{
+		ft_putstr_fd(s, fd);
+		ft_putstr_fd("\n", fd);
+	}
 }
