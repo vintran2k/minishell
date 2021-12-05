@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/03 20:15:48 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/05 12:00:35 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,15 @@ void	forking_loops(t_mini *m, t_exec *e, char **env)
 		if (forking(env, m, e) == -1)
 			g_vars.g_error = 1;
 		if (e->ret == 0)
-			e->fork[e->i] = 1;
-		if (e->ret == -130)
-		{
-			write(1, "\n", 1);
-			break ;
-		}
-		e->i++;
-	}
-	e->i = 0;
-	while (e->i <= e->pipes)
-	{
-		if (e->fork[e->i])
 		{
 			waitpid(e->pid[e->i], &e->status, 0);
 			if (WIFEXITED(e->status))
 				g_vars.g_error = WEXITSTATUS(e->status);
+		}
+		if (e->ret == -130)
+		{
+			write(1, "\n", 1);
+			break ;
 		}
 		e->i++;
 	}

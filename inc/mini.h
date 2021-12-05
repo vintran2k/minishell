@@ -53,7 +53,6 @@ typedef struct	s_exec
 	int		outfile;
 	char	**strs;
 	pid_t	*pid;
-	int		*fork;
 }				t_exec;
 
 typedef	struct	s_global
