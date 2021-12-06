@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 20:59:24 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/07 17:21:13 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 13:46:22 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,6 @@ void	push_back(t_list **lst, void *data)
 		tmp = tmp->next;
 	tmp->next = new;
 	new->prev = tmp;
-}
-
-void	push_front(t_list **lst, void *data)
-{
-	t_list	*new;
-
-	new = create_elem(data);
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	(*lst)->prev = new;
-	new->next = *lst;
-	*lst = new;
 }
 
 int	lst_len(t_list **lst)

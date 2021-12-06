@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:04:35 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 13:27:37 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	execve_error(t_exec *e)
 	exit (1);
 }
 
-int		malloc_pipes(t_exec *e)
+int	malloc_pipes(t_exec *e)
 {
 	int	i;
 
@@ -35,7 +35,7 @@ int		malloc_pipes(t_exec *e)
 	return (0);
 }
 
-int		init_exec(t_exec *e, t_mini *m, char **env)
+int	init_exec(t_exec *e, t_mini *m, char **env)
 {
 	ft_bzero(e, sizeof(t_exec));
 	e->pipes = m->n_pipes;

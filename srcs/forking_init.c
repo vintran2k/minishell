@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 12:55:16 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 13:34:38 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	open_infiles(t_mini *m, t_exec *e)
 {
-	t_list *tmp;
-	
+	t_list	*tmp;
+
 	tmp = m->in[e->i];
 	while (tmp)
 	{
@@ -50,9 +50,11 @@ int	open_files(t_mini *m, t_exec *e)
 	while (tmp)
 	{
 		if (tmp->type == 1)
-			e->outfile = open((char *)tmp->data, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+			e->outfile
+				= open((char *)tmp->data, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 		else if (tmp->type == 2)
-			e->outfile = open((char *)tmp->data, O_WRONLY | O_CREAT | O_APPEND, 0664);
+			e->outfile
+				= open((char *)tmp->data, O_WRONLY | O_CREAT | O_APPEND, 0664);
 		if (e->outfile == -1)
 			return (-1);
 		tmp = tmp->next;
@@ -91,11 +93,14 @@ int	init_forking(t_mini *m, t_exec *e)
 		return (ret);
 	lstlen = lst_len(&m->s[e->i]);
 	if (lstlen == 0)
-		return (-2);	//pas de cmds
+		return (-2);
 	e->cmdpath = get_cmdpath((char *)m->s[e->i]->data, e->path);
 	e->strs = malloc(sizeof(char *) * (lstlen + 1));
 	if (!e->strs)
-		return (-1);
+	{
+		malloc_error();
+		return (-2);
+	}
 	get_strs(e, m, lstlen);
 	return (0);
 }

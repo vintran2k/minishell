@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 15:08:21 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/02 15:48:46 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 13:42:30 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	malloc_error(void)
 {
-	//perror("minishell");
 	ft_putstr_fd("minishell: Cannot allocate memory\n", STDERR_FILENO);
 	return (-1);
 }
 
 void	*malloc_error2(void)
 {
-	//perror("minishell");
 	ft_putstr_fd("minishell: Cannot allocate memory\n", STDERR_FILENO);
 	return (NULL);
 }
@@ -34,7 +32,8 @@ int	print_redirections_error(char c)
 	s[1] = '\'';
 	s[2] = '\n';
 	s[3] = '\0';
-	ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
+	ft_putstr_fd("minishell: syntax error near unexpected token `",
+		STDERR_FILENO);
 	ft_putstr_fd(s, STDERR_FILENO);
 	return (-1);
 }
@@ -58,4 +57,13 @@ int	redirections_error(t_list *lst)
 		i++;
 	}
 	return (0);
+}
+
+void	here_doc_warning(void)
+{
+	ft_putstr_fd(
+		"minishell: warning: here-document delimited by end-of-file (wanted '",
+		STDERR_FILENO);
+	ft_putstr_fd(g_vars.g_eof, 2);
+	ft_putstr_fd("')\n", 2);
 }

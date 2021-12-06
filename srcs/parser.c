@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:27:03 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:09:10 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 13:36:26 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	count_pipes(t_list *lst)
 int	init_parser(t_mini *m, t_list *lst)
 {
 	int	i;
+
 	m->s = NULL;
 	m->in = NULL;
 	m->out = NULL;

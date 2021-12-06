@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 14:08:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/03 17:15:13 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 13:40:00 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ char	*ft_strdup(const char *s)
 	size_t	i;
 
 	slen = ft_strlen((char *)s);
-	if (!(dst = malloc(sizeof(char) * (slen + 1))))
+	dst = malloc(sizeof(char) * (slen + 1));
+	if (!dst)
 		return (NULL);
 	i = 0;
 	while (i < slen)
