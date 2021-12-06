@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/12/06 15:48:38 by vintran          ###   ########.fr        #
+#    Updated: 2021/12/06 16:41:54 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRCS				=	main.c					\
 						fork.c					\
 						close.c					\
 						here_doc.c				\
-						signal.c				
+						signal.c				\
+						prompt.c				
 SRCS_BASENAME		=	$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS				=	$(SRCS_BASENAME:.c=.o)
 CC					=	@clang

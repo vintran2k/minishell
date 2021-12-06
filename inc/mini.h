@@ -59,6 +59,7 @@ typedef	struct	s_global
 {
 	int		g_error;
 	char	*g_eof;
+	t_list	*env;
 }				t_global;
 
 t_global	g_vars;
@@ -76,6 +77,7 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strcpy(char *dest, char *src);
 char		*ft_strcat(char *dest, char *src);
 char		*ft_strdup(const char *s);
+char		*ft_strchr(const char *s, int c);
 void		ft_putstr_fd(char *s, int fd);
 char		*ft_strndup(char *src, int n);
 void		ft_putendl_fd(char *s, int fd);

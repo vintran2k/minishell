@@ -6,11 +6,23 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:06:54 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 17:05:45 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+t_list	*get_env(char **env)
+{
+	t_list	*lst;
+	int		i;
+
+	lst = NULL;
+	i = 0;
+	while (env[i])
+		push_back(&lst, env[i++]);
+	return (lst);
+}
 
 int	parsing_line(char *line, char **env)
 {
@@ -32,18 +44,51 @@ int	parsing_line(char *line, char **env)
 	return (0);
 }
 
+char	*get_prompt(void)
+{
+	char	*prompt;
+	char	*cwd;
+	int		i;
+
+	cwd = getcwd(NULL, 0);
+	i = ft_strlen(cwd) - 1;
+	while (i > 0)
+	{
+		if (cwd[i - 1] == '/')
+		break ;
+		i--;
+	}
+	prompt = malloc(45 + ft_strlen(&cwd[i]));
+	prompt[0] = '\0';
+	if (g_vars.g_error == 0)
+		ft_strcat(prompt, "\033[1;32m➜ \033[1;34m");
+	else
+		ft_strcat(prompt, "\033[1;31m➜ \033[1;34m");
+	if (i == 1)
+		ft_strcat(prompt, cwd);
+	else
+		ft_strcat(prompt, &cwd[i]);
+	ft_strcat(prompt, " \033[0m");
+	free(cwd);
+	return (prompt);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
+	char	*prompt;
 
 	(void)ac;
 	(void)av;
+	g_vars.env = get_env(env);
+	get_prompt();
 	while (1)
 	{
+		prompt = get_prompt();
 		g_vars.g_error = 0;
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sigint_main);
-		line = readline("$ ");
+		line = readline(prompt);
 		if (!line)
 		{
 			write(1, "exit\n", 5);
