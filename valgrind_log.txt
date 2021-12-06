@@ -1,20 +1,111 @@
-==13766== Memcheck, a memory error detector
-==13766== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==13766== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==13766== Command: ./minishell
-==13766== Parent PID: 30182
-==13766== 
-==13766== 
-==13766== HEAP SUMMARY:
-==13766==     in use at exit: 134,864 bytes in 195 blocks
-==13766==   total heap usage: 315 allocs, 120 frees, 160,762 bytes allocated
-==13766== 
-==13766== LEAK SUMMARY:
-==13766==    definitely lost: 0 bytes in 0 blocks
-==13766==    indirectly lost: 0 bytes in 0 blocks
-==13766==      possibly lost: 0 bytes in 0 blocks
-==13766==    still reachable: 0 bytes in 0 blocks
-==13766==         suppressed: 134,864 bytes in 195 blocks
-==13766== 
-==13766== For counts of detected and suppressed errors, rerun with: -v
-==13766== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==19082== Memcheck, a memory error detector
+==19082== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==19082== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==19082== Command: ./minishell
+==19082== Parent PID: 18581
+==19082== 
+==19102== 
+==19102== HEAP SUMMARY:
+==19102==     in use at exit: 139,226 bytes in 211 blocks
+==19102==   total heap usage: 341 allocs, 130 frees, 165,413 bytes allocated
+==19102== 
+==19102== 4 bytes in 1 blocks are still reachable in loss record 3 of 56
+==19102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==19102==    by 0x40395B: init_exec (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x403B20: executor (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x401315: parsing_line (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4013F9: main (in /home/admin/boss/minishell/minishell)
+==19102== 
+==19102== 7 bytes in 1 blocks are still reachable in loss record 5 of 56
+==19102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==19102==    by 0x4027EF: create_new_str (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4028D3: remove_lst_quotes (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x402966: remove_quotes (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4025B8: parser (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4012BF: parsing_line (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4013F9: main (in /home/admin/boss/minishell/minishell)
+==19102== 
+==19102== 8 bytes in 1 blocks are still reachable in loss record 7 of 56
+==19102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==19102==    by 0x40249C: init_parser (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x40257F: parser (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4012BF: parsing_line (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4013F9: main (in /home/admin/boss/minishell/minishell)
+==19102== 
+==19102== 8 bytes in 1 blocks are still reachable in loss record 8 of 56
+==19102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==19102==    by 0x4024D8: init_parser (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x40257F: parser (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4012BF: parsing_line (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4013F9: main (in /home/admin/boss/minishell/minishell)
+==19102== 
+==19102== 16 bytes in 1 blocks are still reachable in loss record 14 of 56
+==19102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==19102==    by 0x402740: split_pipes (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x402461: init_parser (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x40257F: parser (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4012BF: parsing_line (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4013F9: main (in /home/admin/boss/minishell/minishell)
+==19102== 
+==19102== 16 bytes in 1 blocks are still reachable in loss record 15 of 56
+==19102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==19102==    by 0x4037AC: init_forking (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4040B0: forking (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x403A36: forking_loops (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x403B54: executor (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x401315: parsing_line (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4013F9: main (in /home/admin/boss/minishell/minishell)
+==19102== 
+==19102== 32 bytes in 1 blocks are still reachable in loss record 18 of 56
+==19102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==19102==    by 0x40143A: create_elem (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x40262E: fill_s (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4027A0: split_pipes (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x402461: init_parser (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x40257F: parser (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4012BF: parsing_line (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4013F9: main (in /home/admin/boss/minishell/minishell)
+==19102== 
+==19102== 56 bytes in 1 blocks are still reachable in loss record 22 of 56
+==19102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==19102==    by 0x40312E: ft_split (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x403D05: get_env_path (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x40391F: init_exec (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x403B20: executor (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x401315: parsing_line (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4013F9: main (in /home/admin/boss/minishell/minishell)
+==19102== 
+==19102== 192 bytes in 6 blocks are still reachable in loss record 27 of 56
+==19102==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==19102==    by 0x401EA0: ft_strndup (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x403081: ft_fill_tab (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x403161: ft_split (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x403D05: get_env_path (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x40391F: init_exec (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x403B20: executor (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x401315: parsing_line (in /home/admin/boss/minishell/minishell)
+==19102==    by 0x4013F9: main (in /home/admin/boss/minishell/minishell)
+==19102== 
+==19102== LEAK SUMMARY:
+==19102==    definitely lost: 0 bytes in 0 blocks
+==19102==    indirectly lost: 0 bytes in 0 blocks
+==19102==      possibly lost: 0 bytes in 0 blocks
+==19102==    still reachable: 339 bytes in 14 blocks
+==19102==         suppressed: 138,887 bytes in 197 blocks
+==19102== 
+==19102== For counts of detected and suppressed errors, rerun with: -v
+==19102== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==19082== 
+==19082== HEAP SUMMARY:
+==19082==     in use at exit: 138,880 bytes in 196 blocks
+==19082==   total heap usage: 343 allocs, 147 frees, 165,419 bytes allocated
+==19082== 
+==19082== LEAK SUMMARY:
+==19082==    definitely lost: 0 bytes in 0 blocks
+==19082==    indirectly lost: 0 bytes in 0 blocks
+==19082==      possibly lost: 0 bytes in 0 blocks
+==19082==    still reachable: 0 bytes in 0 blocks
+==19082==         suppressed: 138,880 bytes in 196 blocks
+==19082== 
+==19082== For counts of detected and suppressed errors, rerun with: -v
+==19082== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
