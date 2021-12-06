@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/05 12:00:35 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 13:04:35 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,45 +18,42 @@ void	execve_error(t_exec *e)
 	exit (1);
 }
 
-void	quit_forking(t_exec *e)
+int		malloc_pipes(t_exec *e)
 {
-	close_fd(e, e->i);
-	free_exec_struct(e, 0);
-	if (e->infile && e->infile != -1)
+	int	i;
+
+	i = 0;
+	while (i < e->pipes)
 	{
-		close(e->infile);
-		e->infile = 0;
+		e->fd[i] = malloc(sizeof(int) * 2);
+		if (!e->fd[i])
+			return (malloc_error());
+		if (pipe(e->fd[i]) == -1)
+			return (-1);
+		i++;
 	}
-	if (e->outfile && e->outfile != -1)
-	{
-		close(e->outfile);
-		e->outfile = 0;
-	}
+	return (0);
 }
 
-int	forking(char **env, t_mini *m, t_exec *e)
+int		init_exec(t_exec *e, t_mini *m, char **env)
 {
-	e->ret = init_forking(m, e);
-	if (e->ret == -1)
-			perror("minishell");
-	if (e->ret == 0)
+	ft_bzero(e, sizeof(t_exec));
+	e->pipes = m->n_pipes;
+	e->path = get_env_path(env);
+	if (!e->path)
+		return (-1);
+	e->pid = malloc(sizeof(pid_t) * (e->pipes + 1));
+	if (!e->pid)
+		return (malloc_error());
+	if (e->pipes)
 	{
-		signal(SIGINT, sigint_fork);
-		signal(SIGQUIT, sigquit_fork);
-		e->pid[e->i] = fork();
-		if (e->pid[e->i] == 0)
-		{
-			rl_clear_history();
-			if (e->i == 0)
-				e->ret = first_fork(env, e);
-			else if (e->i == e->pipes)
-				e->ret = last_fork(env, e);
-			else
-				e->ret = mid_fork(env, e, e->i);
-		}
+		e->fd = malloc(sizeof(int *) * e->pipes);
+		if (!e->fd)
+			return (malloc_error());
 	}
-	quit_forking(e);
-	return (e->ret);
+	if (malloc_pipes(e) == -1)
+		return (-1);
+	return (0);
 }
 
 void	forking_loops(t_mini *m, t_exec *e, char **env)
@@ -93,5 +90,3 @@ int	executor(t_mini *m, char **env)
 	free_exec_struct(&e, 1);
 	return (0);
 }
-//$ ls^C
-//$ ^C -> ctrl D

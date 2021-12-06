@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/05 13:47:43 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 13:06:54 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	main(int ac, char **av, char **env)
 {
 	char	*line;
 
+	(void)ac;
+	(void)av;
 	while (1)
 	{
 		g_vars.g_error = 0;

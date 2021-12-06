@@ -1,47 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_init.c                                    :+:      :+:    :+:   */
+/*   forking_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/05 12:00:20 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 12:55:16 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-int		init_exec(t_exec *e, t_mini *m, char **env)
-{
-	int	i;
-
-	ft_bzero(e, sizeof(t_exec));
-	e->pipes = m->n_pipes;
-	e->path = get_env_path(env);
-	if (!e->path)
-		return (-1);
-	e->pid = malloc(sizeof(pid_t) * (e->pipes + 1));
-	if (!e->pid)
-		return (malloc_error());
-	if (e->pipes)
-	{
-		e->fd = malloc(sizeof(int *) * e->pipes);
-		if (!e->fd)
-			return (malloc_error());
-	}
-	i = 0;
-	while (i < e->pipes)
-	{
-		e->fd[i] = malloc(sizeof(int) * 2);
-		if (!e->fd[i])
-			return (malloc_error());
-		if (pipe(e->fd[i]) == -1)
-			return (-1);
-		i++;
-	}
-	return (0);
-}
 
 int	open_infiles(t_mini *m, t_exec *e)
 {
@@ -60,7 +29,7 @@ int	open_infiles(t_mini *m, t_exec *e)
 			e->infile = here_doc(e, m);
 			free(g_vars.g_eof);
 		}
-		if (e->infile == -1)
+		if (e->infile < -1)
 			return (-1);
 		if (g_vars.g_error == 130)
 			return (-130);
@@ -91,23 +60,13 @@ int	open_files(t_mini *m, t_exec *e)
 	return (0);
 }
 
-int	init_forking(t_mini *m, t_exec *e)
+void	get_strs(t_exec *e, t_mini *m, int lstlen)
 {
-	int		lstlen;
-	t_list	*tmp;
 	int		i;
+	t_list	*tmp;
 
-	//g_vars.g_error = 0;
-	i = open_files(m, e);
-	if (i < 0)
-		return (i);
-	lstlen = lst_len(&m->s[e->i]);
-	if (lstlen == 0)
-		return (-2);	//pas de cmds
-	e->cmdpath = get_cmdpath((char *)m->s[e->i]->data, e->path);
-	e->strs = malloc(sizeof(char *) * (lstlen + 1));
-	e->strs[lstlen] = NULL;
 	i = 0;
+	e->strs[lstlen] = NULL;
 	tmp = m->s[e->i];
 	e->strs[0] = e->cmdpath;
 	if (e->strs[0])
@@ -120,5 +79,23 @@ int	init_forking(t_mini *m, t_exec *e)
 		e->strs[i++] = (char *)tmp->data;
 		tmp = tmp->next;
 	}
+}
+
+int	init_forking(t_mini *m, t_exec *e)
+{
+	int		lstlen;
+	int		ret;
+
+	ret = open_files(m, e);
+	if (ret < 0)
+		return (ret);
+	lstlen = lst_len(&m->s[e->i]);
+	if (lstlen == 0)
+		return (-2);	//pas de cmds
+	e->cmdpath = get_cmdpath((char *)m->s[e->i]->data, e->path);
+	e->strs = malloc(sizeof(char *) * (lstlen + 1));
+	if (!e->strs)
+		return (-1);
+	get_strs(e, m, lstlen);
 	return (0);
 }

@@ -6,16 +6,53 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:27:03 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/12 16:30:10 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/06 13:09:10 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	parser(t_list **lst, t_mini *m)		// in progress
+int	count_pipes(t_list *lst)
 {
-	t_list	*tmp;
+	int	ret;
 
+	ret = 0;
+	while (lst)
+	{
+		if (!ft_strcmp(lst->data, "|"))
+			ret++;
+		lst = lst->next;
+	}
+	return (ret);
+}
+
+int	init_parser(t_mini *m, t_list *lst)
+{
+	int	i;
+	m->s = NULL;
+	m->in = NULL;
+	m->out = NULL;
+	m->n_pipes = count_pipes(lst);
+	m->s = split_pipes(lst, m->n_pipes);
+	if (!m->s)
+		return (-1);
+	m->in = malloc(sizeof(t_list *) * (m->n_pipes + 1));
+	if (!m->in)
+		return (malloc_error());
+	m->out = malloc(sizeof(t_list *) * (m->n_pipes + 1));
+	if (!m->out)
+		return (malloc_error());
+	i = 0;
+	while (i <= m->n_pipes)
+	{
+		m->in[i] = NULL;
+		m->out[i++] = NULL;
+	}
+	return (0);
+}
+
+int	parser(t_list **lst, t_mini *m)
+{
 	if (init_parser(m, *lst) == -1)
 	{
 		free_mini_struct(m);
@@ -26,41 +63,5 @@ int	parser(t_list **lst, t_mini *m)		// in progress
 		free_mini_struct(m);
 		return (-1);
 	}
-	/*int i = 0;
-	int j;
-	printf("\n");
-	while (i <= m->n_pipes)
-	{
-		j = 0;
-		tmp = m->s[i];
-		while (tmp)
-		{
-			printf("[%d] --> [%d] = |%s|\n", i, j, (char *)tmp->data);
-			tmp = tmp->next;
-			j++;
-		}
-		if (m->in[i])
-		{
-			tmp = m->in[i];
-			while (tmp)
-			{
-				printf("in -> %d = %s\n", tmp->type, (char *)tmp->data);
-				tmp = tmp->next;
-			}
-		}
-		if (m->out[i])
-		{
-			tmp = m->out[i];
-			while (tmp)
-			{
-				printf("out -> %d = %s\n", tmp->type, (char *)tmp->data);
-				tmp = tmp->next;
-			}
-		}
-		printf("________________________________________________________________\n\n");
-		i++;
-	}*/
-	return (0);		//
+	return (0);
 }
-// > ok ok > ok ok | < ok > oue | sjkjd -dklcs > asdk < sijd <ijads aslkj | isjd >siod asdh<adh
-// > ok ok >> ok "ok" | < ok > "oue" | sjkjd -dklcs >> 'asdk' < sijd <<ijads aslkj | isjd >siod "asdh"<<adh

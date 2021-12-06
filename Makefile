@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/12/03 18:09:52 by vintran          ###   ########.fr        #
+#    Updated: 2021/12/06 13:09:32 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,9 @@ SRCS				=	main.c					\
 						parser_split_pipes.c	\
 						parser_remove_quotes.c	\
 						parser_redir.c			\
-						parser_utils.c			\
 						ft_split.c				\
 						free.c					\
-						executor_init.c			\
+						forking_init.c			\
 						executor.c				\
 						executor_utils.c		\
 						fork.c					\
