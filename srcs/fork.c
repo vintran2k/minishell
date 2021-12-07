@@ -6,13 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:50:43 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:43:57 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/07 12:32:22 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	first_fork(char **env, t_exec *e)
+int	first_fork(char **env, t_exec *e, t_mini *m)
 {
 	if (e->infile && e->infile != -1)
 		dup2(e->infile, STDIN_FILENO);
@@ -22,11 +22,11 @@ int	first_fork(char **env, t_exec *e)
 		dup2(e->fd[0][1], STDOUT_FILENO);
 	close_first(e);
 	if (execve(e->strs[0], e->strs, env) == -1)
-		execve_error(e);
+		execve_error(e, m);
 	return (0);
 }
 
-int	mid_fork(char **env, t_exec *e, int i)
+int	mid_fork(char **env, t_exec *e, t_mini *m, int i)
 {
 	if (e->infile && e->infile != -1)
 		dup2(e->infile, STDIN_FILENO);
@@ -38,11 +38,11 @@ int	mid_fork(char **env, t_exec *e, int i)
 		dup2(e->fd[i][1], STDOUT_FILENO);
 	close_mid(e, i);
 	if (execve(e->strs[0], e->strs, env) == -1)
-		execve_error(e);
+		execve_error(e, m);
 	return (0);
 }
 
-int	last_fork(char **env, t_exec *e)
+int	last_fork(char **env, t_exec *e, t_mini *m)
 {
 	if (e->infile && e->infile != -1)
 		dup2(e->infile, STDIN_FILENO);
@@ -52,7 +52,7 @@ int	last_fork(char **env, t_exec *e)
 		dup2(e->outfile, STDOUT_FILENO);
 	close_last(e);
 	if (execve(e->strs[0], e->strs, env) == -1)
-		execve_error(e);
+		execve_error(e, m);
 	return (0);
 }
 
@@ -86,11 +86,11 @@ int	forking(char **env, t_mini *m, t_exec *e)
 		{
 			rl_clear_history();
 			if (e->i == 0)
-				e->ret = first_fork(env, e);
+				e->ret = first_fork(env, e, m);
 			else if (e->i == e->pipes)
-				e->ret = last_fork(env, e);
+				e->ret = last_fork(env, e, m);
 			else
-				e->ret = mid_fork(env, e, e->i);
+				e->ret = mid_fork(env, e, m, e->i);
 		}
 	}
 	quit_forking(e);

@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 17:05:45 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/07 12:49:56 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list	*get_env(char **env)
 	lst = NULL;
 	i = 0;
 	while (env[i])
-		push_back(&lst, env[i++]);
+		push_back(&lst, ft_strdup(env[i++]));
 	return (lst);
 }
 
@@ -55,15 +55,15 @@ char	*get_prompt(void)
 	while (i > 0)
 	{
 		if (cwd[i - 1] == '/')
-		break ;
+			break ;
 		i--;
 	}
 	prompt = malloc(45 + ft_strlen(&cwd[i]));
 	prompt[0] = '\0';
 	if (g_vars.g_error == 0)
-		ft_strcat(prompt, "\033[1;32m➜ \033[1;34m");
+		ft_strcat(prompt, "\033[1;32m➜ \033[1;33m");
 	else
-		ft_strcat(prompt, "\033[1;31m➜ \033[1;34m");
+		ft_strcat(prompt, "\033[1;31m➜ \033[1;33m");
 	if (i == 1)
 		ft_strcat(prompt, cwd);
 	else
@@ -81,7 +81,6 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	g_vars.env = get_env(env);
-	get_prompt();
 	while (1)
 	{
 		prompt = get_prompt();
@@ -89,6 +88,8 @@ int	main(int ac, char **av, char **env)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sigint_main);
 		line = readline(prompt);
+		fprintf(stderr, "line = %s\n", line);
+		free(prompt);
 		if (!line)
 		{
 			write(1, "exit\n", 5);
@@ -99,6 +100,7 @@ int	main(int ac, char **av, char **env)
 		free(line);
 		//fprintf(stderr, "g_error = %d\n", g_vars.g_error);
 	}
+	lst_clear(&g_vars.env, &free);
 	rl_clear_history();
 	return (0);
 }

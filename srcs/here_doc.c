@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:16:26 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:43:11 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/07 11:55:40 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	here_doc(t_exec *e, t_mini *m)
 		signal(SIGINT, sigint_here_doc);
 		read_here_doc_loops(fd);
 		free(g_vars.g_eof);
+		lst_clear(&g_vars.env, &free);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);

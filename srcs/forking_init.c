@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:34:38 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/07 12:45:22 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ void	get_strs(t_exec *e, t_mini *m, int lstlen)
 	e->strs[lstlen] = NULL;
 	tmp = m->s[e->i];
 	e->strs[0] = e->cmdpath;
-	if (e->strs[0])
-	{
+	if (e->strs[0] && ft_strcmp((char *)tmp->data, "..")) {
 		i = 1;
 		tmp = tmp->next;
 	}

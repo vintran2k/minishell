@@ -6,16 +6,56 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:27:37 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/07 12:38:16 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-void	execve_error(t_exec *e)
+int	is_slash(char *s)
 {
-	ft_putstr_fd("execve error a gerer\n", STDERR_FILENO);
-	exit (1);
+	while (*s)
+	{
+		if (*s == '/')
+			return (1);
+		s++;
+	}
+	return (0);
+}
+
+void	cmd_not_found(char *cmd)
+{
+	ft_putstr_fd("minishell: command not found: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+}
+
+void	execve_error(t_exec *e, t_mini *m)
+{
+	int	fd;
+	int	ret;
+
+	ret = 127;
+	if (is_slash(e->strs[0]) && ft_strcmp(e->strs[0], ""))
+	{
+		fd = open(e->strs[0], O_DIRECTORY);
+		if (fd != -1)
+		{
+			close(fd);
+			ft_putstr_fd("minishell: ", STDERR_FILENO);
+			ft_putstr_fd(e->strs[0], STDERR_FILENO);
+			ft_putstr_fd(" is a directory\n", STDERR_FILENO);
+			ret = 126;
+		}
+		else
+			perror("minishell");
+	}
+	else
+		cmd_not_found(e->strs[0]);
+	lst_clear(&g_vars.env, &free);
+	free_mini_struct(m);
+	free_exec_struct(e, 1);
+	exit(ret);
 }
 
 int	malloc_pipes(t_exec *e)
