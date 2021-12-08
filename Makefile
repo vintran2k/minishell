@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/12/06 16:41:54 by vintran          ###   ########.fr        #
+#    Updated: 2021/12/08 20:03:12 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,15 +46,15 @@ all				:	$(NAME)
 
 $(NAME)			:	$(OBJS) $(HEADER)
 				$(CC) $(FLAGS) $(OBJS) -o $(NAME) -lreadline
-				@echo "\033[1;33m[$(NAME)] \033[1;32mcreated !\033[0m"
+				@echo "\033[1;30m[$(NAME)] \033[1;32mcreated !\033[0m"
 
 clean			:
 				@rm -f $(OBJS)
-				@echo "\033[1;33m[.o] : \033[1;31mdeleted !\033[0m"
+				@echo "\033[1;30m[.o] : \033[1;31mdeleted !\033[0m"
 
 fclean			:	clean
 				@rm -f $(NAME)
-				@echo "\033[1;33m[$(NAME)] \033[1;31mdeleted !\033[0m"
+				@echo "\033[1;30m[$(NAME)] \033[1;31mdeleted !\033[0m"
 
 re				:	fclean all
 
