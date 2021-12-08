@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/07 12:49:56 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/08 16:48:59 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,18 @@ int	parsing_line(char *line, char **env)
 	return (0);
 }
 
-char	*get_prompt(void)
+char	*get_prompt(int arrow)
 {
 	char	*prompt;
 	char	*cwd;
 	int		i;
 
+	if (g_vars.g_error == 0)
+		printf("\033[1;32m➜ ");
+	else
+		printf("\033[1;31m➜ ");
+	if (arrow == 1)
+		return (NULL);
 	cwd = getcwd(NULL, 0);
 	i = ft_strlen(cwd) - 1;
 	while (i > 0)
@@ -58,12 +64,11 @@ char	*get_prompt(void)
 			break ;
 		i--;
 	}
-	prompt = malloc(45 + ft_strlen(&cwd[i]));
+	prompt = malloc(ft_strlen(&cwd[i]) + 2);	//
+	if (!prompt)
+		return (NULL);
 	prompt[0] = '\0';
-	if (g_vars.g_error == 0)
-		ft_strcat(prompt, "\033[1;32m➜ \033[1;33m");
-	else
-		ft_strcat(prompt, "\033[1;31m➜ \033[1;33m");
+	ft_strcat(prompt, "\033[1;33m");
 	if (i == 1)
 		ft_strcat(prompt, cwd);
 	else
@@ -83,12 +88,11 @@ int	main(int ac, char **av, char **env)
 	g_vars.env = get_env(env);
 	while (1)
 	{
-		prompt = get_prompt();
-		g_vars.g_error = 0;
+		prompt = get_prompt(0);
+		g_vars.g_error = 0;		// a sortir de la boucle pour echo $?
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sigint_main);
 		line = readline(prompt);
-		fprintf(stderr, "line = %s\n", line);
 		free(prompt);
 		if (!line)
 		{
@@ -98,7 +102,6 @@ int	main(int ac, char **av, char **env)
 		add_history(line);
 		parsing_line(line, env);
 		free(line);
-		//fprintf(stderr, "g_error = %d\n", g_vars.g_error);
 	}
 	lst_clear(&g_vars.env, &free);
 	rl_clear_history();

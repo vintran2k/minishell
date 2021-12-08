@@ -83,7 +83,7 @@ char		*ft_strndup(char *src, int n);
 void		ft_putendl_fd(char *s, int fd);
 char		**ft_split(const char *s, char c);
 void		free_split(char **tab);
-char		*get_prompt(void);
+char		*get_prompt(int arrow);
 int			malloc_error(void);
 void 		*malloc_error2(void);
 int			is_quote_closed(t_lexer *a);

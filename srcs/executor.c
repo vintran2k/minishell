@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/07 12:38:16 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/07 14:30:53 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	is_slash(char *s)
 
 void	cmd_not_found(char *cmd)
 {
-	ft_putstr_fd("minishell: command not found: ", STDERR_FILENO);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 }
 
 void	execve_error(t_exec *e, t_mini *m)
