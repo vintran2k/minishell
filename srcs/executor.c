@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/07 14:30:53 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/09 14:13:40 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,22 +96,46 @@ int	init_exec(t_exec *e, t_mini *m, char **env)
 	return (0);
 }
 
+int	exec_builtins(t_mini *m, t_exec *e)
+{
+	if (!strcmp((char *)m->s[e->i]->data, "echo"))
+		echo(m->s[e->i]);
+	else if (!strcmp((char *)m->s[e->i]->data, "cd"))
+		cd(m->s[e->i]);
+	else if (!strcmp((char *)m->s[e->i]->data, "pwd"))
+		pwd();
+	//else if (!strcmp((char *)m->s[e->i]->data, "export"))
+		//export();
+	//else if (!strcmp((char *)m->s[e->i]->data, "unset"))
+		//unset();
+	//else if (!strcmp((char *)m->s[e->i]->data, "env"))
+		//env();
+	//else if (!strcmp((char *)m->s[e->i]->data, "exit"))
+		//exit();
+	else
+		return (-1);
+	return (0);
+}
+
 void	forking_loops(t_mini *m, t_exec *e, char **env)
 {
 	while (e->i <= m->n_pipes)
 	{
-		if (forking(env, m, e) == -1)
-			g_vars.g_error = 1;
-		if (e->ret == 0)
+		if (exec_builtins(m, e) == -1)
 		{
-			waitpid(e->pid[e->i], &e->status, 0);
-			if (WIFEXITED(e->status))
-				g_vars.g_error = WEXITSTATUS(e->status);
-		}
-		if (e->ret == -130)
-		{
-			write(1, "\n", 1);
-			break ;
+			if (forking(env, m, e) == -1)
+				g_vars.g_error = 1;
+			if (e->ret == 0)
+			{
+				waitpid(e->pid[e->i], &e->status, 0);
+				if (WIFEXITED(e->status))
+					g_vars.g_error = WEXITSTATUS(e->status);
+			}
+			if (e->ret == -130)
+			{
+				write(1, "\n", 1);
+				break ;
+			}
 		}
 		e->i++;
 	}

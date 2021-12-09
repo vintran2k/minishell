@@ -116,5 +116,8 @@ void		sigint_main(int signal);
 void		sigint_here_doc(int signal);
 void		sigint_fork(int signal);
 void		sigquit_fork(int signal);
+void		cd(t_list *lst);
+void		echo(t_list *lst);
+void		pwd(void);
 
 #endif
