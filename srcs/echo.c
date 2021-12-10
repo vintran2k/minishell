@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:56:14 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/09 14:12:48 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/10 12:43:22 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	echo(t_list *lst)
 	}
 	while (lst)
 	{
-		printf("%s", (char *)lst->data);
+		ft_putstr_fd((char *)lst->data, STDOUT_FILENO);
 		if (lst->next != NULL)
-			printf(" ");
+			ft_putstr_fd(" ", STDOUT_FILENO);
 		lst = lst->next;
 		i++;
 	}
 	if (i == 1 || opt == 0)
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	g_vars.g_error = 0;
 }

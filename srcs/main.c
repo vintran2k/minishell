@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/08 20:06:27 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/10 13:15:15 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_prompt(int arrow)
 			break ;
 		i--;
 	}
-	prompt = malloc(ft_strlen(&cwd[i]) + 2);	//
+	prompt = malloc(ft_strlen(&cwd[i]) + 16);	//
 	if (!prompt)
 		return (NULL);
 	prompt[0] = '\0';

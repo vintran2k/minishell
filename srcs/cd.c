@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:54:46 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/09 14:19:30 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/10 12:47:49 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	cd(t_list *lst)
 	lst = lst->next;
 	if (lst == NULL)
 	{
-		if (chdir("/~/") == -1)
+		if (chdir("/~") == -1)
 		{
 			perror("minishell");
 			g_vars.g_error = 1;

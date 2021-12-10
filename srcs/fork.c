@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:50:43 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/07 12:32:22 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/10 16:08:54 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ int	first_fork(char **env, t_exec *e, t_mini *m)
 	else if (e->pipes)
 		dup2(e->fd[0][1], STDOUT_FILENO);
 	close_first(e);
-	if (execve(e->strs[0], e->strs, env) == -1)
-		execve_error(e, m);
+	if (!e->builtin)
+	{
+		if (execve(e->strs[0], e->strs, env) == -1)
+			execve_error(e, m);
+	}
+	else
+		exec_builtins(m, e);
 	return (0);
 }
 
@@ -37,8 +42,13 @@ int	mid_fork(char **env, t_exec *e, t_mini *m, int i)
 	else
 		dup2(e->fd[i][1], STDOUT_FILENO);
 	close_mid(e, i);
-	if (execve(e->strs[0], e->strs, env) == -1)
-		execve_error(e, m);
+	if (!e->builtin)
+	{
+		if (execve(e->strs[0], e->strs, env) == -1)
+			execve_error(e, m);
+	}
+	else
+		exec_builtins(m, e);
 	return (0);
 }
 
@@ -51,8 +61,13 @@ int	last_fork(char **env, t_exec *e, t_mini *m)
 	if (e->outfile && e->outfile != -1)
 		dup2(e->outfile, STDOUT_FILENO);
 	close_last(e);
-	if (execve(e->strs[0], e->strs, env) == -1)
-		execve_error(e, m);
+	if (!e->builtin)
+	{
+		if (execve(e->strs[0], e->strs, env) == -1)
+			execve_error(e, m);
+	}
+	else
+		exec_builtins(m, e);
 	return (0);
 }
 

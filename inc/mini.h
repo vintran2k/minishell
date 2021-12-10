@@ -53,6 +53,7 @@ typedef struct	s_exec
 	int		outfile;
 	char	**strs;
 	pid_t	*pid;
+	int		builtin;
 }				t_exec;
 
 typedef	struct	s_global
@@ -100,11 +101,13 @@ char		*get_cmdpath(char *cmd, char **path);
 int			init_exec(t_exec *e, t_mini *m, char **env);
 int			init_forking(t_mini *m, t_exec *e);
 int			forking(char **env, t_mini *m, t_exec *e);
+void		quit_forking(t_exec *e);
 int			first_fork(char **env, t_exec *e, t_mini *m);
 int			mid_fork(char **env, t_exec *e, t_mini *m, int i);
 int			last_fork(char **env, t_exec *e, t_mini *m);
 void		execve_error(t_exec *e, t_mini *m);
 int			executor(t_mini *m, char **env);
+void		exec_builtins(t_mini *m, t_exec *e);
 int			here_doc(t_exec *e, t_mini *m);
 void		here_doc_warning(void);
 void		free_exec_struct(t_exec *e, int finish);

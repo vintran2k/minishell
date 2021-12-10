@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/07 12:45:22 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/10 15:54:56 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,16 @@ int	init_forking(t_mini *m, t_exec *e)
 	lstlen = lst_len(&m->s[e->i]);
 	if (lstlen == 0)
 		return (-2);
-	e->cmdpath = get_cmdpath((char *)m->s[e->i]->data, e->path);
-	e->strs = malloc(sizeof(char *) * (lstlen + 1));
-	if (!e->strs)
+	if (!e->builtin)
 	{
-		malloc_error();
-		return (-2);
+		e->cmdpath = get_cmdpath((char *)m->s[e->i]->data, e->path);
+		e->strs = malloc(sizeof(char *) * (lstlen + 1));
+		if (!e->strs)
+		{
+			malloc_error();
+			return (-2);
+		}
+		get_strs(e, m, lstlen);
 	}
-	get_strs(e, m, lstlen);
 	return (0);
 }
