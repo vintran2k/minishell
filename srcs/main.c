@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/13 02:26:35 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/13 07:40:36 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,12 @@ int	main(int ac, char **av, char **env)
 		add_history(line);
 		parsing_line(line, env);
 		free(line);
+		t_list *tmp = g_vars.env;
+		while (tmp)
+		{
+			printf("%s\n", (char *)tmp->data);
+			tmp = tmp->next;
+		}
 	}
 	lst_clear(&g_vars.env, &free);
 	rl_clear_history();
