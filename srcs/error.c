@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 15:08:21 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:42:30 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/13 02:26:48 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ void	here_doc_warning(void)
 	ft_putstr_fd(
 		"minishell: warning: here-document delimited by end-of-file (wanted '",
 		STDERR_FILENO);
-	ft_putstr_fd(g_vars.g_eof, 2);
+	ft_putstr_fd(g_vars.eof, 2);
 	ft_putstr_fd("')\n", 2);
 }

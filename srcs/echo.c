@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:56:14 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/13 01:11:55 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/13 02:30:58 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	echo(t_list *lst)
 	while (lst)
 	{
 		if (strcmp((char *)lst->data, "$?") == 0)
-			ft_putnbr_fd(g_vars.g_error, STDOUT_FILENO);
+			ft_putnbr_fd(g_vars.error, STDOUT_FILENO);
 		else
 			ft_putstr_fd((char *)lst->data, STDOUT_FILENO);
 		if (lst->next != NULL)

@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:46:26 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/02 15:51:26 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/13 02:28:45 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	fill_redirections_lst(t_mini *m, t_list *tmp, int i)
 {
 	if (redirections_error(tmp) == -1)
 	{
-		g_vars.g_error = 2;
+		g_vars.error = 2;
 		return (-1);
 	}
 	if (((char *)tmp->data)[0] == '<')

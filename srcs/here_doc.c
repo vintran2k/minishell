@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:16:26 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/07 11:55:40 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/13 02:30:08 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	read_here_doc_loops(int fd)
 		{
 			here_doc_warning();
 			close(fd);
-			free(g_vars.g_eof);
+			free(g_vars.eof);
 			exit(0);
 		}
-		if (ft_strcmp(line, g_vars.g_eof))
+		if (ft_strcmp(line, g_vars.eof))
 			ft_putendl_fd(line, fd);
 		else
 		{
@@ -66,13 +66,13 @@ int	here_doc(t_exec *e, t_mini *m)
 		free_exec_struct(e, 1);
 		signal(SIGINT, sigint_here_doc);
 		read_here_doc_loops(fd);
-		free(g_vars.g_eof);
+		free(g_vars.eof);
 		lst_clear(&g_vars.env, &free);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-		g_vars.g_error = 130;
+		g_vars.error = 130;
 	fd = open(TMP_FILE, O_RDONLY);
 	unlink(TMP_FILE);
 	return (fd);

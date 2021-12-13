@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/10 15:54:56 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/13 02:29:11 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	open_infiles(t_mini *m, t_exec *e)
 			return (-1);
 		if (tmp->type == 2)
 		{
-			g_vars.g_eof = ft_strdup((char *)tmp->data);
+			g_vars.eof = ft_strdup((char *)tmp->data);
 			e->infile = here_doc(e, m);
-			free(g_vars.g_eof);
+			free(g_vars.eof);
 		}
 		if (e->infile < -1)
 			return (-1);
-		if (g_vars.g_error == 130)
+		if (g_vars.error == 130)
 			return (-130);
 		tmp = tmp->next;
 	}

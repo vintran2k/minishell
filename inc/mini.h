@@ -58,8 +58,8 @@ typedef struct	s_exec
 
 typedef	struct	s_global
 {
-	int		g_error;
-	char	*g_eof;
+	int		error;
+	char	*eof;
 	t_list	*env;
 }				t_global;
 
