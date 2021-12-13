@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/10 13:15:15 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/13 02:22:15 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		prompt = get_prompt(0);
-		g_vars.g_error = 0;		// a sortir de la boucle pour echo $?
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sigint_main);
 		line = readline(prompt);
@@ -107,3 +106,7 @@ int	main(int ac, char **av, char **env)
 	rl_clear_history();
 	return (0);
 }
+
+
+// unset toutes les var (peut etre pb avc lst_delone dans unset)
+// segfault --> rm -rf le dossier

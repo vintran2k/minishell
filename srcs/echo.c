@@ -6,13 +6,35 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:56:14 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/10 12:43:22 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/13 01:11:55 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-void	echo(t_list *lst)
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		if (n == -2147483648)
+		{
+			ft_putstr_fd("2147483648", fd);
+			return ;
+		}
+		n *= -1;
+	}
+	if (n > 9)
+		ft_putnbr_fd(n / 10, fd);
+	ft_putchar_fd(n % 10 + '0', fd);
+}
+
+int	echo(t_list *lst)
 {
 	int	i;
 	int	opt;
@@ -28,7 +50,10 @@ void	echo(t_list *lst)
 	}
 	while (lst)
 	{
-		ft_putstr_fd((char *)lst->data, STDOUT_FILENO);
+		if (strcmp((char *)lst->data, "$?") == 0)
+			ft_putnbr_fd(g_vars.g_error, STDOUT_FILENO);
+		else
+			ft_putstr_fd((char *)lst->data, STDOUT_FILENO);
 		if (lst->next != NULL)
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		lst = lst->next;
@@ -36,5 +61,5 @@ void	echo(t_list *lst)
 	}
 	if (i == 1 || opt == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	g_vars.g_error = 0;
+	return (0);
 }

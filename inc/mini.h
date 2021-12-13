@@ -107,7 +107,7 @@ int			mid_fork(char **env, t_exec *e, t_mini *m, int i);
 int			last_fork(char **env, t_exec *e, t_mini *m);
 void		execve_error(t_exec *e, t_mini *m);
 int			executor(t_mini *m, char **env);
-void		exec_builtins(t_mini *m, t_exec *e);
+int			exec_builtins(t_mini *m, t_exec *e);
 int			here_doc(t_exec *e, t_mini *m);
 void		here_doc_warning(void);
 void		free_exec_struct(t_exec *e, int finish);
@@ -119,8 +119,8 @@ void		sigint_main(int signal);
 void		sigint_here_doc(int signal);
 void		sigint_fork(int signal);
 void		sigquit_fork(int signal);
-void		cd(t_list *lst);
-void		echo(t_list *lst);
-void		pwd(void);
+int			cd(t_list *lst);
+int			echo(t_list *lst);
+int			pwd(void);
 
 #endif
