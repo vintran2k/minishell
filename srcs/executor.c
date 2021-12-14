@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/13 07:40:59 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/14 15:35:13 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ int	exec_builtins(t_mini *m, t_exec *e)
 	if (e->builtin == 3)
 		ret = pwd();
 	//...
-	lst_clear(&g_vars.env, &free);
 	if (e->pipes)
 	{
+		lst_clear(&g_vars.env, &free);
 		free_mini_struct(m);
 		free_exec_struct(e, 1);
-		exit (ret); //ret du builtin
+		exit (ret);
 	}
 	return (ret);
 }

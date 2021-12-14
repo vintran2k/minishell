@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:37:32 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/13 07:41:23 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/14 15:34:39 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	add_str_list(t_list **lst, char *line, int len)
 	char	*data;
 
 	data = ft_strndup(line, len);
+	if (!data)
+		return ;
 	push_back(lst, data);
 }
 
@@ -74,14 +76,6 @@ char	*is_in_env(char *s, int dq)
 		i++;
 		env = env->next;
 	}
-	printf("passage avant tmp\n");
-	t_list *tmp = g_vars.env;
-	while (tmp)
-	{
-		printf("%s\n", (char *)tmp->data);
-		tmp = tmp->next;
-	}
-	printf("passage apres tmp\n");
 	return (NULL);
 }
 
