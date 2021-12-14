@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:40:28 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:38:32 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/14 15:43:50 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	is_quote_closed(t_lexer *a)
 		ft_putstr_fd(
 			"minishell: unexpected EOF while looking for matching `\'\'\n",
 			STDERR_FILENO);
+		g_vars.error = 2;
 		return (0);
 	}
 	if (a->dq != 1)
@@ -41,6 +42,7 @@ int	is_quote_closed(t_lexer *a)
 		ft_putstr_fd(
 			"minishell: unexpected EOF while looking for matching `\"\'\n",
 			STDERR_FILENO);
+		g_vars.error = 2;
 		return (0);
 	}
 	return (1);
