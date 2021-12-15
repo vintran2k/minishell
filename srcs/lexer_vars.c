@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 12:10:20 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/15 13:27:55 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/15 16:49:34 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	var_len(char *s)
 	int	i;
 	
 	i = 1;
+	if (!ft_strncmp(s, "$?", 2))
+		return (2);
 	while (s[i] && ft_isalnum(s[i]))
 		i++;
 	return (i);
@@ -44,7 +46,7 @@ char	*is_in_env(char *s)
 		if (ft_strncmp(s, (char *)env->data, len - 1) == 0)
 		{
 			i = 1;
-			while (((char *)env->data)[i - 1] != '=')
+			while (((char *)env->data)[i] && ((char *)env->data)[i - 1] != '=')
 				i++;
 			return (&((char *)env->data)[i]);
 		}
@@ -95,66 +97,97 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
+int	get_newlen(char *s, char *env, int dq)
+{
+	int	len;
+	int	i;
+
+	//printf("s = |%s|\n", s);
+	i = 0;
+	while (s[i] && s[i] != '$')
+		i++;
+	len = 0;
+	if (dq == -1)
+		len = 1;
+	if (ft_strncmp(&s[i], "$?", 2) == 0)
+		len += itoa_len(g_vars.error) + i + ft_strlen(&s[i + len]);
+	else
+		len += ft_strlen(env) + i + ft_strlen(&s[i + len]);
+	return (len);
+}
+
+void	fill_new(char *dst, char *src, char *env, int beg)
+{
+	char	*itoa;
+	int		varlen;
+
+	varlen = var_len(&src[beg]);
+	dst[0] = '\0';
+	ft_strcat(dst, src);
+	dst[beg] = '\0';
+	if (ft_strncmp(&src[beg], "$?", 2) == 0)
+	{
+		itoa = ft_itoa(g_vars.error);
+		ft_strcat(dst, itoa);
+		free(itoa);
+	}
+	else
+		ft_strcat(dst, env);
+	ft_strcat(dst, &src[beg + varlen]);
+}
+
 int	replace_var(t_list **lst, char *env, int dq)
+{
+	int		i;
+	int		newlen;
+	char	*new;
+	t_list	*tmp;
+
+	tmp = *lst;
+	i = 0;
+	while (((char *)tmp->data)[i] != '$')
+		i++;
+	newlen = get_newlen((char *)tmp->data, env, dq);
+	new = malloc(newlen + 1);
+	if (!new)
+		return (malloc_error());
+	fill_new(new, tmp->data, env, i);
+	free(tmp->data);
+	if (dq == -1)
+		new[newlen - 1] = '"';
+	new[newlen] = '\0';
+	tmp->data = new;
+	return (0);
+}
+
+int	remove_var(t_list *var, int index)
 {
 	int		i;
 	int		j;
 	int		len;
 	char	*new;
-	t_list	*tmp;
-	int		err;
 
-
-	tmp = *lst;
-	i = 1;
-	//printf("env = |%s| et data = |%s|\n", env, tmp->data);
-	//while (env && env[i - 1] != '=')	//strchr
-	//	i++;
-	j = 0;
-	while (((char *)tmp->data)[j] != '$')
-		j++;
-	int	varlen = var_len(&((char *)tmp->data)[j]);
-	len = 0;
-	if (dq == -1)
-		len = 1;
-	err = ft_strncmp(&((char *)tmp->data)[j], "$?", 2);
-	if (err == 0)
-		len += itoa_len(g_vars.error) + j + ft_strlen(&((char *)tmp->data)[j + varlen]);
-	else
-		len += ft_strlen(env) + j + ft_strlen(&((char *)tmp->data)[j + varlen]);
-	new = malloc(len + 1);
-	if (!new)
-		return (malloc_error());
-	new[0] = '\0';
-	//((char *)tmp->data)[j] = '\0';
-	ft_strcat(new, ((char *)tmp->data));
-	new[j] = '\0';
-	if (err == 0)
-	{
-		char	*itoa = ft_itoa(g_vars.error);
-		ft_strcat(new, itoa);
-		free(itoa);
-	}
-	else
-		ft_strcat(new, env);
-	ft_strcat(new, &((char *)tmp->data)[j + varlen]);
-	free(tmp->data);
-	if (dq == -1)
-		new[len - 1] = '"';
-	new[len] = '\0';
-	tmp->data = new;
-	return (0);
-}
-
-void	remove_var(t_list *var, int dq)
-{
-	int	i;
-
+	printf("in remove --> data = |%s|\n", (char *)var->data);
 	i = 0;
-	while (((char *)var->data)[i] != '$')
+	while (&((char *)var->data)[i] != &((char *)var->data)[index])
 		i++;
-	if (ft_isalnum(((char *)var->data)[i + 1]))
-		((char *)var->data)[i] = '\0';
+	j = var_len(&((char *)var->data)[i]);
+	printf("data apres boucle = |%s et j = %d et i = %d\n", &((char *)var->data)[i], j, i);
+	len = i + (ft_strlen(&((char *)var->data)[i + j]) - ft_strlen(&((char *)var->data)[j]));
+	new = malloc(len + 1);
+	new[0] = '\0';
+	ft_strcat(new, var->data);
+	printf("new apres strcat1 = |%s|\n", new);
+	new[i] = '\0';
+	ft_strcat(&new[i], &((char *)var->data)[i + j]);
+	printf("new apres strcat2 = |%s|\n", new);
+	//new[len] = '\0';
+	//if (ft_isalnum(((char *)var->data)[i + 1]))
+	//	((char *)var->data)[i] = '\0';
+	free(var->data);
+	var->data = new;
+	printf("len = %d et data final = |%s|\n", len, var->data);
+	return (i - 1);
 }
 
 void	parse_vars(t_lexer *a)
@@ -176,10 +209,10 @@ void	parse_vars(t_lexer *a)
 				if (env || ft_strncmp(&((char *)tmp->data)[i], "$?", 2) == 0)
 				{
 					replace_var(&tmp, env, a->dq);
-					//break;
+					i = 0;
 				}
 				else
-					remove_var(tmp, a->dq);
+					i = remove_var(tmp, i);
 			}
 			i++;
 		}
