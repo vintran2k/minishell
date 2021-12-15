@@ -91,6 +91,7 @@ int			is_quote_closed(t_lexer *a);
 int			quote_maj(t_lexer *a, char c);
 void		init_lexer(t_lexer *a);
 t_list		**split_pipes(t_list *lst, int n_pipes);
+void		parse_vars(t_lexer *a);
 int			parser(t_list **lst, t_mini *m);
 int			remove_quotes(t_mini *m);
 int			redirections_error(t_list *lst);
