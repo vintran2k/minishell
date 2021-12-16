@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/14 15:35:02 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/16 13:33:19 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	main(int ac, char **av, char **env)
 	}
 	lst_clear(&g_vars.env, &free);
 	rl_clear_history();
-	return (0);
+	return (g_vars.error);
 }
 
 

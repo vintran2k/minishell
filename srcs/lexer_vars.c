@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 12:10:20 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/15 16:49:34 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/16 13:31:08 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 int		ft_isalnum(int c)
 {
 	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'));
+}
+
+char	*ft_strncat(char *dest, char *src, int n)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (dest[i])
+		i++;
+	while (src[j] && j < n)
+	{
+		dest[i + j] = src[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
 }
 
 int	var_len(char *s)
@@ -160,33 +178,23 @@ int	replace_var(t_list **lst, char *env, int dq)
 	return (0);
 }
 
-int	remove_var(t_list *var, int index)
+int	remove_var(t_list *var, int i)
 {
-	int		i;
 	int		j;
 	int		len;
 	char	*new;
 
-	printf("in remove --> data = |%s|\n", (char *)var->data);
-	i = 0;
-	while (&((char *)var->data)[i] != &((char *)var->data)[index])
-		i++;
+	if (!ft_isalnum(((char *)var->data)[i + 1]))
+		return (i);
 	j = var_len(&((char *)var->data)[i]);
-	printf("data apres boucle = |%s et j = %d et i = %d\n", &((char *)var->data)[i], j, i);
-	len = i + (ft_strlen(&((char *)var->data)[i + j]) - ft_strlen(&((char *)var->data)[j]));
+	len = i + ft_strlen(&((char *)var->data)[i + j]);
 	new = malloc(len + 1);
 	new[0] = '\0';
-	ft_strcat(new, var->data);
-	printf("new apres strcat1 = |%s|\n", new);
+	ft_strncat(new, var->data, len);
 	new[i] = '\0';
-	ft_strcat(&new[i], &((char *)var->data)[i + j]);
-	printf("new apres strcat2 = |%s|\n", new);
-	//new[len] = '\0';
-	//if (ft_isalnum(((char *)var->data)[i + 1]))
-	//	((char *)var->data)[i] = '\0';
+	ft_strncat(&new[i], &((char *)var->data)[i + j], len - i);
 	free(var->data);
 	var->data = new;
-	printf("len = %d et data final = |%s|\n", len, var->data);
 	return (i - 1);
 }
 
