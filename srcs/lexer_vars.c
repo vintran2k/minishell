@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 12:10:20 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/16 13:31:08 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/16 16:30:52 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	var_len(char *s)
 	int	i;
 	
 	i = 1;
-	if (!ft_strncmp(s, "$?", 2))
+	if (!ft_strncmp(s, "$?", 2) || (s[1] >= '0' && s[1] <= '9'))
 		return (2);
 	while (s[i] && ft_isalnum(s[i]))
 		i++;
@@ -120,7 +120,6 @@ int	get_newlen(char *s, char *env, int dq)
 	int	len;
 	int	i;
 
-	//printf("s = |%s|\n", s);
 	i = 0;
 	while (s[i] && s[i] != '$')
 		i++;
@@ -225,5 +224,20 @@ void	parse_vars(t_lexer *a)
 			i++;
 		}
 		tmp = tmp->next;
+	}
+	tmp = a->lst;
+	t_list	*tmp2;
+	while (tmp)
+	{
+		if (!((char *)tmp->data)[0])
+		{
+			tmp2 = tmp;
+			tmp = tmp->next;
+			if (tmp2 == a->lst)
+				a->lst = tmp;
+			lst_delone(tmp2);
+		}
+		else if (tmp)
+			tmp = tmp->next;
 	}
 }
