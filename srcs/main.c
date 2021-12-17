@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/16 13:33:19 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 12:59:08 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	parsing_line(char *line, char **env)
 	t_mini	m;
 
 	init_lexer(&a);
-	if (!lexer(line, &a))
+	lexer(line, &a);
+	if (!a.lst)
 		return (-1);
 	if (parser(&(a.lst), &m) == -1)
 	{

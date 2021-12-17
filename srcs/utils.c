@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 00:51:39 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 16:33:00 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 13:28:42 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 char	*ft_strchr(const char *s, int c)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s[i] && s[i] != c)

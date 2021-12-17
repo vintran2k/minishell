@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:37:32 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/15 12:10:47 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 12:58:23 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	add_str_list(t_list **lst, char *line, int len)
 	push_back(lst, data);
 }
 
-t_list	*lexer(char *line, t_lexer *a)
+void	lexer(char *line, t_lexer *a)
 {
 	while (line[a->i])
 	{
@@ -81,10 +81,4 @@ t_list	*lexer(char *line, t_lexer *a)
 	if (!is_quote_closed(a))
 		lst_clear(&(a->lst), &free);
 	parse_vars(a);
-	return (a->lst);
 }
-
-// echo $USER$USER	--> adminadmin		+(Conditional jump or move depends on uninitialised value(s))
-// echo $USER$		--> admin$
-// echo $USER[		--> admin[
-// echo $USERasfd	--> R

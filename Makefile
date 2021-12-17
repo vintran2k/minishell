@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/12/15 12:11:07 by vintran          ###   ########.fr        #
+#    Updated: 2021/12/17 13:05:20 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,10 @@ SRCS				=	main.c					\
 						utils.c					\
 						utils2.c				\
 						error.c					\
+						error2.c				\
 						lexer.c					\
 						lexer_vars.c			\
+						lexer_vars_utils.c		\
 						lexer_utils.c			\
 						parser.c				\
 						parser_split_pipes.c	\
@@ -28,6 +30,7 @@ SRCS				=	main.c					\
 						ft_split.c				\
 						free.c					\
 						forking_init.c			\
+						executor_init.c			\
 						executor.c				\
 						executor_utils.c		\
 						fork.c					\

@@ -6,11 +6,22 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:21:18 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/16 15:35:18 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 12:42:07 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+int	is_slash(char *s)
+{
+	while (*s)
+	{
+		if (*s == '/')
+			return (1);
+		s++;
+	}
+	return (0);
+}
 
 char	*get_cmdpath(char *cmd, char **path)
 {
