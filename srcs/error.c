@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 15:08:21 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/14 15:40:54 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 15:46:30 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	print_redirections_error(char c)
 	return (-1);
 }
 
-int	redirections_error(t_list *lst)
+int	redirections_error(t_dlist *lst)
 {
 	int		i;
 

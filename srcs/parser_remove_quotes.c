@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 17:14:06 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/08 16:09:22 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 15:48:10 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*create_new_str(char *s)
 	return (new);
 }
 
-int	remove_lst_quotes(t_list *lst)
+int	remove_lst_quotes(t_dlist *lst)
 {
 	char	*new;
 

@@ -6,13 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:56:14 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/13 07:14:23 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 15:46:42 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	echo(t_list *lst)
+int	echo(t_dlist *lst)
 {
 	int	i;
 	int	opt;

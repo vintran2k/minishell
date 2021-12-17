@@ -6,13 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:46:26 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/13 02:28:45 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 15:48:03 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-void	get_redir_type(t_list *lst, char *redir)
+void	get_redir_type(t_dlist *lst, char *redir)
 {
 	while (lst->next)
 		lst = lst->next;
@@ -23,7 +23,7 @@ void	get_redir_type(t_list *lst, char *redir)
 		lst->type = 2;
 }
 
-int	fill_redirections_lst(t_mini *m, t_list *tmp, int i)
+int	fill_redirections_lst(t_mini *m, t_dlist *tmp, int i)
 {
 	if (redirections_error(tmp) == -1)
 	{
@@ -45,10 +45,10 @@ int	fill_redirections_lst(t_mini *m, t_list *tmp, int i)
 	return (0);
 }
 
-t_list	*remove_redirections(t_list **begin, t_list *tmp)
+t_dlist	*remove_redirections(t_dlist **begin, t_dlist *tmp)
 {
 	int		i;
-	t_list	*rm;
+	t_dlist	*rm;
 
 	i = 0;
 	rm = tmp;
@@ -64,7 +64,7 @@ t_list	*remove_redirections(t_list **begin, t_list *tmp)
 int	get_redirections(t_mini *m)
 {
 	int		i;
-	t_list	*tmp;
+	t_dlist	*tmp;
 
 	i = 0;
 	while (i <= m->n_pipes)

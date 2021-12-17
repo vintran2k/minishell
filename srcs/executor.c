@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 12:51:13 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 16:10:28 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	exec_builtins(t_mini *m, t_exec *e)
 
 int	is_builtin(t_mini *m, t_exec *e)
 {
+	if (!m->s[e->i])
+		return (0);
 	if (!strcmp((char *)m->s[e->i]->data, "echo"))
 		return (1);
 	else if (!strcmp((char *)m->s[e->i]->data, "cd"))

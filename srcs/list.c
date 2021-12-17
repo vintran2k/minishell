@@ -6,17 +6,17 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 20:59:24 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:46:22 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 15:47:36 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-t_list	*create_elem(void *data)
+t_dlist	*create_elem(void *data)
 {
-	t_list	*new;
+	t_dlist	*new;
 
-	new = malloc(sizeof(t_list));
+	new = malloc(sizeof(t_dlist));
 	if (!new)
 		return (NULL);
 	new->data = data;
@@ -25,10 +25,10 @@ t_list	*create_elem(void *data)
 	return (new);
 }
 
-void	push_back(t_list **lst, void *data)
+void	push_back(t_dlist **lst, void *data)
 {
-	t_list	*tmp;
-	t_list	*new;
+	t_dlist	*tmp;
+	t_dlist	*new;
 
 	new = create_elem(data);
 	if (!new)
@@ -45,10 +45,10 @@ void	push_back(t_list **lst, void *data)
 	new->prev = tmp;
 }
 
-int	lst_len(t_list **lst)
+int	lst_len(t_dlist **lst)
 {
 	int		i;
-	t_list	*tmp;
+	t_dlist	*tmp;
 
 	tmp = *lst;
 	i = 0;
@@ -60,7 +60,7 @@ int	lst_len(t_list **lst)
 	return (i);
 }
 
-int	lst_delone(t_list *lst)
+int	lst_delone(t_dlist *lst)
 {
 	int	ret;
 
@@ -89,9 +89,9 @@ int	lst_delone(t_list *lst)
 	return (ret);
 }
 
-void	lst_clear(t_list **lst, void (*del)(void *))
+void	lst_clear(t_dlist **lst, void (*del)(void *))
 {
-	t_list	*tmp;
+	t_dlist	*tmp;
 
 	while (*lst != NULL)
 	{

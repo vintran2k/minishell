@@ -6,18 +6,18 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 12:10:20 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 13:25:09 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 15:47:18 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	replace_var(t_list **lst, char *env, int dq)
+int	replace_var(t_dlist **lst, char *env, int dq)
 {
 	int		i;
 	int		newlen;
 	char	*new;
-	t_list	*tmp;
+	t_dlist	*tmp;
 
 	tmp = *lst;
 	i = 0;
@@ -36,7 +36,7 @@ int	replace_var(t_list **lst, char *env, int dq)
 	return (0);
 }
 
-int	remove_var(t_list *var, int i)
+int	remove_var(t_dlist *var, int i)
 {
 	int		j;
 	int		len;
@@ -58,8 +58,8 @@ int	remove_var(t_list *var, int i)
 
 void	remove_empties(t_lexer *a)
 {
-	t_list	*tmp;
-	t_list	*del;
+	t_dlist	*tmp;
+	t_dlist	*del;
 
 	tmp = a->lst;
 	while (tmp)
@@ -79,7 +79,7 @@ void	remove_empties(t_lexer *a)
 
 void	parse_vars(t_lexer *a)
 {
-	t_list	*tmp;
+	t_dlist	*tmp;
 	char	*env;
 
 	tmp = a->lst;

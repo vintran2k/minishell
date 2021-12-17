@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 16:13:21 by vintran           #+#    #+#             */
-/*   Updated: 2021/11/08 16:42:08 by vintran          ###   ########.fr       */
+/*   Created: 2021/01/04 12:31:23 by vintran           #+#    #+#             */
+/*   Updated: 2021/12/17 16:35:37 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini.h"
+#include "libft.h"
 
 void	free_split(char **tab)
 {
@@ -26,13 +26,14 @@ void	free_split(char **tab)
 		}
 		free(tab);
 	}
+	tab = NULL;
 }
 
-size_t	ft_count_words(const char *s, char c)
+int	ft_count_words(const char *s, char c)
 {
-	size_t	i;
-	size_t	j;
-	size_t	nb_words;
+	int	i;
+	int	j;
+	int	nb_words;
 
 	i = 0;
 	nb_words = 0;
@@ -50,11 +51,11 @@ size_t	ft_count_words(const char *s, char c)
 	return (nb_words);
 }
 
-void	ft_fill_tab(char **tab, const char *s, char c, size_t nb_words)
+void	ft_fill_tab(char **tab, const char *s, char c, int nb_words)
 {
-	size_t	i;
-	size_t	j;
-	size_t	word_len;
+	int	i;
+	int	j;
+	int	word_len;
 
 	i = 0;
 	j = 0;
@@ -66,7 +67,7 @@ void	ft_fill_tab(char **tab, const char *s, char c, size_t nb_words)
 		word_len = 0;
 		while (s[j + word_len] && s[j + word_len] != c)
 			word_len++;
-		tab[i] = ft_strndup((char *)&s[j], word_len);
+		tab[i] = ft_substr(s, j, word_len);
 		if (!tab[i])
 		{
 			free_split(tab);
@@ -79,7 +80,7 @@ void	ft_fill_tab(char **tab, const char *s, char c, size_t nb_words)
 
 char	**ft_split(const char *s, char c)
 {
-	size_t	nb_words;
+	int		nb_words;
 	char	**tab;
 
 	if (!s)

@@ -6,13 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:27:03 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/06 13:36:26 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 15:48:28 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	count_pipes(t_list *lst)
+int	count_pipes(t_dlist *lst)
 {
 	int	ret;
 
@@ -26,7 +26,7 @@ int	count_pipes(t_list *lst)
 	return (ret);
 }
 
-int	init_parser(t_mini *m, t_list *lst)
+int	init_parser(t_mini *m, t_dlist *lst)
 {
 	int	i;
 
@@ -37,10 +37,10 @@ int	init_parser(t_mini *m, t_list *lst)
 	m->s = split_pipes(lst, m->n_pipes);
 	if (!m->s)
 		return (-1);
-	m->in = malloc(sizeof(t_list *) * (m->n_pipes + 1));
+	m->in = malloc(sizeof(t_dlist *) * (m->n_pipes + 1));
 	if (!m->in)
 		return (malloc_error());
-	m->out = malloc(sizeof(t_list *) * (m->n_pipes + 1));
+	m->out = malloc(sizeof(t_dlist *) * (m->n_pipes + 1));
 	if (!m->out)
 		return (malloc_error());
 	i = 0;
@@ -52,7 +52,7 @@ int	init_parser(t_mini *m, t_list *lst)
 	return (0);
 }
 
-int	parser(t_list **lst, t_mini *m)
+int	parser(t_dlist **lst, t_mini *m)
 {
 	if (init_parser(m, *lst) == -1)
 	{

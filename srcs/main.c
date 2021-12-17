@@ -6,15 +6,15 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 12:59:08 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 16:24:42 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-t_list	*get_env(char **env)
+t_dlist	*get_env(char **env)
 {
-	t_list	*lst;
+	t_dlist	*lst;
 	int		i;
 
 	lst = NULL;
@@ -109,5 +109,6 @@ int	main(int ac, char **av, char **env)
 }
 
 
-// unset toutes les var (peut etre pb avc lst_delone dans unset)
-// segfault --> rm -rf le dossier
+//	unset toutes les var (peut etre pb avc lst_delone dans unset)
+//	segfault --> rm -rf le dossier
+//	leaks here_doc ^D --> env

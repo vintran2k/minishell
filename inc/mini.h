@@ -1,6 +1,7 @@
 #ifndef MINI_H
 # define MINI_H
 
+# include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -13,13 +14,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct	s_list
+typedef struct	s_dlist
 {
 	int				type;
 	void			*data;
-	struct s_list	*prev;
-	struct s_list	*next;
-}				t_list;
+	struct s_dlist	*prev;
+	struct s_dlist	*next;
+}				t_dlist;
 
 typedef struct	s_lexer
 {
@@ -28,15 +29,15 @@ typedef struct	s_lexer
 	int		q;
 	int		dq;
 	char	*sep;
-	t_list	*lst;
+	t_dlist	*lst;
 }				t_lexer;
 
 typedef struct	s_mini
 {
 	int		n_pipes;
-	t_list	**s;
-	t_list	**in;
-	t_list	**out;
+	t_dlist	**s;
+	t_dlist	**in;
+	t_dlist	**out;
 }				t_mini;
 
 typedef struct	s_exec
@@ -60,36 +61,28 @@ typedef	struct	s_global
 {
 	int		error;
 	char	*eof;
-	t_list	*env;
+	t_dlist	*env;
 }				t_global;
 
 t_global	g_vars;
 
-t_list		*create_elem(void *data);
-void		push_back(t_list **lst, void *data);
-int			lst_len(t_list **lst);
-int			lst_delone(t_list *lst);
-void		lst_clear(t_list **lst, void (*del)(void *));
+t_dlist		*create_elem(void *data);
+void		push_back(t_dlist **lst, void *data);
+int			lst_len(t_dlist **lst);
+int			lst_delone(t_dlist *lst);
+void		lst_clear(t_dlist **lst, void (*del)(void *));
 void		lexer(char *line, t_lexer *a);
 char		*is_in_env(char *s);
 int			get_newlen(char *s, char *env, int dq);
 void		fill_new(char *dst, char *src, char *env, int beg);
 int			var_len(char *s);
-void		ft_bzero(void *s, size_t n);
-int			ft_isalnum(int c);
-int			ft_strlen(char *str);
 int			ft_strcmp(const char *s1, const char *s2);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			itoa_len(int n);
 char		*ft_strcpy(char *dest, char *src);
 char		*ft_strcat(char *dest, char *src);
 char		*ft_strncat(char *dest, char *src, int n);
-char		*ft_strdup(const char *s);
-char		*ft_strchr(const char *s, int c);
 void		ft_putstr_fd(char *s, int fd);
 char		*ft_strndup(char *src, int n);
-void		ft_putendl_fd(char *s, int fd);
-char		**ft_split(const char *s, char c);
-char		*ft_itoa(int n);
 void		free_split(char **tab);
 char		*get_prompt(int arrow);
 int			malloc_error(void);
@@ -97,11 +90,11 @@ void 		*malloc_error2(void);
 int			is_quote_closed(t_lexer *a);
 int			quote_maj(t_lexer *a, char c);
 void		init_lexer(t_lexer *a);
-t_list		**split_pipes(t_list *lst, int n_pipes);
+t_dlist		**split_pipes(t_dlist *lst, int n_pipes);
 void		parse_vars(t_lexer *a);
-int			parser(t_list **lst, t_mini *m);
+int			parser(t_dlist **lst, t_mini *m);
 int			remove_quotes(t_mini *m);
-int			redirections_error(t_list *lst);
+int			redirections_error(t_dlist *lst);
 int			get_redirections(t_mini *m);
 void		free_mini_struct(t_mini *m);
 char		**get_env_path(char **env);
@@ -113,7 +106,6 @@ void		quit_forking(t_exec *e);
 int			first_fork(char **env, t_exec *e, t_mini *m);
 int			mid_fork(char **env, t_exec *e, t_mini *m, int i);
 int			last_fork(char **env, t_exec *e, t_mini *m);
-int			is_slash(char *s);
 void		execve_error(t_exec *e, t_mini *m);
 int			init_exec(t_exec *e, t_mini *m, char **env);
 int			executor(t_mini *m, char **env);
@@ -129,8 +121,8 @@ void		sigint_main(int signal);
 void		sigint_here_doc(int signal);
 void		sigint_fork(int signal);
 void		sigquit_fork(int signal);
-int			cd(t_list *lst);
-int			echo(t_list *lst);
+int			cd(t_dlist *lst);
+int			echo(t_dlist *lst);
 int			pwd(void);
 
 #endif

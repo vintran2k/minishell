@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:49:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 12:50:44 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 16:41:20 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execve_error(t_exec *e, t_mini *m)
 	int	ret;
 
 	ret = 127;
-	if (is_slash(e->strs[0]) && ft_strcmp(e->strs[0], ""))
+	if (strchr(e->strs[0], '/') && ft_strcmp(e->strs[0], ""))
 	{
 		fd = open(e->strs[0], O_DIRECTORY);
 		if (fd != -1)

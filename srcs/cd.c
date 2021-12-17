@@ -6,13 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:54:46 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/13 02:16:17 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 15:46:12 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	cd(t_list *lst)
+int	cd(t_dlist *lst)
 {
 	lst = lst->next;
 	if (lst == NULL)

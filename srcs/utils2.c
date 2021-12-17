@@ -6,13 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 14:08:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/16 12:46:11 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 16:00:34 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+/*int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
+}*/
 
 char	*ft_strcpy(char *dest, char *src)
 {
@@ -56,7 +56,7 @@ char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-char	*ft_strdup(const char *s)
+/*char	*ft_strdup(const char *s)
 {
 	char	*dst;
 	size_t	slen;
@@ -74,13 +74,13 @@ char	*ft_strdup(const char *s)
 	}
 	dst[slen] = '\0';
 	return (dst);
-}
+}*/
 
-void	ft_putendl_fd(char *s, int fd)
+/*void	ft_putendl_fd(char *s, int fd)
 {
 	if (s)
 	{
 		ft_putstr_fd(s, fd);
 		ft_putstr_fd("\n", fd);
 	}
-}
+}*/

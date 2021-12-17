@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 12:52:05 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 15:46:55 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	open_infiles(t_mini *m, t_exec *e)
 {
-	t_list	*tmp;
+	t_dlist	*tmp;
 
 	tmp = m->in[e->i];
 	while (tmp)
@@ -40,7 +40,7 @@ int	open_infiles(t_mini *m, t_exec *e)
 
 int	open_files(t_mini *m, t_exec *e)
 {
-	t_list	*tmp;
+	t_dlist	*tmp;
 	int		ret;
 
 	ret = open_infiles(m, e);
@@ -65,7 +65,7 @@ int	open_files(t_mini *m, t_exec *e)
 void	get_strs(t_exec *e, t_mini *m, int lstlen)
 {
 	int		i;
-	t_list	*tmp;
+	t_dlist	*tmp;
 
 	i = 0;
 	e->strs[lstlen] = NULL;

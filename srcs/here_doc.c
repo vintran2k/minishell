@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:16:26 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/13 02:30:08 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 16:17:29 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	here_doc(t_exec *e, t_mini *m)
 		lst_clear(&g_vars.env, &free);
 		exit(0);
 	}
+	g_vars.error = 0;
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 		g_vars.error = 130;
