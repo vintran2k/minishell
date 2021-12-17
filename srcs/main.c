@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 16:24:42 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 17:02:32 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,40 +45,6 @@ int	parsing_line(char *line, char **env)
 	return (0);
 }
 
-char	*get_prompt(int arrow)
-{
-	char	*prompt;
-	char	*cwd;
-	int		i;
-
-	if (g_vars.error == 0)
-		printf("\033[1;32m➜ \033[0m");
-	else
-		printf("\033[1;31m➜ \033[0m");
-	if (arrow == 1)
-		return (NULL);
-	cwd = getcwd(NULL, 0);
-	i = ft_strlen(cwd) - 1;
-	while (i > 0)
-	{
-		if (cwd[i - 1] == '/')
-			break ;
-		i--;
-	}
-	prompt = malloc(ft_strlen(&cwd[i]) + 16);	//
-	if (!prompt)
-		return (NULL);
-	prompt[0] = '\0';
-	ft_strcat(prompt, "\033[1;34m");
-	if (i == 1)
-		ft_strcat(prompt, cwd);
-	else
-		ft_strcat(prompt, &cwd[i]);
-	ft_strcat(prompt, " \033[0m");
-	free(cwd);
-	return (prompt);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
@@ -111,4 +77,4 @@ int	main(int ac, char **av, char **env)
 
 //	unset toutes les var (peut etre pb avc lst_delone dans unset)
 //	segfault --> rm -rf le dossier
-//	leaks here_doc ^D --> env
+//	leaks here_doc ^D --> env ou export

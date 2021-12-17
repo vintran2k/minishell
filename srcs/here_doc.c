@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:16:26 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 16:17:29 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/17 17:01:08 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	read_here_doc_loops(int fd)
 			here_doc_warning();
 			close(fd);
 			free(g_vars.eof);
+			lst_clear(&g_vars.env, &free);
 			exit(0);
 		}
 		if (ft_strcmp(line, g_vars.eof))

@@ -66,11 +66,20 @@ typedef	struct	s_global
 
 t_global	g_vars;
 
+/*
+** LIST ----------------------------------------------------------------- **
+*/
+
 t_dlist		*create_elem(void *data);
 void		push_back(t_dlist **lst, void *data);
 int			lst_len(t_dlist **lst);
 int			lst_delone(t_dlist *lst);
 void		lst_clear(t_dlist **lst, void (*del)(void *));
+
+/*
+** PARSING -------------------------------------------------------------- **
+*/
+
 void		lexer(char *line, t_lexer *a);
 char		*is_in_env(char *s);
 int			get_newlen(char *s, char *env, int dq);
@@ -85,8 +94,6 @@ void		ft_putstr_fd(char *s, int fd);
 char		*ft_strndup(char *src, int n);
 void		free_split(char **tab);
 char		*get_prompt(int arrow);
-int			malloc_error(void);
-void 		*malloc_error2(void);
 int			is_quote_closed(t_lexer *a);
 int			quote_maj(t_lexer *a, char c);
 void		init_lexer(t_lexer *a);
@@ -94,9 +101,20 @@ t_dlist		**split_pipes(t_dlist *lst, int n_pipes);
 void		parse_vars(t_lexer *a);
 int			parser(t_dlist **lst, t_mini *m);
 int			remove_quotes(t_mini *m);
-int			redirections_error(t_dlist *lst);
 int			get_redirections(t_mini *m);
-void		free_mini_struct(t_mini *m);
+
+/*
+** BUILTINS ------------------------------------------------------------- **
+*/
+
+int			cd(t_dlist *lst);
+int			echo(t_dlist *lst);
+int			pwd(void);
+
+/*
+** EXECUTION ------------------------------------------------------------ **
+*/
+
 char		**get_env_path(char **env);
 char		*get_cmdpath(char *cmd, char **path);
 int			init_exec(t_exec *e, t_mini *m, char **env);
@@ -106,23 +124,42 @@ void		quit_forking(t_exec *e);
 int			first_fork(char **env, t_exec *e, t_mini *m);
 int			mid_fork(char **env, t_exec *e, t_mini *m, int i);
 int			last_fork(char **env, t_exec *e, t_mini *m);
-void		execve_error(t_exec *e, t_mini *m);
 int			init_exec(t_exec *e, t_mini *m, char **env);
 int			executor(t_mini *m, char **env);
 int			exec_builtins(t_mini *m, t_exec *e);
 int			here_doc(t_exec *e, t_mini *m);
-void		here_doc_warning(void);
-void		free_exec_struct(t_exec *e, int finish);
 void		close_first(t_exec *e);
 void		close_mid(t_exec *e, int i);
 void		close_last(t_exec *e);
 void		close_fd(t_exec *e, int i);
+
+/*
+** SIGNALS -------------------------------------------------------------- **
+*/
+
 void		sigint_main(int signal);
 void		sigint_here_doc(int signal);
 void		sigint_fork(int signal);
 void		sigquit_fork(int signal);
-int			cd(t_dlist *lst);
-int			echo(t_dlist *lst);
-int			pwd(void);
+
+/*
+** ERRORS --------------------------------------------------------------- **
+*/
+
+int			malloc_error(void);
+void 		*malloc_error2(void);
+int			redirections_error(t_dlist *lst);
+void		here_doc_warning(void);
+void		execve_error(t_exec *e, t_mini *m);
+
+/*
+** FREE ----------------------------------------------------------------- **
+*/
+
+void		free_mini_struct(t_mini *m);
+void		free_exec_struct(t_exec *e, int finish);
+
+
+
 
 #endif
