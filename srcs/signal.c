@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 18:06:48 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 12:33:59 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 18:45:15 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void	sigquit_fork(int signal)
 {
 	(void)signal;
 	g_vars.error = 131;
-	write(1, "Quit\n", 5);
+	write(1, "Quit (core dumped)\n", 19);
 }

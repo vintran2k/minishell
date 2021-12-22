@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 16:29:33 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 18:59:28 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ int	main(int ac, char **av, char **env)
 	return (g_vars.error);
 }
 
-
+//	! ./minishell dans minishell --> ^C (signaux dans sigint fork)
+//	SHLVL
+//	unset _
 //	unset toutes les var (peut etre pb avc lst_delone dans unset)
 //	segfault --> rm -rf le dossier
 //	leaks here_doc ^D --> env ou export
