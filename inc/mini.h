@@ -62,6 +62,7 @@ typedef	struct	s_global
 	int		error;
 	char	*eof;
 	t_dlist	*env;
+	t_dlist	*export;
 }				t_global;
 
 t_global	g_vars;
@@ -107,9 +108,13 @@ int			get_redirections(t_mini *m);
 ** BUILTINS ------------------------------------------------------------- **
 */
 
+void		print_env(t_dlist *lst_env);
+void		print_export(t_dlist *lst_export);
 int			cd(t_dlist *lst);
 int			echo(t_dlist *lst);
 int			pwd(void);
+int			export(char **tab_var);
+int			unset(char **var);
 
 /*
 ** EXECUTION ------------------------------------------------------------ **

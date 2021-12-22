@@ -6,21 +6,25 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 17:02:32 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 12:14:39 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-t_dlist	*get_env(char **env)
+t_dlist	*get_env(char **env, int status)
 {
-	t_dlist	*lst;
-	int		i;
+	t_dlist *lst;
+	int             i;
 
 	lst = NULL;
 	i = 0;
 	while (env[i])
-		push_back(&lst, ft_strdup(env[i++]));
+	{
+		if ((status == 1 && env[i][0] != '_') || status == 0)
+				push_back(&lst, ft_strdup(env[i]));
+		i++;
+	}
 	return (lst);
 }
 
@@ -52,7 +56,8 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	g_vars.env = get_env(env);
+	g_vars.env = get_env(env, 0);
+	g_vars.export = get_env(env, 1);
 	while (1)
 	{
 		prompt = get_prompt(0);
@@ -70,6 +75,7 @@ int	main(int ac, char **av, char **env)
 		free(line);
 	}
 	lst_clear(&g_vars.env, &free);
+	lst_clear(&g_vars.export, &free);
 	rl_clear_history();
 	return (g_vars.error);
 }
