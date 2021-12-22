@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 15:51:32 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/21 14:49:56 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 12:43:03 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*get_prompt(int arrow)
 	int		i;
 
 	if (g_vars.error == 0)
-		printf("\033[1;32m➜ \033[0m");
+		printf("\033[1;32m➜  \033[0m");
 	else
-		printf("\033[1;31m➜ \033[0m");
+		printf("\033[1;31m➜  \033[0m");
 	if (arrow == 1)
 		return (NULL);
 	cwd = getcwd(NULL, 0);

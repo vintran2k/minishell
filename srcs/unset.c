@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 02:56:31 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/20 13:25:33 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 14:48:39 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,18 @@
 int	is_valid_unset(char *var)
 {
 	int	i;
-	
+
 	i = 0;
-	while (var[i - 1])
+	if (isalpha(var[0]) == 0 && var[i] != '_')
 	{
-		if (ft_isalpha(var[i]) == 0 && var[i] != '_')
+		ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
+		ft_putstr_fd(var, STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+		return (1);
+	}
+	while (var[i])
+	{
+		if (ft_isalnum(var[i]) == 0 && var[i] != '_')
 		{
 			ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
 			ft_putstr_fd(var, STDERR_FILENO);
@@ -33,15 +40,15 @@ int	is_valid_unset(char *var)
 
 int	unset_export(char *var)
 {
-	t_dlist *temp;
-	
+	t_dlist	*temp;
+
 	temp = g_vars.export;
 	while (temp)
 	{
 		if (ft_strncmp(var, (char *)temp->data, ft_strlen(var)) == 0)
 		{
 			lst_delone(temp);
-			return (0);	
+			return (0);
 		}
 		temp = temp->next;
 	}
@@ -50,15 +57,15 @@ int	unset_export(char *var)
 
 int	unset_env(char *var)
 {
-	t_dlist *temp;
-	
+	t_dlist	*temp;
+
 	temp = g_vars.env;
 	while (temp)
 	{
 		if (ft_strncmp(var, (char *)temp->data, ft_strlen(var)) == 0)
 		{
 			lst_delone(temp);
-			return (0);	
+			return (0);
 		}
 		temp = temp->next;
 	}
