@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 12:29:17 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 12:35:52 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	exec_builtins(t_mini *m, t_exec *e)
 	if (e->pipes)
 	{
 		lst_clear(&g_vars.env, &free);
+		lst_clear(&g_vars.export, &free);
 		free_mini_struct(m);
 		free_exec_struct(e, 1);
 		exit (ret);

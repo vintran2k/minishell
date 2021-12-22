@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 18:06:48 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 13:28:14 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 12:33:59 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	sigint_here_doc(int signal)
 	g_vars.error = 130;
 	free(g_vars.eof);
 	lst_clear(&g_vars.env, &free);
+	lst_clear(&g_vars.export, &free);
 	exit(130);
 }
 
