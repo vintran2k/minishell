@@ -6,52 +6,54 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 12:18:41 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 12:29:17 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-char    **lst_to_char(t_dlist *lst)
+char	**lst_to_char(t_dlist *lst)
 {
-        t_dlist *tmp;
-        int             len = lst_len(&lst);
-        char    **res = malloc(sizeof(char *) * (len + 1));
+	t_dlist *tmp;
+	int             len = lst_len(&lst);
+	char    **res = malloc(sizeof(char *) * (len + 1));
 
-        res[len] = NULL;
-        tmp = lst;
-        int i = 0;
-        while (tmp)
-        {
-                res[i++] = ft_strdup(tmp->data);
-                tmp = tmp->next;
-        }
-        return (res);
+	res[len] = NULL;
+	tmp = lst;
+	int i = 0;
+	while (tmp)
+	{
+		res[i++] = ft_strdup(tmp->data);
+		tmp = tmp->next;
+	}
+	return (res);
 }
 
-int     exec_builtins(t_mini *m, t_exec *e)
+int	exec_builtins(t_mini *m, t_exec *e)
 {
-        int     ret;
+	int     ret;
 
-        if (e->builtin == 1)
-                ret = echo(m->s[e->i]);
-        if (e->builtin == 2)
-                ret = cd(m->s[e->i]);
-        if (e->builtin == 3)
-                ret = pwd();
-        if (e->builtin == 4)
-                ret = export(lst_to_char(m->s[e->i]));
-        if (e->builtin == 5)
-                ret = unset(lst_to_char(m->s[e->i]));
-        //...
-        if (e->pipes)
-        {
-                lst_clear(&g_vars.env, &free);
-                free_mini_struct(m);
-                free_exec_struct(e, 1);
-                exit (ret);
-        }
-        return (ret);
+	if (e->builtin == 1)
+		ret = echo(m->s[e->i]);
+	if (e->builtin == 2)
+		ret = cd(m->s[e->i]);
+	if (e->builtin == 3)
+		ret = pwd();
+	if (e->builtin == 4)
+		ret = export(lst_to_char(m->s[e->i]));
+	if (e->builtin == 5)
+		ret = unset(lst_to_char(m->s[e->i]));
+	if (e->builtin == 6)
+		ret = print_env();
+	//...
+	if (e->pipes)
+	{
+		lst_clear(&g_vars.env, &free);
+		free_mini_struct(m);
+		free_exec_struct(e, 1);
+		exit (ret);
+	}
+	return (ret);
 }
 
 int	is_builtin(t_mini *m, t_exec *e)

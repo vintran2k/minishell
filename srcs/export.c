@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 15:51:29 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 12:16:25 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 12:30:07 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ int	export(char **tab_var)
 		i++;
 	}
 	printf("\n\n------------------env------------------\n");
-	print_env(g_vars.env);
+	print_env();
 	printf("\n\n------------------export------------------\n");
-	print_export(g_vars.export);
+	print_export();
 	return (ret > 0);
 }

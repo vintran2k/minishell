@@ -108,8 +108,8 @@ int			get_redirections(t_mini *m);
 ** BUILTINS ------------------------------------------------------------- **
 */
 
-void		print_env(t_dlist *lst_env);
-void		print_export(t_dlist *lst_export);
+int			print_env(void);
+void		print_export(void);
 int			cd(t_dlist *lst);
 int			echo(t_dlist *lst);
 int			pwd(void);

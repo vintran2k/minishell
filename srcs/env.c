@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:32:56 by thpham-v          #+#    #+#             */
-/*   Updated: 2021/12/22 12:16:04 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 12:29:51 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,26 @@ void	sort_lst_env(t_dlist **lst_export)
 	}
 }
 
-void	print_env(t_dlist *lst_env)
+int		print_env(void)
 {
 	t_dlist	*temp;
-	
-	temp = lst_env;
+
+	temp = g_vars.env;
 	while (temp)
 	{
 		ft_putstr_fd(temp->data, 1);
 		write(1, "\n", 1);
 		temp = temp->next;
 	}
+	return (0);
 }
 
-void	print_export(t_dlist *lst_export)
+void	print_export(void)
 {
 	t_dlist	*temp;
 
-	sort_lst_env(&lst_export);
-	temp = lst_export;
+	sort_lst_env(&g_vars.export);
+	temp = g_vars.export;
 	while (temp)
 	{
 		ft_putstr_fd("declare -x ", 1);
