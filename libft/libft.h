@@ -6,14 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 12:35:52 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 13:16:39 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 15:57:54 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "get_next_line.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>

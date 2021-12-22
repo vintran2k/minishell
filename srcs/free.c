@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 17:50:56 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/05 12:01:12 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 16:11:19 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,14 @@ void	free_exec_struct(t_exec *e, int finish)
 		free(e->cmdpath);
 	if (e->strs)
 		free(e->strs);
+	if (e->env)
+		free_strs(e->env);
 	e->cmdpath = NULL;
 	e->strs = NULL;
+	e->env = NULL;
 	if (finish)
 	{
-		free_split(e->path);
+		free_strs(e->path);
 		if (e->pid)
 			free(e->pid);
 		i = 0;

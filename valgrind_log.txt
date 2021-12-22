@@ -1,36 +1,20 @@
-==25905== Memcheck, a memory error detector
-==25905== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==25905== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==25905== Command: ./minishell
-==25905== Parent PID: 16746
-==25905== 
-==25905== Invalid read of size 1
-==25905==    at 0x406577: ft_strlen (in /home/admin/boss/minishell/minishell)
-==25905==    by 0x406DAB: join_buf (in /home/admin/boss/minishell/minishell)
-==25905==    by 0x40711C: get_next_line (in /home/admin/boss/minishell/minishell)
-==25905==    by 0x4013C5: get_env (in /home/admin/boss/minishell/minishell)
-==25905==    by 0x401586: main (in /home/admin/boss/minishell/minishell)
-==25905==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
-==25905== 
-==25905== 
-==25905== Process terminating with default action of signal 11 (SIGSEGV)
-==25905==  Access not within mapped region at address 0x0
-==25905==    at 0x406577: ft_strlen (in /home/admin/boss/minishell/minishell)
-==25905==    by 0x406DAB: join_buf (in /home/admin/boss/minishell/minishell)
-==25905==    by 0x40711C: get_next_line (in /home/admin/boss/minishell/minishell)
-==25905==    by 0x4013C5: get_env (in /home/admin/boss/minishell/minishell)
-==25905==    by 0x401586: main (in /home/admin/boss/minishell/minishell)
-==25905==  If you believe this happened as a result of a stack
-==25905==  overflow in your program's main thread (unlikely but
-==25905==  possible), you can try to increase the size of the
-==25905==  main thread stack using the --main-stacksize= flag.
-==25905==  The main thread stack size used in this run was 8388608.
-==25905== 
-==25905== HEAP SUMMARY:
-==25905==     in use at exit: 0 bytes in 0 blocks
-==25905==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
-==25905== 
-==25905== All heap blocks were freed -- no leaks are possible
-==25905== 
-==25905== For counts of detected and suppressed errors, rerun with: -v
-==25905== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==7459== Memcheck, a memory error detector
+==7459== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==7459== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==7459== Command: ./minishell
+==7459== Parent PID: 6444
+==7459== 
+==7459== 
+==7459== HEAP SUMMARY:
+==7459==     in use at exit: 138,918 bytes in 196 blocks
+==7459==   total heap usage: 547 allocs, 351 frees, 218,732 bytes allocated
+==7459== 
+==7459== LEAK SUMMARY:
+==7459==    definitely lost: 0 bytes in 0 blocks
+==7459==    indirectly lost: 0 bytes in 0 blocks
+==7459==      possibly lost: 0 bytes in 0 blocks
+==7459==    still reachable: 0 bytes in 0 blocks
+==7459==         suppressed: 138,918 bytes in 196 blocks
+==7459== 
+==7459== For counts of detected and suppressed errors, rerun with: -v
+==7459== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

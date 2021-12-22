@@ -6,13 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 12:31:23 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 16:35:37 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 16:04:29 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	free_split(char **tab)
+void	free_strs(char **tab)
 {
 	int	i;
 
@@ -70,7 +70,7 @@ void	ft_fill_tab(char **tab, const char *s, char c, int nb_words)
 		tab[i] = ft_substr(s, j, word_len);
 		if (!tab[i])
 		{
-			free_split(tab);
+			free_strs(tab);
 			break ;
 		}
 		j += word_len;

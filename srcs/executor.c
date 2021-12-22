@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 12:35:52 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 16:29:15 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	is_builtin(t_mini *m, t_exec *e)
 	return (0);
 }
 
-void	forking_loops(t_mini *m, t_exec *e, char **env)
+void	forking_loops(t_mini *m, t_exec *e)
 {
 	while (e->i <= m->n_pipes)
 	{
@@ -88,7 +88,7 @@ void	forking_loops(t_mini *m, t_exec *e, char **env)
 			g_vars.error = exec_builtins(m, e);
 			return ;
 		}
-		if (forking(env, m, e) == -1)
+		if (forking(m, e) == -1)
 			g_vars.error = 1;
 		if (e->ret == 0)
 		{
@@ -105,16 +105,16 @@ void	forking_loops(t_mini *m, t_exec *e, char **env)
 	}
 }
 
-int	executor(t_mini *m, char **env)
+int	executor(t_mini *m)
 {
 	t_exec	e;
 
-	if (init_exec(&e, m, env) == -1)
+	if (init_exec(&e, m) == -1)
 	{
 		free_exec_struct(&e, 1);
 		return (-1);
 	}
-	forking_loops(m, &e, env);
+	forking_loops(m, &e);
 	free_exec_struct(&e, 1);
 	return (0);
 }

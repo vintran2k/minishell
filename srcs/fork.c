@@ -6,13 +6,13 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:50:43 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/16 15:33:25 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 16:27:11 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	first_fork(char **env, t_exec *e, t_mini *m)
+int	first_fork(t_exec *e, t_mini *m)
 {
 	if (e->infile && e->infile != -1)
 		dup2(e->infile, STDIN_FILENO);
@@ -23,7 +23,7 @@ int	first_fork(char **env, t_exec *e, t_mini *m)
 	close_first(e);
 	if (!e->builtin)
 	{
-		if (execve(e->strs[0], e->strs, env) == -1)
+		if (execve(e->strs[0], e->strs, e->env) == -1)
 			execve_error(e, m);
 	}
 	else
@@ -31,7 +31,7 @@ int	first_fork(char **env, t_exec *e, t_mini *m)
 	return (0);
 }
 
-int	mid_fork(char **env, t_exec *e, t_mini *m, int i)
+int	mid_fork(t_exec *e, t_mini *m, int i)
 {
 	if (e->infile && e->infile != -1)
 		dup2(e->infile, STDIN_FILENO);
@@ -44,7 +44,7 @@ int	mid_fork(char **env, t_exec *e, t_mini *m, int i)
 	close_mid(e, i);
 	if (!e->builtin)
 	{
-		if (execve(e->strs[0], e->strs, env) == -1)
+		if (execve(e->strs[0], e->strs, e->env) == -1)
 			execve_error(e, m);
 	}
 	else
@@ -52,7 +52,7 @@ int	mid_fork(char **env, t_exec *e, t_mini *m, int i)
 	return (0);
 }
 
-int	last_fork(char **env, t_exec *e, t_mini *m)
+int	last_fork(t_exec *e, t_mini *m)
 {
 	if (e->infile && e->infile != -1)
 		dup2(e->infile, STDIN_FILENO);
@@ -63,7 +63,7 @@ int	last_fork(char **env, t_exec *e, t_mini *m)
 	close_last(e);
 	if (!e->builtin)
 	{
-		if (execve(e->strs[0], e->strs, env) == -1)
+		if (execve(e->strs[0], e->strs, e->env) == -1)
 			execve_error(e, m);
 	}
 	else
@@ -87,7 +87,7 @@ void	quit_forking(t_exec *e)
 	}
 }
 
-int	forking(char **env, t_mini *m, t_exec *e)
+int	forking(t_mini *m, t_exec *e)
 {
 	e->ret = init_forking(m, e);
 	if (e->ret == -1)
@@ -101,11 +101,11 @@ int	forking(char **env, t_mini *m, t_exec *e)
 		{
 			rl_clear_history();
 			if (e->i == 0)
-				e->ret = first_fork(env, e, m);
+				e->ret = first_fork(e, m);
 			else if (e->i == e->pipes)
-				e->ret = last_fork(env, e, m);
+				e->ret = last_fork(e, m);
 			else
-				e->ret = mid_fork(env, e, m, e->i);
+				e->ret = mid_fork(e, m, e->i);
 		}
 	}
 	quit_forking(e);

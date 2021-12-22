@@ -53,6 +53,7 @@ typedef struct	s_exec
 	int		infile;
 	int		outfile;
 	char	**strs;
+	char	**env;
 	pid_t	*pid;
 	int		builtin;
 }				t_exec;
@@ -93,7 +94,6 @@ char		*ft_strcat(char *dest, char *src);
 char		*ft_strncat(char *dest, char *src, int n);
 void		ft_putstr_fd(char *s, int fd);
 char		*ft_strndup(char *src, int n);
-void		free_split(char **tab);
 char		*get_prompt(int arrow);
 int			is_quote_closed(t_lexer *a);
 int			quote_maj(t_lexer *a, char c);
@@ -120,17 +120,17 @@ int			unset(char **var);
 ** EXECUTION ------------------------------------------------------------ **
 */
 
+char		**lst_to_char(t_dlist *lst);
 char		**get_env_path(char **env);
 char		*get_cmdpath(char *cmd, char **path);
-int			init_exec(t_exec *e, t_mini *m, char **env);
+int			init_exec(t_exec *e, t_mini *m);
 int			init_forking(t_mini *m, t_exec *e);
-int			forking(char **env, t_mini *m, t_exec *e);
+int			forking(t_mini *m, t_exec *e);
 void		quit_forking(t_exec *e);
-int			first_fork(char **env, t_exec *e, t_mini *m);
-int			mid_fork(char **env, t_exec *e, t_mini *m, int i);
-int			last_fork(char **env, t_exec *e, t_mini *m);
-int			init_exec(t_exec *e, t_mini *m, char **env);
-int			executor(t_mini *m, char **env);
+int			first_fork(t_exec *e, t_mini *m);
+int			mid_fork(t_exec *e, t_mini *m, int i);
+int			last_fork(t_exec *e, t_mini *m);
+int			executor(t_mini *m);
 int			exec_builtins(t_mini *m, t_exec *e);
 int			here_doc(t_exec *e, t_mini *m);
 void		close_first(t_exec *e);
@@ -161,10 +161,8 @@ void		execve_error(t_exec *e, t_mini *m);
 ** FREE ----------------------------------------------------------------- **
 */
 
+void		free_strs(char **tab);
 void		free_mini_struct(t_mini *m);
 void		free_exec_struct(t_exec *e, int finish);
-
-
-
 
 #endif

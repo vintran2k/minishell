@@ -6,49 +6,18 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 15:17:19 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/22 16:29:33 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-#define ENV_FILE	"/tmp/minishell_env"
-void	add_env_history(void)
-{
-	int	file = open(ENV_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-	t_dlist	*tmp = g_vars.env;
-	
-	while (tmp)
-	{
-		ft_putendl_fd(tmp->data, file);
-		ft_putendl_fd("\n", file);
-		tmp = tmp->next;
-	}
-	close(file);
-}
-
 t_dlist	*get_env(char **env, int status)
 {
 	t_dlist	*lst;
 	int		i;
-	int		env_fd;
 
 	lst = NULL;
-	env_fd = open(ENV_FILE, O_RDONLY);
-	if (env_fd != -1 && status == 1)
-	{
-		char	*line;
-		int		ret = 1;
-
-		while (ret)
-		{
-			ret = get_next_line(env_fd, &line);
-			if ((status == 1 && line[0] != '_') || status == 0)
-				push_back(&lst, line);
-		}
-		close(env_fd);
-		return (lst);
-	}
 	i = 0;
 	while (env[i])
 	{
@@ -59,7 +28,7 @@ t_dlist	*get_env(char **env, int status)
 	return (lst);
 }
 
-int	parsing_line(char *line, char **env)
+int	parsing_line(char *line)
 {
 	t_lexer	a;
 	t_mini	m;
@@ -74,7 +43,7 @@ int	parsing_line(char *line, char **env)
 		return (-1);
 	}
 	lst_clear(&(a.lst), &free);
-	if (executor(&m, env) == -1)
+	if (executor(&m) == -1)
 		return (-1);
 	free_mini_struct(&m);
 	return (0);
@@ -102,14 +71,12 @@ int	main(int ac, char **av, char **env)
 			break ;
 		}
 		add_history(line);
-		add_env_history();
-		parsing_line(line, env);
+		parsing_line(line);
 		free(line);
 	}
 	lst_clear(&g_vars.env, &free);
 	lst_clear(&g_vars.export, &free);
 	rl_clear_history();
-	unlink(ENV_FILE);
 	return (g_vars.error);
 }
 
