@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:21:18 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 16:42:00 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/23 14:24:55 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_cmdpath(char *cmd, char **path)
 
 	cmdlen = ft_strlen(cmd);
 	i = -1;
-	while (path[++i])
+	while (path && path[++i])
 	{
 		pathlen = ft_strlen(path[i]);
 		cmdpath = malloc(pathlen + cmdlen + 2);

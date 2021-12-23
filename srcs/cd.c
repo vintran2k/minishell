@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:54:46 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 17:58:39 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/23 13:25:35 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,15 @@ char	*get_pwd_env(void)
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->data, "PWD=", 4))
-			return (strchr(tmp->data, '=') + 1);
+			return (ft_strdup(strchr(tmp->data, '=') + 1));
 		tmp = tmp->next;
 	}
+	t_dlist	*old;
+	old = NULL;
+	push_back(&old, ft_strdup("unset"));
+	push_back(&old, ft_strdup("OLDPWD"));
+	unset(old);
+	lst_clear(&old, &free);
 	return (NULL);
 }
 
@@ -32,7 +38,11 @@ void	replace_wd(t_dlist *lst, char *home, int status)
 	char	*new;
 
 	if (status == 7)
+	{
 		path = get_pwd_env();
+		if (!path)
+			return ;
+	}
 	else
 	{
 		path = home;
@@ -45,6 +55,8 @@ void	replace_wd(t_dlist *lst, char *home, int status)
 	new[0] = '\0';
 	ft_strncat(new, lst->data, status);
 	ft_strcat(new, path);
+	if (!(status == 4 && home))
+		free(path);
 	free(lst->data);
 	lst->data = new;
 }
@@ -57,14 +69,20 @@ void	maj_wd(char *home)
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->data, "OLDPWD=", 7))
+		{
 			replace_wd(tmp, home, 7);
+			break ;
+		}
 		tmp = tmp->next;
 	}
 	tmp = g_vars.env;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->data, "PWD=", 4))
+		{
 			replace_wd(tmp, home, 4);
+			break ;
+		}
 		tmp = tmp->next;
 	}
 }

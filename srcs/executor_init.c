@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:43:32 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 16:28:35 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/23 14:23:44 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	init_exec(t_exec *e, t_mini *m)
 	e->pipes = m->n_pipes;
 	e->env = lst_to_char(g_vars.env);
 	e->path = get_env_path(e->env);
-	if (!e->path)
-		return (-1);
+	//if (!e->path)
+	//	return (-1);
 	e->pid = malloc(sizeof(pid_t) * (e->pipes + 1));
 	if (!e->pid)
 		return (malloc_error());

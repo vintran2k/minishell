@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 15:51:29 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 14:52:08 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/23 13:16:01 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,34 @@ void	export_choice(char *full_var, char *var, char *p)
 	}
 }
 
-int	export(char **tab_var)
+int	export(t_dlist *lst)
+{
+	int		ret;
+	char	*var;
+	char	*p;
+
+	ret = 0;
+	lst = lst->next;
+	if (lst == NULL)
+		print_export();
+	while (lst)
+	{
+		var = get_var(lst->data, &ret);
+		if (ret == 1)
+		{
+			ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+			ft_putstr_fd(var, STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+			return (1);
+		}
+		p = ft_strchr(lst->data, '=');
+		export_choice(lst->data, var, p);
+		lst = lst->next;
+	}
+	return (ret > 0);
+}
+
+/*int	export(char **tab_var)
 {
 	int		i;
 	int		ret;
@@ -172,3 +199,9 @@ int	export(char **tab_var)
 	}
 	return (ret > 0);
 }
+
+minishell unset PWD
+➜  minishell cd inc
+➜  inc env | grep PWD
+➜  inc exit
+*/

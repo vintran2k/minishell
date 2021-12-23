@@ -113,8 +113,8 @@ void		print_export(void);
 int			cd(t_dlist *lst);
 int			echo(t_dlist *lst);
 int			pwd(void);
-int			export(char **tab_var);
-int			unset(char **var);
+int			export(t_dlist *lst);
+int			unset(t_dlist *lst);
 
 /*
 ** EXECUTION ------------------------------------------------------------ **

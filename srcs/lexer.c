@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:37:32 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 16:30:56 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/23 15:36:13 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	lexer(char *line, t_lexer *a)
 	while (line[a->i])
 	{
 		a->j = 0;
-		while (strchr(a->sep, line[a->i + a->j]))
+		while (line[a->i + a->j] && ft_strchr(a->sep, line[a->i + a->j]))
 			a->j++;
 		if (a->j)
 			add_str_list(&(a->lst), &line[a->i], a->j);
@@ -56,7 +56,7 @@ void	lexer(char *line, t_lexer *a)
 		while (line[a->i] == ' ' && a->q == 1 && a->dq == 1)
 			a->i++;
 		a->j = 0;
-		while (line[a->i + a->j] && ((!strchr(a->sep, line[a->i + a->j])
+		while (line[a->i + a->j] && ((!ft_strchr(a->sep, line[a->i + a->j])
 					&& line[a->i + a->j] != ' ' && a->q == 1
 					&& a->dq == 1) || (a->q != 1 || a->dq != 1)))
 		{

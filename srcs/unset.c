@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 02:56:31 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 14:48:39 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/23 14:17:38 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,40 +55,40 @@ int	unset_export(char *var)
 	return (0);
 }
 
-int	unset_env(char *var)
+void	unset_env(char *var)
 {
 	t_dlist	*temp;
 
 	temp = g_vars.env;
+	if (!ft_strcmp(var, "_"))
+		return ;
 	while (temp)
 	{
 		if (ft_strncmp(var, (char *)temp->data, ft_strlen(var)) == 0)
 		{
 			lst_delone(temp);
-			return (0);
+			return ;
 		}
 		temp = temp->next;
 	}
-	return (0);
 }
 
-int	unset(char **var)
+int	unset(t_dlist *lst)
 {
-	int	i;
 	int	ret;
 
-	i = 1;
 	ret = 0;
-	while (var[i])
+	lst = lst->next;
+	while (lst)
 	{
-		if (is_valid_unset(var[i]) == 1)
-			ret = i;
-		if (ret != i)
+		if (is_valid_unset(lst->data) == 1)
+			ret = 1;
+		if (ret != 1)
 		{
-			unset_env(var[i]);
-			unset_export(var[i]);
+			unset_env(lst->data);
+			unset_export(lst->data);
 		}
-		i++;
+		lst = lst->next;
 	}
-	return (ret > 0);
+	return (ret);
 }

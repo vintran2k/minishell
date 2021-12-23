@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:49:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 16:41:20 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/23 12:14:30 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	execve_error(t_exec *e, t_mini *m)
 	else
 		cmd_not_found(e->strs[0]);
 	lst_clear(&g_vars.env, &free);
+	lst_clear(&g_vars.export, &free);
 	free_mini_struct(m);
 	free_exec_struct(e, 1);
 	exit(ret);

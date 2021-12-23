@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 16:29:15 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/23 13:19:19 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	exec_builtins(t_mini *m, t_exec *e)
 	if (e->builtin == 3)
 		ret = pwd();
 	if (e->builtin == 4)
-		ret = export(lst_to_char(m->s[e->i]));
+		ret = export(m->s[e->i]);
 	if (e->builtin == 5)
-		ret = unset(lst_to_char(m->s[e->i]));
+		ret = unset(m->s[e->i]);
 	if (e->builtin == 6)
 		ret = print_env();
 	//...
