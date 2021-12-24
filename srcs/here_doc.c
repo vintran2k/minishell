@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:16:26 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 12:33:04 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/24 15:00:27 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	read_here_doc_loops(int fd)
 			here_doc_warning();
 			close(fd);
 			free(g_vars.eof);
-			lst_clear(&g_vars.env, &free);
-			lst_clear(&g_vars.export, &free);
 			exit(0);
 		}
 		if (ft_strcmp(line, g_vars.eof))
@@ -64,13 +62,10 @@ int	here_doc(t_exec *e, t_mini *m)
 	pid = fork();
 	if (pid == 0)
 	{
-		free_mini_struct(m);
-		free_exec_struct(e, 1);
+		free_here_doc_process(m, e);
 		signal(SIGINT, sigint_here_doc);
 		read_here_doc_loops(fd);
 		free(g_vars.eof);
-		lst_clear(&g_vars.env, &free);
-		lst_clear(&g_vars.export, &free);
 		exit(0);
 	}
 	g_vars.error = 0;

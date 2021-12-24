@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:54:46 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/23 13:25:35 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/24 14:50:37 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ char	*get_pwd_env(void)
 			return (ft_strdup(strchr(tmp->data, '=') + 1));
 		tmp = tmp->next;
 	}
-	t_dlist	*old;
-	old = NULL;
-	push_back(&old, ft_strdup("unset"));
-	push_back(&old, ft_strdup("OLDPWD"));
-	unset(old);
-	lst_clear(&old, &free);
+	tmp = NULL;
+	push_back(&tmp, ft_strdup("unset"));
+	push_back(&tmp, ft_strdup("OLDPWD"));
+	unset(tmp);
+	lst_clear(&tmp, &free);
 	return (NULL);
 }
 

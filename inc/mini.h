@@ -163,6 +163,7 @@ void		execve_error(t_exec *e, t_mini *m);
 
 void		free_strs(char **tab);
 void		free_mini_struct(t_mini *m);
-void		free_exec_struct(t_exec *e, int finish);
+void		free_exec_struct(t_exec *e, int exit);
+void		free_here_doc_process(t_mini *m, t_exec *e);
 
 #endif

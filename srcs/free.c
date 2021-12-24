@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 17:50:56 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 16:11:19 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/24 14:57:52 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_mini_struct(t_mini *m)
 		free(m->out);
 }
 
-void	free_exec_struct(t_exec *e, int finish)
+void	free_exec_struct(t_exec *e, int exit)
 {
 	int	i;
 
@@ -48,7 +48,7 @@ void	free_exec_struct(t_exec *e, int finish)
 	e->cmdpath = NULL;
 	e->strs = NULL;
 	e->env = NULL;
-	if (finish)
+	if (exit)
 	{
 		free_strs(e->path);
 		if (e->pid)
@@ -58,4 +58,12 @@ void	free_exec_struct(t_exec *e, int finish)
 			free(e->fd[i++]);
 		free(e->fd);
 	}
+}
+
+void	free_here_doc_process(t_mini *m, t_exec *e)
+{
+	free_mini_struct(m);
+	free_exec_struct(e, 1);
+	lst_clear(&g_vars.env, &free);
+	lst_clear(&g_vars.export, &free);
 }

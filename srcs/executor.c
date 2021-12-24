@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/23 13:19:19 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/24 14:48:24 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 char	**lst_to_char(t_dlist *lst)
 {
-	t_dlist *tmp;
-	int             len = lst_len(&lst);
-	char    **res = malloc(sizeof(char *) * (len + 1));
+	t_dlist	*tmp;
+	int		len;
+	char	**res;
+	int		i;
 
+	len = lst_len(&lst);
+	res = malloc(sizeof(char *) * (len + 1));
 	res[len] = NULL;
 	tmp = lst;
-	int i = 0;
+	i = 0;
 	while (tmp)
 	{
 		res[i++] = ft_strdup(tmp->data);
@@ -31,7 +34,7 @@ char	**lst_to_char(t_dlist *lst)
 
 int	exec_builtins(t_mini *m, t_exec *e)
 {
-	int     ret;
+	int	ret;
 
 	if (e->builtin == 1)
 		ret = echo(m->s[e->i]);
