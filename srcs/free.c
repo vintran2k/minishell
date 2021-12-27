@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 17:50:56 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/24 14:57:52 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/27 14:36:01 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	free_exec_struct(t_exec *e, int exit)
 	if (exit)
 	{
 		free_strs(e->path);
-		if (e->pid)
-			free(e->pid);
 		i = 0;
 		while (i < e->pipes && e->fd && e->fd[i])
 			free(e->fd[i++]);

@@ -1,34 +1,46 @@
-==2754== Memcheck, a memory error detector
-==2754== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==2754== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==2754== Command: ./minishell
-==2754== Parent PID: 29791
-==2754== 
-==2805== 
-==2805== HEAP SUMMARY:
-==2805==     in use at exit: 138,932 bytes in 200 blocks
-==2805==   total heap usage: 543 allocs, 343 frees, 181,502 bytes allocated
-==2805== 
-==2805== LEAK SUMMARY:
-==2805==    definitely lost: 0 bytes in 0 blocks
-==2805==    indirectly lost: 0 bytes in 0 blocks
-==2805==      possibly lost: 0 bytes in 0 blocks
-==2805==    still reachable: 0 bytes in 0 blocks
-==2805==         suppressed: 138,932 bytes in 200 blocks
-==2805== 
-==2805== For counts of detected and suppressed errors, rerun with: -v
-==2805== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==2754== 
-==2754== HEAP SUMMARY:
-==2754==     in use at exit: 138,918 bytes in 196 blocks
-==2754==   total heap usage: 706 allocs, 510 frees, 212,131 bytes allocated
-==2754== 
-==2754== LEAK SUMMARY:
-==2754==    definitely lost: 0 bytes in 0 blocks
-==2754==    indirectly lost: 0 bytes in 0 blocks
-==2754==      possibly lost: 0 bytes in 0 blocks
-==2754==    still reachable: 0 bytes in 0 blocks
-==2754==         suppressed: 138,918 bytes in 196 blocks
-==2754== 
-==2754== For counts of detected and suppressed errors, rerun with: -v
-==2754== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==12068== Memcheck, a memory error detector
+==12068== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==12068== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==12068== Command: ./minishell
+==12068== Parent PID: 5682
+==12068== 
+==12139== 
+==12139== HEAP SUMMARY:
+==12139==     in use at exit: 138,935 bytes in 197 blocks
+==12139==   total heap usage: 537 allocs, 340 frees, 181,503 bytes allocated
+==12139== 
+==12139== LEAK SUMMARY:
+==12139==    definitely lost: 0 bytes in 0 blocks
+==12139==    indirectly lost: 0 bytes in 0 blocks
+==12139==      possibly lost: 0 bytes in 0 blocks
+==12139==    still reachable: 0 bytes in 0 blocks
+==12139==         suppressed: 138,935 bytes in 197 blocks
+==12139== 
+==12139== For counts of detected and suppressed errors, rerun with: -v
+==12139== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==12068== 
+==12068== HEAP SUMMARY:
+==12068==     in use at exit: 138,922 bytes in 198 blocks
+==12068==   total heap usage: 801 allocs, 603 frees, 277,152 bytes allocated
+==12068== 
+==12068== 4 bytes in 2 blocks are definitely lost in loss record 1 of 47
+==12068==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==12068==    by 0x4074B2: ft_itoa (in /home/admin/boss/minishell/minishell)
+==12068==    by 0x40606B: get_newlvl (in /home/admin/boss/minishell/minishell)
+==12068==    by 0x40609C: change_lvls (in /home/admin/boss/minishell/minishell)
+==12068==    by 0x406203: ft_shlvl (in /home/admin/boss/minishell/minishell)
+==12068==    by 0x404CCD: forking (in /home/admin/boss/minishell/minishell)
+==12068==    by 0x404587: forking_loops (in /home/admin/boss/minishell/minishell)
+==12068==    by 0x404678: executor (in /home/admin/boss/minishell/minishell)
+==12068==    by 0x40151E: parsing_line (in /home/admin/boss/minishell/minishell)
+==12068==    by 0x401623: main (in /home/admin/boss/minishell/minishell)
+==12068== 
+==12068== LEAK SUMMARY:
+==12068==    definitely lost: 4 bytes in 2 blocks
+==12068==    indirectly lost: 0 bytes in 0 blocks
+==12068==      possibly lost: 0 bytes in 0 blocks
+==12068==    still reachable: 0 bytes in 0 blocks
+==12068==         suppressed: 138,918 bytes in 196 blocks
+==12068== 
+==12068== For counts of detected and suppressed errors, rerun with: -v
+==12068== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

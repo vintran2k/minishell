@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/24 14:48:24 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/27 18:31:21 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	exec_builtins(t_mini *m, t_exec *e)
 		ret = unset(m->s[e->i]);
 	if (e->builtin == 6)
 		ret = print_env();
-	//...
+	if (e->builtin == 7)
+		ret = ft_exit(m->s[e->i]);
 	if (e->pipes)
 	{
 		lst_clear(&g_vars.env, &free);
@@ -95,15 +96,13 @@ void	forking_loops(t_mini *m, t_exec *e)
 			g_vars.error = 1;
 		if (e->ret == 0)
 		{
-			waitpid(e->pid[e->i], &e->status, 0);
+			waitpid(g_vars.pid, &e->status, 0);
 			if (WIFEXITED(e->status))
 				g_vars.error = WEXITSTATUS(e->status);
+			g_vars.pid = 0;
 		}
 		if (e->ret == -130)
-		{
-			write(1, "\n", 1);
 			break ;
-		}
 		e->i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:50:43 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/22 18:58:27 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/27 18:22:59 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,14 @@ int	forking(t_mini *m, t_exec *e)
 		perror("minishell");
 	if (e->ret == 0)
 	{
-		if (e->strs && strcmp(e->strs[0], "./minishell") != 0)	//
+		signal(SIGQUIT, ft_signal);
+		if (e->strs && ft_shlvl(e->strs[0]))
 		{
-			signal(SIGINT, sigint_fork);
-			signal(SIGQUIT, sigquit_fork);
+			signal(SIGINT, SIG_IGN);
+			signal(SIGQUIT, SIG_IGN);
 		}
-		e->pid[e->i] = fork();
-		if (e->pid[e->i] == 0)
+		g_vars.pid = fork();
+		if (g_vars.pid == 0)
 		{
 			rl_clear_history();
 			if (e->i == 0)

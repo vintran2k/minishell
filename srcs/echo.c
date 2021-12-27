@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:56:14 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 15:46:42 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/27 18:30:00 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	echo(t_dlist *lst)
 	i = 1;
 	opt = 0;
 	lst = lst->next;
-	if (lst && strcmp((char *)lst->data, "-n") == 0)
+	while (lst && strcmp((char *)lst->data, "-n") == 0)
 	{
 		lst = lst->next;
 		opt = 1;

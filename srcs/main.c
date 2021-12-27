@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/23 15:35:40 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/27 14:58:45 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_dlist	*get_env(char **env, int status)
 
 	lst = NULL;
 	i = 0;
-	if (!env[0])
+	if (!env || !env[0])
 		return (mini_env(status));
 	while (env[i])
 	{
@@ -56,13 +56,6 @@ int	parsing_line(char *line)
 
 	init_lexer(&a);
 	lexer(line, &a);
-	/*t_dlist *lex = a.lst;
-	while (lex)
-	{
-		printf("lex = |%s|\n", lex->data);
-		lex = lex->next;
-	}
-	printf("\n\n");*/
 	if (!a.lst)
 		return (-1);
 	if (parser(&(a.lst), &m) == -1)
@@ -71,18 +64,6 @@ int	parsing_line(char *line)
 		return (-1);
 	}
 	lst_clear(&(a.lst), &free);
-	/*t_dlist **s = m.s;
-	int  i = 0;
-	while (s[i])
-	{
-		t_dlist *si = s[i];
-		while (si)
-		{
-			printf("|%s|\n", si->data);
-			si = si->next;
-		}
-		i++;
-	}*/
 	if (executor(&m) == -1)
 		return (-1);
 	free_mini_struct(&m);
@@ -102,7 +83,7 @@ int	main(int ac, char **av, char **env)
 	{
 		prompt = get_prompt(0);
 		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, sigint_main);
+		signal(SIGINT, ft_signal);
 		line = readline(prompt);
 		free(prompt);
 		if (!line)

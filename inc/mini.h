@@ -54,13 +54,13 @@ typedef struct	s_exec
 	int		outfile;
 	char	**strs;
 	char	**env;
-	pid_t	*pid;
 	int		builtin;
 }				t_exec;
 
 typedef	struct	s_global
 {
 	int		error;
+	pid_t	pid;
 	char	*eof;
 	t_dlist	*env;
 	t_dlist	*export;
@@ -115,6 +115,7 @@ int			echo(t_dlist *lst);
 int			pwd(void);
 int			export(t_dlist *lst);
 int			unset(t_dlist *lst);
+int			ft_exit(t_dlist *lst);
 
 /*
 ** EXECUTION ------------------------------------------------------------ **
@@ -127,6 +128,7 @@ int			init_exec(t_exec *e, t_mini *m);
 int			init_forking(t_mini *m, t_exec *e);
 int			forking(t_mini *m, t_exec *e);
 void		quit_forking(t_exec *e);
+int			ft_shlvl(char *cmd);
 int			first_fork(t_exec *e, t_mini *m);
 int			mid_fork(t_exec *e, t_mini *m, int i);
 int			last_fork(t_exec *e, t_mini *m);
@@ -146,6 +148,7 @@ void		sigint_main(int signal);
 void		sigint_here_doc(int signal);
 void		sigint_fork(int signal);
 void		sigquit_fork(int signal);
+void		ft_signal(int signal);
 
 /*
 ** ERRORS --------------------------------------------------------------- **

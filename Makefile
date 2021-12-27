@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/12/22 12:14:59 by vintran          ###   ########.fr        #
+#    Updated: 2021/12/27 18:30:49 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRCS				=	main.c					\
 						pwd.c					\
 						env.c					\
 						unset.c					\
-						export.c	
+						export.c				\
+						exit.c
 SRCS_BASENAME		=	$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS				=	$(SRCS_BASENAME:.c=.o)
 CC					=	@clang
