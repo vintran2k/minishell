@@ -6,27 +6,45 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 17:12:06 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/24 15:06:10 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/28 13:54:40 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
+int	check_pipes(t_dlist *lst, t_lexer *b)
+{
+	if (((char *)lst->data)[b->i] == '|')
+	{
+		if (!lst->next)
+			return (-1);
+		b->j = 0;
+		while (((char *)lst->data)[b->i + b->j] == '|')
+			b->j++;
+		if (b->j >= 2)
+			return (-1);
+	}
+	return (0);
+}
+
 int	pipes_errors(t_dlist *lst)
 {
 	t_dlist	*tmp;
-	char	*pipe;
+	t_lexer	b;
 
+	b.q = 1;
+	b.dq = 1;
 	tmp = lst;
 	while (tmp)
 	{
-		pipe = ft_strchr(tmp->data, '|');
-		if (pipe)
+		b.i = 0;
+		while (((char *)tmp->data)[b.i])
 		{
-			if (!tmp->next)
-				return (-1);
-			if (pipe[1] && ft_strchr(pipe++, '|'))
-				return (-1);
+			quote_maj(&b, ((char *)tmp->data)[b.i]);
+			if (b.q == 1 && b.dq == 1)
+				if (check_pipes(tmp, &b) == -1)
+					return (-1);
+			b.i++;
 		}
 		tmp = tmp->next;
 	}

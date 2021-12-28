@@ -1,46 +1,48 @@
-==12068== Memcheck, a memory error detector
-==12068== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==12068== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==12068== Command: ./minishell
-==12068== Parent PID: 5682
-==12068== 
-==12139== 
-==12139== HEAP SUMMARY:
-==12139==     in use at exit: 138,935 bytes in 197 blocks
-==12139==   total heap usage: 537 allocs, 340 frees, 181,503 bytes allocated
-==12139== 
-==12139== LEAK SUMMARY:
-==12139==    definitely lost: 0 bytes in 0 blocks
-==12139==    indirectly lost: 0 bytes in 0 blocks
-==12139==      possibly lost: 0 bytes in 0 blocks
-==12139==    still reachable: 0 bytes in 0 blocks
-==12139==         suppressed: 138,935 bytes in 197 blocks
-==12139== 
-==12139== For counts of detected and suppressed errors, rerun with: -v
-==12139== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==12068== 
-==12068== HEAP SUMMARY:
-==12068==     in use at exit: 138,922 bytes in 198 blocks
-==12068==   total heap usage: 801 allocs, 603 frees, 277,152 bytes allocated
-==12068== 
-==12068== 4 bytes in 2 blocks are definitely lost in loss record 1 of 47
-==12068==    at 0x483577F: malloc (vg_replace_malloc.c:299)
-==12068==    by 0x4074B2: ft_itoa (in /home/admin/boss/minishell/minishell)
-==12068==    by 0x40606B: get_newlvl (in /home/admin/boss/minishell/minishell)
-==12068==    by 0x40609C: change_lvls (in /home/admin/boss/minishell/minishell)
-==12068==    by 0x406203: ft_shlvl (in /home/admin/boss/minishell/minishell)
-==12068==    by 0x404CCD: forking (in /home/admin/boss/minishell/minishell)
-==12068==    by 0x404587: forking_loops (in /home/admin/boss/minishell/minishell)
-==12068==    by 0x404678: executor (in /home/admin/boss/minishell/minishell)
-==12068==    by 0x40151E: parsing_line (in /home/admin/boss/minishell/minishell)
-==12068==    by 0x401623: main (in /home/admin/boss/minishell/minishell)
-==12068== 
-==12068== LEAK SUMMARY:
-==12068==    definitely lost: 4 bytes in 2 blocks
-==12068==    indirectly lost: 0 bytes in 0 blocks
-==12068==      possibly lost: 0 bytes in 0 blocks
-==12068==    still reachable: 0 bytes in 0 blocks
-==12068==         suppressed: 138,918 bytes in 196 blocks
-==12068== 
-==12068== For counts of detected and suppressed errors, rerun with: -v
-==12068== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==31966== Memcheck, a memory error detector
+==31966== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==31966== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==31966== Command: ./minishell
+==31966== Parent PID: 17710
+==31966== 
+==32118== 
+==32118== HEAP SUMMARY:
+==32118==     in use at exit: 138,934 bytes in 197 blocks
+==32118==   total heap usage: 598 allocs, 401 frees, 189,444 bytes allocated
+==32118== 
+==32118== LEAK SUMMARY:
+==32118==    definitely lost: 0 bytes in 0 blocks
+==32118==    indirectly lost: 0 bytes in 0 blocks
+==32118==      possibly lost: 0 bytes in 0 blocks
+==32118==    still reachable: 0 bytes in 0 blocks
+==32118==         suppressed: 138,934 bytes in 197 blocks
+==32118== 
+==32118== For counts of detected and suppressed errors, rerun with: -v
+==32118== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==4661== 
+==4661== HEAP SUMMARY:
+==4661==     in use at exit: 138,963 bytes in 199 blocks
+==4661==   total heap usage: 1,194 allocs, 995 frees, 253,692 bytes allocated
+==4661== 
+==4661== LEAK SUMMARY:
+==4661==    definitely lost: 0 bytes in 0 blocks
+==4661==    indirectly lost: 0 bytes in 0 blocks
+==4661==      possibly lost: 0 bytes in 0 blocks
+==4661==    still reachable: 0 bytes in 0 blocks
+==4661==         suppressed: 138,963 bytes in 199 blocks
+==4661== 
+==4661== For counts of detected and suppressed errors, rerun with: -v
+==4661== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==31966== 
+==31966== HEAP SUMMARY:
+==31966==     in use at exit: 138,918 bytes in 196 blocks
+==31966==   total heap usage: 1,201 allocs, 1,005 frees, 253,831 bytes allocated
+==31966== 
+==31966== LEAK SUMMARY:
+==31966==    definitely lost: 0 bytes in 0 blocks
+==31966==    indirectly lost: 0 bytes in 0 blocks
+==31966==      possibly lost: 0 bytes in 0 blocks
+==31966==    still reachable: 0 bytes in 0 blocks
+==31966==         suppressed: 138,918 bytes in 196 blocks
+==31966== 
+==31966== For counts of detected and suppressed errors, rerun with: -v
+==31966== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

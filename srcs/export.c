@@ -6,36 +6,11 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 15:51:29 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/23 13:16:01 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/28 13:22:39 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-char	*get_var(char *s, int *ret)
-{
-	int		i;
-	char	*var;
-
-	i = 0;
-	if (!isalpha(s[0]) && s[0] != '_')
-		*ret = 1;
-	while (s[i] == '_')
-		s++;
-	while (s[i] && s[i] != '=')
-	{
-		if (i != 0 && !isalnum(s[i]))
-			*ret = 1;
-		i++;
-	}
-	var = ft_strndup(s, i);
-	if (var[i - 1] == '+' && s[i] == '=')
-	{
-		var[i - 1] = '\0';
-		*ret = 0; 
-	}
-	return (var);
-}
 
 int	var_add_export(char *var, char *p)
 {
@@ -72,7 +47,8 @@ int	var_add_env(char *var, char *p)
 	{
 		if (ft_strncmp(var, (char *)temp->data, ft_strlen(var)) == 0)
 		{
-			new_str = malloc(sizeof(char) * ft_strlen((char *)temp->data) + ft_strlen(p) + 1);
+			new_str = malloc(sizeof(char) * ft_strlen((char *)temp->data)
+					+ ft_strlen(p) + 1);
 			new_str[0] = '\0';
 			ft_strcat(new_str, (char *)temp->data);
 			ft_strcat(new_str, p + 1);
@@ -127,24 +103,6 @@ void	find_var_export(char *full_var, char *var)
 		push_back(&g_vars.export, ft_strdup(full_var));
 }
 
-void	export_choice(char *full_var, char *var, char *p)
-{
-	if (!p)
-		push_back(&g_vars.export, full_var);
-	else if (p[-1] == '+')
-	{
-		if (var_add_export(var, p) == 1)
-			push_back(&g_vars.export, full_var);
-		if (var_add_env(var, p) == 1)
-			push_back(&g_vars.env, full_var);
-	}
-	else
-	{
-		find_var_env(full_var, var);
-		find_var_export(full_var, var);
-	}
-}
-
 int	export(t_dlist *lst)
 {
 	int		ret;
@@ -171,37 +129,3 @@ int	export(t_dlist *lst)
 	}
 	return (ret > 0);
 }
-
-/*int	export(char **tab_var)
-{
-	int		i;
-	int		ret;
-	char	*var;
-	char	*p;
-
-	i = 1;
-	ret = 0;
-	if (tab_var[1] == NULL)
-		print_export();
-	while (tab_var[i])
-	{
-		var = get_var(tab_var[i], &ret);
-		if (ret == 1)
-		{
-			ft_putstr_fd("minishell: export: `", STDERR_FILENO);
-			ft_putstr_fd(var, STDERR_FILENO);
-			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-			return (1);
-		}
-		p = ft_strchr(tab_var[i], '=');
-		export_choice(tab_var[i], var, p);
-		i++;
-	}
-	return (ret > 0);
-}
-
-minishell unset PWD
-➜  minishell cd inc
-➜  inc env | grep PWD
-➜  inc exit
-*/

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/28 12:34:50 by vintran           #+#    #+#             */
+/*   Updated: 2021/12/28 12:53:22 by vintran          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINI_H
 # define MINI_H
 
@@ -14,7 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct	s_dlist
+typedef struct s_dlist
 {
 	int				type;
 	void			*data;
@@ -22,7 +34,7 @@ typedef struct	s_dlist
 	struct s_dlist	*next;
 }				t_dlist;
 
-typedef struct	s_lexer
+typedef struct s_lexer
 {
 	int		i;
 	int		j;
@@ -32,7 +44,7 @@ typedef struct	s_lexer
 	t_dlist	*lst;
 }				t_lexer;
 
-typedef struct	s_mini
+typedef struct s_mini
 {
 	int		n_pipes;
 	t_dlist	**s;
@@ -40,7 +52,7 @@ typedef struct	s_mini
 	t_dlist	**out;
 }				t_mini;
 
-typedef struct	s_exec
+typedef struct s_exec
 {
 	int		i;
 	int		ret;
@@ -57,7 +69,7 @@ typedef struct	s_exec
 	int		builtin;
 }				t_exec;
 
-typedef	struct	s_global
+typedef struct s_global
 {
 	int		error;
 	pid_t	pid;
@@ -110,12 +122,19 @@ int			get_redirections(t_mini *m);
 
 int			print_env(void);
 void		print_export(void);
+char		*get_pwd_env(void);
 int			cd(t_dlist *lst);
 int			echo(t_dlist *lst);
 int			pwd(void);
+void		export_choice(char *full_var, char *var, char *p);
+char		*get_var(char *s, int *ret);
+int			var_add_export(char *var, char *p);
+int			var_add_env(char *var, char *p);
+void		find_var_env(char *full_var, char *var);
+void		find_var_export(char *full_var, char *var);
 int			export(t_dlist *lst);
 int			unset(t_dlist *lst);
-int			ft_exit(t_dlist *lst);
+int			ft_exit(t_dlist *lst, t_mini *m, t_exec *e);
 
 /*
 ** EXECUTION ------------------------------------------------------------ **
@@ -155,7 +174,7 @@ void		ft_signal(int signal);
 */
 
 int			malloc_error(void);
-void 		*malloc_error2(void);
+void		*malloc_error2(void);
 int			redirections_error(t_dlist *lst);
 void		here_doc_warning(void);
 void		execve_error(t_exec *e, t_mini *m);

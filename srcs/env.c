@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:32:56 by thpham-v          #+#    #+#             */
-/*   Updated: 2021/12/27 16:42:56 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/27 19:21:23 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_quotation(char *str)
 {
-	int i;
+	int	i;
 	int	equal;
 
 	i = 0;
@@ -56,7 +56,7 @@ void	sort_lst_env(t_dlist **lst_export)
 	}
 }
 
-int		print_env(void)
+int	print_env(void)
 {
 	t_dlist	*temp;
 
@@ -85,63 +85,7 @@ void	print_export(void)
 	}
 }
 
-/*char	*get_newlvl(void)
-{
-	t_dlist	*tmp;
-	int		lvl;
-	char	*new;
-
-	lvl = 0;
-	tmp = g_vars.env;
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->data, "SHLVL=", 6))
-		{
-			lvl = ft_atoi(ft_strchr(tmp->data, '=') + 1) + 1;
-			break ;
-		}
-		tmp = tmp->next;
-	}
-	new = malloc(7 + itoa_len(lvl));
-	new[0] = '\0';
-	ft_strcat(new, "SHLVL=");
-	ft_strcat(new, ft_itoa(lvl));
-	return (new);
-}
-
-void	change_lvls(void)
-{
-	char	*newlvl;
-	t_dlist	*tmp;
-	
-	newlvl = get_newlvl();
-	tmp = g_vars.env;
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->data, "SHLVL=", 6))
-		{
-			free(tmp->data);
-			tmp->data = ft_strdup(newlvl);
-			break ;
-		}
-		tmp = tmp->next;
-	}
-	tmp = g_vars.export;
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->data, "SHLVL=", 6))
-		{
-			free(tmp->data);
-			tmp->data = ft_strdup(newlvl);
-			break ;
-		}
-		tmp = tmp->next;
-	}
-	//printf("new = |%s|\n", newlvl);
-	free(newlvl);
-}*/
-
-int		ft_shlvl(char *cmd)
+int	ft_shlvl(char *cmd)
 {
 	char	*slash;
 
@@ -152,9 +96,6 @@ int		ft_shlvl(char *cmd)
 		slash = ft_strchr(slash + 1, '/');
 	}
 	if (!ft_strcmp(cmd, "minishell"))
-	{
-		//change_lvls();
 		return (1);
-	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/12/27 18:30:49 by vintran          ###   ########.fr        #
+#    Updated: 2021/12/28 12:43:17 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,16 +39,18 @@ SRCS				=	main.c					\
 						signal.c				\
 						prompt.c				\
 						cd.c					\
+						cd2.c					\
 						echo.c					\
 						pwd.c					\
 						env.c					\
 						unset.c					\
 						export.c				\
+						export2.c				\
 						exit.c
 SRCS_BASENAME		=	$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS				=	$(SRCS_BASENAME:.c=.o)
 CC					=	@clang
-FLAGS				=	-Wall -Wextra -I ./inc/ -I $(LIBFT)#-fsanitize=address#-Werror
+FLAGS				=	-Wall -Werror -Wextra -I ./inc/ -I $(LIBFT)
 
 .c.o			:
 				$(CC) $(FLAGS) -c $< -o $(<:.c=.o)

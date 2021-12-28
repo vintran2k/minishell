@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/27 14:58:45 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/28 13:42:27 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,21 @@ int	parsing_line(char *line)
 	return (0);
 }
 
+int	quit_minishell(void)
+{
+	lst_clear(&g_vars.env, &free);
+	lst_clear(&g_vars.export, &free);
+	rl_clear_history();
+	return (g_vars.error);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	*prompt;
 
-	(void)ac;
-	(void)av;
+	(void) ac;
+	(void) av;
 	g_vars.env = get_env(env, 0);
 	g_vars.export = get_env(env, 1);
 	while (1)
@@ -88,19 +96,18 @@ int	main(int ac, char **av, char **env)
 		free(prompt);
 		if (!line)
 		{
-			write(1, "exit\n", 5);
+			ft_putstr_fd("exit\n", STDERR_FILENO);
 			break ;
 		}
 		add_history(line);
 		parsing_line(line);
 		free(line);
 	}
-	lst_clear(&g_vars.env, &free);
-	lst_clear(&g_vars.export, &free);
-	rl_clear_history();
-	return (g_vars.error);
+	return (quit_minishell());
 }
 
+//	valeur retour ^C 1 ou 130 ?
+//	env with no options or arguments
 //	echo ||| ou cmd | --> erreur de parsing des pipes
 //	echo -n -n lala
 //	echo ${USER} :(
