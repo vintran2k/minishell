@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:50:43 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/29 15:02:17 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/29 16:02:00 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,3 @@ int	forking(t_mini *m, t_exec *e)
 	quit_forking(e);
 	return (e->ret);
 }
-
-// ctrl D echo sadfas > a

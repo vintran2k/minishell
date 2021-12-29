@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:19:15 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/29 14:52:35 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/29 16:01:20 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,3 @@ int	main(int ac, char **av, char **env)
 	}
 	return (quit_minishell());
 }
-
-//	valeur retour ^C 1 ou 130 ?
-//	env with no options or arguments
-//	echo ||| ou cmd | --> erreur de parsing des pipes
-//	echo -n -n lala
-//	echo ${USER} :(
-//	! ./minishell dans minishell --> ^C (signaux dans sigint fork)
-//	SHLVL
-//	env -i ./minishell
-//	unset PATH, cmd --> pas de msg d'erreur cmd not found
-//	unset toutes les var (peut etre pb avc lst_delone dans unset)
-//	segfault --> rm -rf le dossier
-//	leaks here_doc ^D --> env ou export
