@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:50:43 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/28 14:16:39 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/29 15:02:17 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ int	forking(t_mini *m, t_exec *e)
 			signal(SIGINT, SIG_IGN);
 			signal(SIGQUIT, SIG_IGN);
 		}
-		g_vars.pid = fork();
-		if (g_vars.pid == 0)
+		e->pid[e->i] = fork();
+		g_vars.pid = e->pid[e->i];
+		if (e->pid[e->i] == 0)
 		{
-			rl_clear_history();
 			if (e->i == 0)
 				e->ret = first_fork(e, m);
 			else if (e->i == e->pipes)

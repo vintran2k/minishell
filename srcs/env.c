@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:32:56 by thpham-v          #+#    #+#             */
-/*   Updated: 2021/12/27 19:21:23 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/29 15:34:32 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,4 @@ void	print_export(void)
 		write(1, "\n", 1);
 		temp = temp->next;
 	}
-}
-
-int	ft_shlvl(char *cmd)
-{
-	char	*slash;
-
-	slash = ft_strchr(cmd, '/');
-	while (slash)
-	{
-		cmd = slash + 1;
-		slash = ft_strchr(slash + 1, '/');
-	}
-	if (!ft_strcmp(cmd, "minishell"))
-		return (1);
-	return (0);
 }

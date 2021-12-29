@@ -6,31 +6,11 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:39:07 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/28 14:26:40 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/29 15:06:30 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-char	**lst_to_char(t_dlist *lst)
-{
-	t_dlist	*tmp;
-	int		len;
-	char	**res;
-	int		i;
-
-	len = lst_len(&lst);
-	res = malloc(sizeof(char *) * (len + 1));
-	res[len] = NULL;
-	tmp = lst;
-	i = 0;
-	while (tmp)
-	{
-		res[i++] = ft_strdup(tmp->data);
-		tmp = tmp->next;
-	}
-	return (res);
-}
 
 int	exec_builtins(t_mini *m, t_exec *e)
 {
@@ -50,7 +30,7 @@ int	exec_builtins(t_mini *m, t_exec *e)
 		ret = print_env();
 	if (e->builtin == 7)
 		ret = ft_exit(m->s[e->i], m, e);
-	if (e->pipes || m->in || m->out)
+	if (e->pipes || m->in[0] || m->out[0])
 	{
 		lst_clear(&g_vars.env, &free);
 		lst_clear(&g_vars.export, &free);
@@ -82,12 +62,28 @@ int	is_builtin(t_mini *m, t_exec *e)
 	return (0);
 }
 
+void	wait_childs(t_exec *e)
+{
+	e->i = 0;
+	while (e->i <= e->pipes)
+	{
+		if (e->forks[e->i] == 1)
+		{
+			waitpid(e->pid[e->i], &e->status, 0);
+			if (WIFEXITED(e->status))
+				g_vars.error = WEXITSTATUS(e->status);
+		}
+		g_vars.pid = 0;
+		e->i++;
+	}
+}
+
 void	forking_loops(t_mini *m, t_exec *e)
 {
 	while (e->i <= m->n_pipes)
 	{
 		e->builtin = is_builtin(m, e);
-		if (e->builtin && e->pipes == 0 && !m->in && !m->out)
+		if (e->builtin && e->pipes == 0 && !m->in[0] && !m->out[0])
 		{
 			g_vars.error = exec_builtins(m, e);
 			return ;
@@ -95,16 +91,12 @@ void	forking_loops(t_mini *m, t_exec *e)
 		if (forking(m, e) == -1)
 			g_vars.error = 1;
 		if (e->ret == 0)
-		{
-			waitpid(g_vars.pid, &e->status, 0);
-			if (WIFEXITED(e->status))
-				g_vars.error = WEXITSTATUS(e->status);
-			g_vars.pid = 0;
-		}
+			e->forks[e->i] = 1;
 		if (e->ret == -130)
 			break ;
 		e->i++;
 	}
+	wait_childs(e);
 }
 
 int	executor(t_mini *m)

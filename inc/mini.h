@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 12:34:50 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/28 12:53:22 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/28 16:35:07 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_exec
 	int		pipes;
 	int		status;
 	int		exit;
+	pid_t	*pid;
+	int		*forks;
 	char	**path;
 	int		**fd;
 	char	*cmdpath;

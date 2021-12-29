@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 02:56:31 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/23 14:17:38 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/29 15:38:08 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	unset_export(char *var)
 	{
 		if (ft_strncmp(var, (char *)temp->data, ft_strlen(var)) == 0)
 		{
+			if (temp == g_vars.export)
+				g_vars.export = g_vars.export->next;
 			lst_delone(temp);
 			return (0);
 		}
@@ -66,6 +68,8 @@ void	unset_env(char *var)
 	{
 		if (ft_strncmp(var, (char *)temp->data, ft_strlen(var)) == 0)
 		{
+			if (temp == g_vars.env)
+				g_vars.env = g_vars.env->next;
 			lst_delone(temp);
 			return ;
 		}
