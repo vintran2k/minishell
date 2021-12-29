@@ -6,38 +6,11 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 00:51:39 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/17 16:26:15 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/29 16:09:18 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-/*void	ft_bzero(void *s, size_t n)
-{
-	size_t			i;
-
-	i = -1;
-	while (++i < n)
-	{
-		((unsigned char *)s)[i] = 0;
-	}
-}*/
-
-/*int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}*/
-
-/*void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
-		write(fd, s, ft_strlen(s));
-}*/
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -49,14 +22,34 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-/*char	*ft_strchr(const char *s, int c)
+char	*ft_strcpy(char *dest, char *src)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (s[i] && s[i] != c)
+	while (src[i])
+	{
+		dest[i] = src[i];
 		i++;
-	if (s[i] == c || c == '\0')
-		return ((char *)&s[i]);
-	return (NULL);
-}*/
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strcat(char *dest, char *src)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (dest[i])
+		i++;
+	while (src[j])
+	{
+		dest[i + j] = src[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
+}

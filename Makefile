@@ -6,7 +6,7 @@
 #    By: vintran <vintran@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 16:51:32 by vintran           #+#    #+#              #
-#    Updated: 2021/12/28 12:43:17 by vintran          ###   ########.fr        #
+#    Updated: 2021/12/29 16:09:44 by vintran          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ LIBFT				=	./libft/
 SRCS				=	main.c					\
 						list.c					\
 						utils.c					\
-						utils2.c				\
 						error.c					\
 						error2.c				\
 						lexer.c					\

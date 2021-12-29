@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:35:42 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/28 17:05:09 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/29 16:06:28 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,3 @@ int	init_forking(t_mini *m, t_exec *e)
 	}
 	return (0);
 }
-
-// exit --> fork dans tt les cas fdp
