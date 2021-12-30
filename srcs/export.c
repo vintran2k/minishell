@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 15:51:29 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/28 13:22:39 by vintran          ###   ########.fr       */
+/*   Updated: 2021/12/30 14:48:01 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int	export(t_dlist *lst)
 		}
 		p = ft_strchr(lst->data, '=');
 		export_choice(lst->data, var, p);
+		free(var);
 		lst = lst->next;
 	}
 	return (ret > 0);
