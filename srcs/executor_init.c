@@ -6,7 +6,7 @@
 /*   By: vintran <vintran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:43:32 by vintran           #+#    #+#             */
-/*   Updated: 2021/12/28 16:39:05 by vintran          ###   ########.fr       */
+/*   Updated: 2022/02/02 18:13:00 by vintran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	init_exec(t_exec *e, t_mini *m)
 	e->forks = malloc(sizeof(int) * (e->pipes + 1));
 	if (!e->forks)
 		return (malloc_error());
-	ft_bzero(e->forks, sizeof(int));
+	ft_bzero(e->forks, sizeof(int) * (e->pipes + 1));
 	e->env = lst_to_char(g_vars.env);
 	e->path = get_env_path(e->env);
 	if (e->pipes)
